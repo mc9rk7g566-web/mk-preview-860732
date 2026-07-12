@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recepten | Maarten Kievit</title>
-  <meta name="description" content="Alle recepten van Maarten Kievit: voorgerechten, hoofdgerechten en zoet. Met bij elk recept een wijntip.">
+  <title>Recepten | Maarten, in de keuken</title>
+  <meta name="description" content="Alle recepten van Maarten: voorgerechten, hoofdgerechten en zoet. Met bij elk recept een wijntip.">
   <meta name="robots" content="noindex">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%237e2f38%27/%3E%3Ctext x=%2732%27 y=%2742%27 font-family=%27Arial Black,sans-serif%27 font-size=%2728%27 font-weight=%27900%27 fill=%27%23eadfc9%27 text-anchor=%27middle%27%3EMK%3C/text%3E%3C/svg%3E">
-  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,800&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2732%27 fill=%27%237b0d1e%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Arial Black,sans-serif%27 font-size=%2734%27 font-weight=%27900%27 fill=%27%23f4ede4%27 text-anchor=%27middle%27%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -16,22 +18,38 @@
 
   <header class="nav is-solid">
     <div class="nav-inner">
-      <a class="wordmark" href="index.html">Maarten Kievit</a>
-      <button class="nav-toggle" aria-expanded="false" aria-label="Menu openen"><i class="ph ph-list" aria-hidden="true"></i></button>
+      <a class="wordmark" href="index.html">
+        <span class="wm-name">Maarten</span>
+        <span class="wm-sub">In de keuken</span>
+      </a>
       <ul class="nav-links">
-        <li><a href="recepten.html" aria-current="page">Recepten</a></li>
-        <li><a href="index.html#over">Over</a></li>
-        <li><a href="index.html#tips">Tips</a></li>
+        <li><a href="recepten.html" aria-current="page">recepten</a></li>
+        <li><a href="index.html#over">over</a></li>
+        <li><a href="index.html#tips">tips</a></li>
         <li><a class="btn btn-primary" href="index.html#community"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a></li>
       </ul>
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu openen"><span></span><span></span></button>
     </div>
   </header>
+
+  <nav class="menu-overlay" aria-label="Menu">
+    <a href="index.html">home</a>
+    <a href="recepten.html" aria-current="page">recepten</a>
+    <a href="index.html#over">over</a>
+    <a href="index.html#tips">tips</a>
+    <a class="btn" href="index.html#community"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a>
+    <span class="menu-tagline">Passie. Smaak. Vakmanschap.</span>
+  </nav>
 
   <main>
     <section class="page-head">
       <div class="wrap">
-        <h1 class="display" style="font-size: clamp(2.6rem, 6vw, 5rem);">Recepten</h1>
+        <h1 class="display" style="font-size: clamp(2.8rem, 6.5vw, 5.4rem);">Recepten</h1>
         <p class="lead">Van koud voorgerecht tot toetje. Bij elk recept vertel ik welke wijn erbij past.</p>
+        <div class="search-bar">
+          <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+          <input type="search" data-search placeholder="Zoek een recept" aria-label="Zoek een recept">
+        </div>
         <div class="chips" role="group" aria-label="Filter recepten">
           <button class="chip" data-filter="alles" aria-pressed="true">Alles</button>
           <button class="chip" data-filter="koud" aria-pressed="false">Koude voorgerechten</button>
@@ -88,6 +106,7 @@
             <p class="meta">45 min · Zoet</p>
           </a>
         </div>
+        <p class="no-results">Geen recepten gevonden. Probeer een andere zoekterm of filter.</p>
       </div>
     </section>
 
@@ -107,34 +126,27 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <a class="wordmark" href="index.html">Maarten Kievit</a>
-      <div class="footer-grid">
-        <div>
-          <p class="footer-note">Binnenkort: het eerste kookboek. De groepsapp weet het eerst.</p>
-          <div class="socials">
-            <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
-            <a href="#" aria-label="YouTube"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>
-            <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo" aria-hidden="true"></i></a>
-          </div>
-        </div>
-        <div>
-          <h4>Ontdek</h4>
-          <ul>
-            <li><a href="recepten.html">Recepten</a></li>
-            <li><a href="index.html#tips">Tips &amp; technieken</a></li>
-            <li><a href="index.html#over">Over Maarten</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Meedoen</h4>
-          <ul>
-            <li><a href="https://wa.me/" rel="noopener">De groepsapp</a></li>
-            <li><a href="mailto:hallo@maartenkievit.nl">hallo@maartenkievit.nl</a></li>
-          </ul>
-        </div>
+      <span class="m-icon" aria-hidden="true">M</span>
+      <a class="wordmark" href="index.html">
+        <span class="wm-name">Maarten</span>
+        <span class="wm-sub">In de keuken</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="recepten.html">recepten</a></li>
+        <li><a href="index.html#tips">tips &amp; technieken</a></li>
+        <li><a href="index.html#over">over maarten</a></li>
+        <li><a href="https://wa.me/" rel="noopener">de groepsapp</a></li>
+        <li><a href="mailto:hallo@maartenindekeuken.nl">contact</a></li>
+      </ul>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
+        <a href="#" aria-label="YouTube"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>
+        <a href="#" aria-label="TikTok"><i class="ph ph-tiktok-logo" aria-hidden="true"></i></a>
       </div>
+      <p class="footer-note">Binnenkort: het eerste kookboek. De groepsapp weet het eerst.</p>
       <div class="footer-bottom">
-        <span>&copy; 2026 Maarten Kievit</span>
+        <span>&copy; 2026 Maarten, in de keuken</span>
+        <span class="tagline">Passie. Smaak. Vakmanschap.</span>
         <span>Concept door JS - Crest</span>
       </div>
     </div>

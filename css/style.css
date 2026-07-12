@@ -1,27 +1,29 @@
 /* ==========================================================================
-   Maarten Kievit — concept v1 (12-07-2026)
-   Dark food-editorial. Bordeaux/beige. Structuur-DNA: babi.sh (zie taste/).
-   Radius-regel: interactief = pill (999px) · media/kaarten = 22px · inputs 12px.
-   Accent-lock: bordeaux alleen op CTA's, chips-actief en wijntip-accenten.
+   Maarten, in de keuken — concept v2 (12-07-2026)
+   Merk volgens brand guidelines Maarten: bordeaux #7B0D1E / #B31B2B,
+   creme #F4EDE4 / #E5D9C6, tan #CDB998. Tagline: Passie. Smaak. Vakmanschap.
+   Structuur-DNA: babi.sh (taste/babi.sh.md) - donkere, exclusieve uitvoering.
+   Radius-regel: interactief = pill (999px) - media/kaarten = 24px - inputs 999px (zoek).
+   Accent-lock: bordeaux op CTA's, chips-actief, banden en wijntip. Nooit op grote
+   vlakken tegelijk met foodfotografie.
    ========================================================================== */
 
 :root {
-  --ink: #14100d;
-  --ink-2: #1b1512;
-  --surface: #241b16;
-  --line: rgba(234, 223, 201, 0.14);
-  --beige: #eadfc9;
-  --beige-2: #c9bba1;
-  --meta: #988a72;
-  --bordeaux: #7e2f38;
-  --bordeaux-2: #963b45;
-  --on-bordeaux: #f5e9d9;
-  --glass: rgba(20, 16, 13, 0.38);
-  --glass-line: rgba(234, 223, 201, 0.22);
-  --radius-card: 22px;
-  --radius-input: 12px;
-  --font-display: "Cabinet Grotesk", "Arial Black", sans-serif;
-  --font-body: "General Sans", system-ui, sans-serif;
+  --ink: #170a0c;
+  --ink-2: #1f0e11;
+  --surface: #2a1317;
+  --line: rgba(244, 237, 228, 0.14);
+  --cream: #f4ede4;
+  --cream-2: #e5d9c6;
+  --tan: #cdb998;
+  --bordeaux: #7b0d1e;
+  --bordeaux-bright: #b31b2b;
+  --on-bordeaux: #f4ede4;
+  --glass: rgba(23, 10, 12, 0.42);
+  --glass-line: rgba(244, 237, 228, 0.24);
+  --radius-card: 24px;
+  --font-display: "Lilita One", "Arial Black", sans-serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
   --w-content: 1180px;
 }
 
@@ -34,29 +36,29 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--ink);
-  color: var(--beige);
+  color: var(--cream);
   font-family: var(--font-body);
-  font-size: 1.0625rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-::selection { background: var(--beige); color: var(--ink); }
+::selection { background: var(--bordeaux-bright); color: var(--cream); }
 
 img { display: block; max-width: 100%; }
 
 a { color: inherit; text-decoration: none; }
 
 :focus-visible {
-  outline: 2px solid var(--beige);
+  outline: 2px solid var(--cream);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* Grain: fixed, pointer-events none — geeft het donker leven zonder repaint-kosten */
+/* Grain: vaste laag, pointer-events none. Geeft het donker textuur zonder repaints */
 .grain {
-  position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: 0.05;
+  position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: 0.045;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
@@ -67,59 +69,74 @@ a { color: inherit; text-decoration: none; }
    -------------------------------------------------------------------------- */
 .display {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: -0.015em;
-  line-height: 1.04;
+  letter-spacing: 0.012em;
+  line-height: 1.02;
 }
 
-h1.display { font-size: clamp(2.9rem, 8.2vw, 7.2rem); }
-h2.display { font-size: clamp(2rem, 4.6vw, 3.6rem); }
-h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
+h1.display { font-size: clamp(3.4rem, 10vw, 8.5rem); }
+h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 
 .lead {
-  color: var(--beige-2);
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  line-height: 1.65;
-  max-width: 34ch;
+  color: var(--cream-2);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  max-width: 46ch;
+  font-weight: 500;
 }
 
 .meta {
-  color: var(--meta);
+  color: var(--tan);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.02em;
 }
 
+/* Merk-lockup: streepjes naast "in de keuken" (grafisch element uit de guidelines) */
+.lockup-sub {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--tan);
+}
+.lockup-sub::before, .lockup-sub::after {
+  content: ""; display: block; width: 34px; height: 2px;
+  background: currentColor; opacity: 0.8;
+}
+
 /* --------------------------------------------------------------------------
-   Knoppen & pills — interactief = pill, altijd
+   Knoppen & pills
    -------------------------------------------------------------------------- */
 .btn {
   display: inline-flex; align-items: center; gap: 10px;
   border-radius: 999px;
   padding: 15px 30px;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s, border-color 0.25s;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s, border-color 0.25s, color 0.25s;
   white-space: nowrap;
 }
-.btn:active { transform: scale(0.98); }
-.btn i { font-size: 1.15em; }
+.btn:active { transform: scale(0.97); }
+.btn i { font-size: 1.15em; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.btn:hover i.ph-arrow-right { transform: translateX(3px); }
 
-.btn-primary { background: var(--bordeaux); color: var(--on-bordeaux); }
-.btn-primary:hover { background: var(--bordeaux-2); }
+.btn-primary { background: var(--bordeaux-bright); color: var(--on-bordeaux); }
+.btn-primary:hover { background: var(--bordeaux); }
 
 .btn-glass {
   background: var(--glass);
-  color: var(--beige);
+  color: var(--cream);
   border-color: var(--glass-line);
   backdrop-filter: blur(18px) saturate(140%);
   -webkit-backdrop-filter: blur(18px) saturate(140%);
 }
-.btn-glass:hover { border-color: var(--beige-2); }
+.btn-glass:hover { border-color: var(--cream-2); }
 
 @media (prefers-reduced-transparency: reduce) {
   .btn-glass { background: var(--ink-2); backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -129,10 +146,13 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
    Navigatie
    -------------------------------------------------------------------------- */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  transition: background-color 0.35s, border-color 0.35s, backdrop-filter 0.35s;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 65; /* boven de menu-overlay (60), zodat burger/X bereikbaar blijft */
+  transition: background-color 0.35s, border-color 0.35s;
   border-bottom: 1px solid transparent;
 }
+/* Nav-chrome uit zodra het menu open is: alleen wordmark + X op de overlay */
+.nav.menu-open { background: none; backdrop-filter: none; -webkit-backdrop-filter: none; border-bottom-color: transparent; }
+.nav.menu-open .nav-toggle { border-color: var(--glass-line); }
 .nav.is-solid,
 .nav.is-scrolled {
   background: var(--glass);
@@ -146,51 +166,100 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 
 .nav-inner {
   max-width: var(--w-content); margin: 0 auto; padding: 0 24px;
-  height: 72px;
+  height: 76px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
 }
 
-.wordmark {
+.wordmark { display: inline-flex; flex-direction: column; line-height: 1; gap: 3px; }
+.wordmark .wm-name {
   font-family: var(--font-display);
-  font-weight: 800;
   text-transform: uppercase;
-  font-size: 1.05rem;
-  letter-spacing: 0.14em;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+.wordmark .wm-sub {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--tan);
 }
 
-.nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+/* Desktop-links: kleine letters zoals babi.sh, met inschuivende onderstreep */
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a:not(.btn) {
-  font-size: 0.95rem; font-weight: 500; color: var(--beige-2);
+  font-size: 0.9rem; font-weight: 600; color: var(--cream-2);
+  text-transform: lowercase;
+  position: relative;
   transition: color 0.2s;
 }
-.nav-links a:not(.btn):hover, .nav-links a[aria-current="page"] { color: var(--beige); }
-.nav-links .btn { padding: 11px 22px; font-size: 0.875rem; }
+.nav-links a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: -6px;
+  width: 100%; height: 2px; background: var(--bordeaux-bright);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-links a:not(.btn):hover, .nav-links a[aria-current="page"] { color: var(--cream); }
+.nav-links a:not(.btn):hover::after, .nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+.nav-links .btn { padding: 11px 22px; font-size: 0.85rem; }
 
-.nav-toggle { display: none; }
+/* Burger: 2 lijnen die naar een X draaien */
+.nav-toggle {
+  display: none;
+  width: 46px; height: 46px; border-radius: 999px;
+  background: none; border: 1px solid var(--line); color: var(--cream);
+  cursor: pointer; position: relative; z-index: 62;
+}
+.nav-toggle span {
+  position: absolute; left: 13px; right: 13px; height: 2px;
+  background: currentColor; border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-toggle span:nth-child(1) { top: 18px; }
+.nav-toggle span:nth-child(2) { top: 26px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 22px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { top: 22px; transform: rotate(-45deg); }
 
-@media (max-width: 767px) {
+/* Fullscreen menu-overlay (babi.sh-DNA, bordeaux-uitvoering) */
+.menu-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: var(--bordeaux);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+}
+.menu-overlay.is-open { opacity: 1; visibility: visible; }
+.menu-overlay a {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  color: rgba(244, 237, 228, 0.55);
+  padding: 6px 18px;
+  transition: color 0.25s;
+}
+.menu-overlay a:hover, .menu-overlay a[aria-current="page"] { color: var(--cream); }
+.menu-overlay .btn { margin-top: 26px; background: var(--cream); color: var(--bordeaux); font-size: 1rem; }
+.menu-overlay .menu-tagline {
+  position: absolute; bottom: 34px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(244, 237, 228, 0.55);
+}
+
+@media (max-width: 900px) {
   .nav-links { display: none; }
-  .nav-links.is-open {
-    display: flex; flex-direction: column; align-items: flex-start;
-    position: absolute; top: 72px; left: 0; right: 0;
-    background: var(--ink); border-bottom: 1px solid var(--line);
-    padding: 24px; gap: 20px;
-  }
-  .nav-toggle {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 44px; height: 44px; border-radius: 999px;
-    background: none; border: 1px solid var(--line); color: var(--beige);
-    font-size: 1.25rem; cursor: pointer;
-  }
+  .nav-toggle { display: block; }
 }
 
 /* --------------------------------------------------------------------------
-   Hero (home)
+   Hero: gecentreerd, full-bleed (babi.sh-DNA)
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
   min-height: 100dvh;
-  display: flex; align-items: flex-end;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
   overflow: hidden;
 }
 .hero-media { position: absolute; inset: 0; z-index: -1; }
@@ -201,17 +270,20 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(to top, var(--ink) 4%, rgba(20, 16, 13, 0.55) 42%, rgba(20, 16, 13, 0.35) 100%);
+    radial-gradient(ellipse at center, rgba(23, 10, 12, 0.25) 0%, rgba(23, 10, 12, 0.62) 100%),
+    linear-gradient(to top, var(--ink) 2%, rgba(23, 10, 12, 0.28) 30%);
 }
 .hero-content {
-  width: 100%;
-  max-width: var(--w-content); margin: 0 auto;
-  padding: 0 24px 9vh;
+  width: 100%; max-width: 900px; margin: 0 auto;
+  padding: 96px 24px 0;
+  display: flex; flex-direction: column; align-items: center;
 }
 .hero .line { display: block; overflow: hidden; }
 .hero .line > span { display: inline-block; }
-.hero-sub { margin-top: 26px; }
-.hero-cta { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.hero .line > span.lockup-sub { display: inline-flex; } /* wint van de inline-block-regel hierboven */
+.hero .lockup-sub { font-size: clamp(1rem, 2.6vw, 1.7rem); margin-top: 10px; }
+.hero-sub { margin-top: 30px; text-align: center; }
+.hero-cta { margin-top: 36px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
 
 /* --------------------------------------------------------------------------
    Secties
@@ -224,55 +296,137 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
   gap: 24px; margin-bottom: clamp(36px, 5vw, 60px);
 }
 .section-head .link-more {
-  color: var(--beige-2); font-weight: 500; font-size: 0.95rem;
+  color: var(--cream-2); font-weight: 600; font-size: 0.9rem;
   display: inline-flex; align-items: center; gap: 8px;
   border-bottom: 1px solid var(--line);
   padding-bottom: 4px;
   transition: color 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
-.section-head .link-more:hover { color: var(--beige); border-color: var(--beige-2); }
+.section-head .link-more:hover { color: var(--cream); border-color: var(--cream-2); }
 
 /* --------------------------------------------------------------------------
-   Uitgelicht recept — full-width cinematisch
+   Creme-band: het ene bewuste kleurblok (babi.sh-DNA: lichte band na de hero)
    -------------------------------------------------------------------------- */
-.feature-card {
+.cream-band {
+  background: var(--cream);
+  color: var(--bordeaux);
+}
+.cream-band .band-head {
+  text-align: center;
+  max-width: 700px; margin: 0 auto clamp(40px, 6vw, 64px);
+}
+.cream-band .band-head p {
+  color: rgba(123, 13, 30, 0.72);
+  font-weight: 500;
+  margin-top: 14px;
+}
+.cream-band ::selection { background: var(--bordeaux); color: var(--cream); }
+
+/* Carousel: scroll-snap + pijlen */
+.carousel { position: relative; }
+.carousel-track {
+  display: grid; grid-auto-flow: column;
+  grid-auto-columns: min(640px, 86vw);
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 6px;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-card {
+  scroll-snap-align: start;
   position: relative; display: block;
   border-radius: var(--radius-card); overflow: hidden;
-  aspect-ratio: 16 / 8;
+  aspect-ratio: 16 / 10;
 }
-.feature-card img {
+.carousel-card img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.feature-card:hover img { transform: scale(1.025); }
-.feature-card::after {
+.carousel-card:hover img { transform: scale(1.03); }
+.carousel-card::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20, 16, 13, 0.82) 0%, rgba(20, 16, 13, 0.05) 55%);
+  background: linear-gradient(to top, rgba(23, 10, 12, 0.85) 0%, rgba(23, 10, 12, 0.03) 52%);
 }
-.feature-card-body {
+.carousel-card .cc-body {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: clamp(24px, 4vw, 48px);
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+  padding: clamp(22px, 3.4vw, 36px);
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 18px;
+  color: var(--cream);
 }
-.feature-card-body .meta { margin-bottom: 10px; }
-.play-pill {
+.carousel-card .cc-body .meta { color: var(--tan); margin-bottom: 8px; }
+.carousel-card h3 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.3rem, 2.6vw, 1.9rem); line-height: 1.05; }
+.carousel-card .play-pill {
   flex-shrink: 0;
-  display: inline-flex; align-items: center; gap: 10px;
-  border-radius: 999px; padding: 13px 26px;
+  display: inline-flex; align-items: center; gap: 9px;
+  border-radius: 999px; padding: 12px 24px;
   background: var(--glass); border: 1px solid var(--glass-line);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  color: var(--beige); font-weight: 600; font-size: 0.9rem;
+  color: var(--cream); font-weight: 600; font-size: 0.85rem;
 }
+.carousel-nav {
+  display: flex; gap: 12px; justify-content: flex-end; margin-top: 22px;
+}
+.carousel-btn {
+  width: 48px; height: 48px; border-radius: 999px;
+  background: none; border: 1.5px solid var(--bordeaux);
+  color: var(--bordeaux); font-size: 1.15rem; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background-color 0.25s, color 0.25s, transform 0.18s;
+}
+.carousel-btn:hover { background: var(--bordeaux); color: var(--cream); }
+.carousel-btn:active { transform: scale(0.94); }
 
 @media (max-width: 767px) {
-  .feature-card { aspect-ratio: 4 / 5; }
-  .feature-card-body { flex-direction: column; align-items: flex-start; }
+  .carousel-card { aspect-ratio: 4 / 5; }
+  .carousel-card .cc-body { flex-direction: column; align-items: flex-start; }
 }
 
 /* --------------------------------------------------------------------------
-   Receptenkaarten — still + titel + meta (DNA babi.sh, eigen maat)
+   "Meer"-grid 2x2 (babi.sh-DNA): foto-kaarten met groot label
+   -------------------------------------------------------------------------- */
+.more-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+}
+.more-card {
+  position: relative; display: block;
+  border-radius: var(--radius-card); overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+.more-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.more-card:hover img { transform: scale(1.04); }
+.more-card::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(23, 10, 12, 0.78) 8%, rgba(23, 10, 12, 0.18) 60%);
+  transition: background-color 0.3s;
+}
+.more-card .mc-label {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: clamp(20px, 3vw, 34px);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.more-card h3 {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--cream); line-height: 1.05;
+}
+.more-card .mc-label i {
+  color: var(--cream); font-size: 1.4rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.more-card:hover .mc-label i { transform: translateX(5px); }
+
+@media (max-width: 700px) {
+  .more-grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   Receptenkaarten
    -------------------------------------------------------------------------- */
 .recipe-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
@@ -292,29 +446,59 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 .recipe-card:hover .thumb img { transform: scale(1.045); }
 .recipe-card h3 {
   margin-top: 16px;
-  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
-  font-size: 1.05rem; letter-spacing: 0.01em; line-height: 1.25;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.15rem; letter-spacing: 0.015em; line-height: 1.2;
+  display: inline-block; position: relative;
 }
-.recipe-card .meta { margin-top: 6px; }
+.recipe-card h3::after {
+  content: ""; position: absolute; left: 0; bottom: -3px;
+  width: 100%; height: 2px; background: var(--bordeaux-bright);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.recipe-card:hover h3::after { transform: scaleX(1); }
+.recipe-card .meta { margin-top: 7px; }
 
 /* --------------------------------------------------------------------------
-   Filterchips (receptenpagina)
+   Zoekbalk + filterchips (receptenpagina, babi.sh-DNA)
    -------------------------------------------------------------------------- */
+.search-bar {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0 22px;
+  height: 52px;
+  max-width: 460px;
+  transition: border-color 0.25s;
+}
+.search-bar:focus-within { border-color: var(--tan); }
+.search-bar i { color: var(--tan); font-size: 1.1rem; flex-shrink: 0; }
+.search-bar input {
+  background: none; border: none; outline: none;
+  color: var(--cream); font-family: var(--font-body);
+  font-size: 0.95rem; font-weight: 500;
+  width: 100%; height: 100%;
+}
+.search-bar input::placeholder { color: var(--tan); opacity: 0.85; }
+
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip {
   border-radius: 999px; padding: 10px 20px;
-  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
-  background: none; border: 1px solid var(--line); color: var(--beige-2);
+  font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+  background: none; border: 1px solid var(--line); color: var(--cream-2);
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 }
-.chip:hover { color: var(--beige); border-color: var(--beige-2); }
+.chip:hover { color: var(--cream); border-color: var(--cream-2); }
 .chip[aria-pressed="true"] {
-  background: var(--bordeaux); border-color: var(--bordeaux); color: var(--on-bordeaux);
+  background: var(--bordeaux-bright); border-color: var(--bordeaux-bright); color: var(--on-bordeaux);
 }
 
+.no-results { color: var(--cream-2); display: none; }
+
 /* --------------------------------------------------------------------------
-   Over Maarten — asymmetrische split
+   Over Maarten: asymmetrische split
    -------------------------------------------------------------------------- */
 .about {
   display: grid; grid-template-columns: 5fr 6fr; gap: clamp(36px, 6vw, 90px);
@@ -325,8 +509,9 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
   aspect-ratio: 4 / 5;
 }
 .about-media img { width: 100%; height: 100%; object-fit: cover; }
+.about-body .lockup-sub { font-size: 0.8rem; margin-bottom: 18px; }
 .about-body h2 { margin-bottom: 22px; }
-.about-body p { color: var(--beige-2); max-width: 52ch; }
+.about-body p { color: var(--cream-2); max-width: 52ch; font-weight: 500; }
 .about-body p + p { margin-top: 16px; }
 .about-body .btn { margin-top: 30px; }
 
@@ -336,7 +521,7 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 }
 
 /* --------------------------------------------------------------------------
-   Tips — horizontale scroll-snap rij
+   Tips: horizontale scroll-snap rij
    -------------------------------------------------------------------------- */
 .tips-row {
   display: grid; grid-auto-flow: column; grid-auto-columns: min(340px, 78vw);
@@ -350,35 +535,36 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
   background: var(--surface);
   border: 1px solid var(--line);
   padding: 30px;
-  display: flex; flex-direction: column; gap: 14px; justify-content: flex-start;
+  display: flex; flex-direction: column; gap: 14px;
   min-height: 300px;
 }
 .tip-card.has-img { padding: 0; overflow: hidden; position: relative; }
 .tip-card.has-img img { width: 100%; height: 100%; object-fit: cover; }
 .tip-card.has-img .tip-overlay {
   position: absolute; inset: auto 0 0 0; padding: 26px;
-  background: linear-gradient(to top, rgba(20, 16, 13, 0.88), transparent);
+  background: linear-gradient(to top, rgba(23, 10, 12, 0.9), transparent);
 }
-.tip-card i { font-size: 1.7rem; color: var(--beige-2); }
-.tip-card h3 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 1rem; }
-.tip-card p { color: var(--beige-2); font-size: 0.95rem; line-height: 1.6; }
+.tip-card i { font-size: 1.7rem; color: var(--tan); }
+.tip-card h3 { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; }
+.tip-card p { color: var(--cream-2); font-size: 0.92rem; line-height: 1.65; font-weight: 500; }
 
 /* --------------------------------------------------------------------------
-   Wijn & community band — bordeaux
+   Wijn & community band: diep bordeaux
    -------------------------------------------------------------------------- */
 .wine-band { background: var(--bordeaux); color: var(--on-bordeaux); }
+.wine-band ::selection { background: var(--cream); color: var(--bordeaux); }
 .wine-band .wine-grid {
   display: grid; grid-template-columns: 7fr 5fr; gap: clamp(36px, 6vw, 80px);
   align-items: center;
 }
 .wine-band h2 { max-width: 14ch; }
 .wine-band p {
-  color: rgba(245, 233, 217, 0.82);
-  max-width: 46ch; margin-top: 20px;
+  color: rgba(244, 237, 228, 0.85);
+  max-width: 46ch; margin-top: 20px; font-weight: 500;
 }
 .wine-band .btn-light {
   margin-top: 32px;
-  background: var(--on-bordeaux); color: var(--bordeaux);
+  background: var(--cream); color: var(--bordeaux);
 }
 .wine-band .btn-light:hover { background: #fff; }
 .wine-media {
@@ -394,14 +580,14 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 /* --------------------------------------------------------------------------
    Receptdetail
    -------------------------------------------------------------------------- */
-.recipe-hero { padding-top: 140px; }
+.recipe-hero { padding-top: 150px; }
 .recipe-hero .back {
   display: inline-flex; align-items: center; gap: 8px;
-  color: var(--beige-2); font-size: 0.9rem; font-weight: 500; margin-bottom: 28px;
+  color: var(--cream-2); font-size: 0.875rem; font-weight: 600; margin-bottom: 28px;
 }
-.recipe-hero .back:hover { color: var(--beige); }
+.recipe-hero .back:hover { color: var(--cream); }
 .recipe-hero h1 { max-width: 16ch; }
-.recipe-hero .meta { margin-top: 18px; font-size: 0.9rem; }
+.recipe-hero .meta { margin-top: 18px; font-size: 0.875rem; }
 .recipe-hero .meta i { margin-right: 6px; }
 .recipe-hero .meta span + span { margin-left: 22px; }
 
@@ -418,59 +604,60 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
   background: var(--glass); border: 1px solid var(--glass-line);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  font-size: 0.85rem; color: var(--beige-2);
+  font-size: 0.8rem; font-weight: 500; color: var(--cream-2);
 }
 
 .recipe-body {
   display: grid; grid-template-columns: 4fr 7fr; gap: clamp(40px, 6vw, 90px);
   padding: clamp(60px, 8vw, 110px) 0;
 }
-.ingredients { position: sticky; top: 100px; align-self: start; }
+.ingredients { position: sticky; top: 104px; align-self: start; }
 .ingredients h2, .method h2 {
-  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
-  font-size: 1.2rem; margin-bottom: 22px;
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: 1.3rem; margin-bottom: 22px;
 }
 .ingredients ul { list-style: none; }
 .ingredients li {
   padding: 12px 0; border-bottom: 1px solid var(--line);
-  color: var(--beige-2); font-size: 0.98rem;
+  color: var(--cream-2); font-size: 0.92rem; font-weight: 500;
   display: flex; justify-content: space-between; gap: 16px;
 }
-.ingredients li strong { color: var(--beige); font-weight: 500; }
+.ingredients li strong { color: var(--cream); font-weight: 600; }
 
 .method ol { list-style: none; counter-reset: stap; }
 .method li { counter-increment: stap; display: flex; gap: 22px; }
 .method li + li { margin-top: 30px; }
 .method li::before {
   content: counter(stap, decimal-leading-zero);
-  font-family: var(--font-display); font-weight: 800;
-  color: var(--meta); font-size: 1.05rem; line-height: 1.9;
+  font-family: var(--font-display);
+  color: var(--bordeaux-bright); font-size: 1.15rem; line-height: 1.8;
   flex-shrink: 0;
 }
-.method li p { color: var(--beige-2); }
+.method li p { color: var(--cream-2); font-weight: 500; }
 
 @media (max-width: 860px) {
   .recipe-body { grid-template-columns: 1fr; }
   .ingredients { position: static; }
 }
 
-/* Wijntip — het handelsmerk van Maarten */
+/* Wijntip: het handelsmerk van Maarten */
 .wine-tip {
   display: grid; grid-template-columns: 5fr 7fr;
   border-radius: var(--radius-card); overflow: hidden;
   background: var(--bordeaux); color: var(--on-bordeaux);
 }
+.wine-tip ::selection { background: var(--cream); color: var(--bordeaux); }
 .wine-tip .wt-media { min-height: 300px; }
 .wine-tip .wt-media img { width: 100%; height: 100%; object-fit: cover; }
 .wine-tip .wt-body { padding: clamp(30px, 4vw, 54px); align-self: center; }
 .wine-tip .wt-label {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(245, 233, 217, 0.75); margin-bottom: 16px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244, 237, 228, 0.75); margin-bottom: 16px;
 }
-.wine-tip h2 { font-size: clamp(1.4rem, 2.6vw, 2rem); }
-.wine-tip p { color: rgba(245, 233, 217, 0.85); margin-top: 14px; max-width: 46ch; }
-.wine-tip .btn-light { margin-top: 26px; background: var(--on-bordeaux); color: var(--bordeaux); }
+.wine-tip h2 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.5rem, 2.8vw, 2.2rem); line-height: 1.08; }
+.wine-tip p { color: rgba(244, 237, 228, 0.88); margin-top: 14px; max-width: 46ch; font-weight: 500; }
+.wine-tip .btn-light { margin-top: 26px; background: var(--cream); color: var(--bordeaux); }
 .wine-tip .btn-light:hover { background: #fff; }
 
 @media (max-width: 767px) {
@@ -479,41 +666,53 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 }
 
 /* --------------------------------------------------------------------------
-   Footer
+   Footer: gecentreerd met M-icoon en social-pills (babi.sh-DNA, merk-uitvoering)
    -------------------------------------------------------------------------- */
 .footer { background: var(--ink-2); border-top: 1px solid var(--line); }
-.footer-inner { padding: clamp(60px, 8vw, 100px) 24px 40px; max-width: var(--w-content); margin: 0 auto; }
-.footer .wordmark { font-size: clamp(1.6rem, 4vw, 2.8rem); letter-spacing: 0.1em; }
-.footer-grid {
-  margin-top: 48px;
-  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+.footer-inner {
+  padding: clamp(64px, 8vw, 100px) 24px 40px;
+  max-width: var(--w-content); margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
 }
-.footer h4 { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--meta); margin-bottom: 16px; }
-.footer ul { list-style: none; }
-.footer li + li { margin-top: 10px; }
-.footer a:not(.wordmark) { color: var(--beige-2); font-size: 0.95rem; transition: color 0.2s; }
-.footer a:not(.wordmark):hover { color: var(--beige); }
-.footer .socials { display: flex; gap: 12px; margin-top: 20px; }
+.footer .m-icon {
+  width: 64px; height: 64px; border-radius: 999px;
+  background: var(--bordeaux);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.7rem; color: var(--cream);
+  text-transform: uppercase;
+}
+.footer .wordmark { margin-top: 20px; align-items: center; }
+.footer .wordmark .wm-name { font-size: clamp(1.7rem, 4vw, 2.4rem); }
+.footer .wordmark .wm-sub { font-size: 0.62rem; }
+.footer-links {
+  margin-top: 30px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 34px;
+  list-style: none;
+}
+.footer-links a {
+  color: var(--cream-2); font-size: 0.9rem; font-weight: 600; text-transform: lowercase;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--cream); }
+.footer .socials { display: flex; gap: 12px; margin-top: 30px; }
 .footer .socials a {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 999px;
-  border: 1px solid var(--line); font-size: 1.2rem;
-  transition: border-color 0.2s, color 0.2s;
+  width: 46px; height: 46px; border-radius: 999px;
+  border: 1px solid var(--line); font-size: 1.25rem;
+  transition: border-color 0.2s, background-color 0.2s;
 }
-.footer .socials a:hover { border-color: var(--beige-2); }
-.footer-note { margin-top: 24px; color: var(--beige-2); font-size: 0.95rem; max-width: 40ch; }
+.footer .socials a:hover { border-color: var(--tan); }
+.footer-note { margin-top: 26px; color: var(--cream-2); font-size: 0.9rem; font-weight: 500; max-width: 44ch; }
 .footer-bottom {
-  margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+  width: 100%;
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  color: var(--meta); font-size: 0.85rem;
+  color: var(--tan); font-size: 0.8rem; font-weight: 500;
 }
-
-@media (max-width: 767px) {
-  .footer-grid { grid-template-columns: 1fr; }
-}
+.footer-bottom .tagline { letter-spacing: 0.22em; text-transform: uppercase; }
 
 /* --------------------------------------------------------------------------
-   Reveal-basis (GSAP zet de eindwaarden; zonder JS blijft alles zichtbaar)
+   Reveal-basis (GSAP zet eindwaarden; zonder JS blijft alles zichtbaar)
    -------------------------------------------------------------------------- */
 .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: no-preference) {
@@ -521,6 +720,7 @@ h3.display { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: 0; }
 }
 
 /* Pagina-header (recepten) */
-.page-head { padding: 160px 0 20px; }
+.page-head { padding: 170px 0 20px; }
 .page-head .lead { margin-top: 20px; }
-.page-head .chips { margin-top: 36px; }
+.page-head .search-bar { margin-top: 34px; }
+.page-head .chips { margin-top: 22px; }
