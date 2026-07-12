@@ -1,0 +1,79 @@
+{
+  "source": "https://www.babi.sh/",
+  "pages_analyzed": ["/", "/recipes", "/recipes/10-levels-of-cheesesteak"],
+  "tokens": {
+    "spacing": {
+      "scale": [24, 40, 120, 160],
+      "base_unit": 8,
+      "note": "margins gereset naar 0; alle ruimte via grid-gap (24px bibliotheek, 40px feature-grid) en sectiebanden (~120-160px)"
+    },
+    "typography": {
+      "families": ["futura-pt", "Inter (sporadisch)"],
+      "scale": [
+        { "role": "hero", "size": "100.8px", "weight": "800", "family": "futura-pt", "case": "uppercase", "lineHeight": "1.2" },
+        { "role": "h2-sectie", "size": "60.48px", "weight": "800", "family": "futura-pt" },
+        { "role": "kaart-feature", "size": "28px", "weight": "800", "family": "futura-pt" },
+        { "role": "body", "size": "22px", "weight": "800", "family": "futura-pt" },
+        { "role": "kaart-titel", "size": "16px", "weight": "800", "family": "futura-pt", "case": "uppercase" },
+        { "role": "meta", "size": "13px", "weight": "400", "family": "futura-pt" }
+      ]
+    },
+    "colors": [
+      { "role": "background", "value": "#FFFFFF" },
+      { "role": "background-band", "value": "#F5F5F5" },
+      { "role": "background-inverse", "value": "#000000" },
+      { "role": "text-primary", "value": "#000000" },
+      { "role": "text-on-dark", "value": "#FFFFFF" },
+      { "role": "text-meta", "value": "#9D9D9D" },
+      { "role": "text-secondary", "value": "#525252" },
+      { "role": "surface-frosted", "value": "rgba(255,255,255,0.333) + backdrop-blur" },
+      { "role": "accent", "value": "geen — fotografie levert alle kleur" }
+    ],
+    "radius": ["10000px (pills/knoppen)", "60px (feature-kaarten)", "40px (modal)", "8px (thumbnails)", "6px (icoontjes)"],
+    "shadows": [],
+    "image_ratios": [
+      { "usage": "hero", "ratio": "1.50:1 (mobiel aparte 0.77:1 crop)" },
+      { "usage": "carousel", "ratio": "1.60-2.17:1" },
+      { "usage": "feature-kaart", "ratio": "1.50-1.78:1" },
+      { "usage": "recept-thumbnail", "ratio": "~1.55:1" }
+    ],
+    "grid": { "max_width": "~1180px content, full-bleed hero/footer", "columns": "4 à 277px (bibliotheek) / 2 à 556px (features)", "gutter": "24px / 40px" }
+  },
+  "taste": [
+    {
+      "name": "De merkstem is een lettergewicht",
+      "trigger": "Merk-herkenning nodig op elke pagina/kaart/knop zonder logo-herhaling",
+      "decision": "Eén geometrische familie (futura-pt) op weight 800 voor álle rollen, in plaats van een display/body-paar met meerdere gewichten",
+      "reason": "Een YouTube-publiek herkent de maker aan zijn stem; één zware letter maakt elke schermregel 'hem'. Weinig lange teksten, dus de nuance-prijs is laag",
+      "evidence": ["h1 100.8px/800", "body-p 22px/800", "nav 800", "kleinste groottesprong 1.23x — schaal doet het hiërarchie-werk"]
+    },
+    {
+      "name": "De UI mag geen kleur hebben",
+      "trigger": "Chrome vormgeven op een site vol foodfotografie",
+      "decision": "Strikt monochroom (#000/#fff + 4 pure grijzen, geen accentkleur) in plaats van een merk-accentkleur op knoppen/links",
+      "reason": "Eten verkoopt via verzadiging; kleurloze chrome garandeert dat het felste element altijd het gerecht is",
+      "evidence": ["accentCandidates = alleen rgb(0,0,0)", "grijzen exact neutraal (#9D9D9D, #F5F5F5)", "10 foto's van 277-1440px vullen elk kaartoppervlak"]
+    },
+    {
+      "name": "Diepte lenen in plaats van tekenen (restraint)",
+      "trigger": "Knoppen/kaarten scheiden van foto-oppervlakken, waar box-shadows de standaard zijn",
+      "decision": "Nul schaduwen; scheiding via achtergrondband-wissels (#fff→#f5f5f5→#000) en frosted-glass pills (rgba(255,255,255,0.333)+blur), in plaats van elevation-lagen",
+      "reason": "Een schaduw beweert dat de UI boven de content staat; frosted glass zegt het omgekeerde — de content is het object, de UI slechts een waas",
+      "evidence": ["shadows: [] over 3 pagina's", "frosted pills op hero + kaarten", "sectie-overgangen zonder dividers"]
+    },
+    {
+      "name": "Elke kaart pocht zijn eigen publiek",
+      "trigger": "Meta-regel kiezen voor recept-kaarten (gangbaar: kooktijd, moeilijkheid, sterren)",
+      "decision": "YouTube-statistieken ('875k views • Apr 30') als vaste derde regel op elke kaart; culinaire metadata pas op de detailpagina",
+      "reason": "Wie van YouTube komt beslist op sociale bewijskracht sneller dan op bereidingstijd; de bibliotheek verkoopt zichzelf bij elke scroll",
+      "evidence": ["meta 13px #9D9D9D op 20+ kaarten", "detailpagina toont wél 'cook: 1 h 30 min'"]
+    }
+  ],
+  "extra_observaties": {
+    "structuur": "home = dark hero (viewport-hoog) → lichte band met h2 → featured-carousel → 'More' 2x2 grid (Cookware/Cookbook/About/Contact) → zwarte footer met social-pills",
+    "bibliotheek": "zoekbalk in header + tabs (All/Popular/Likes) + 3 serie-kaarten + 4-koloms grid",
+    "detail": "titel + 'cook: X' meta → full-width video → 2 kolommen (tools/ingrediënten links, bereiding rechts) → RELATED RECIPES carousel",
+    "monetisatie": "recepten achter membership-gate ($10/jaar, 'first month free') — Maarten doet het omgekeerde: recepten gratis, funnel naar WhatsApp-community",
+    "gaten_om_te_verslaan": ["geen focus-visible", "geen prefers-reduced-motion", "kaarten geen echte <a> links (geen middenklik/SEO)", "geen scroll-craft/motion-polish", "licht thema ondanks dark-merk — Maarten gaat écht donker"]
+  }
+}
