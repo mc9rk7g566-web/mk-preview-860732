@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-recipes",
+      "blocks": {
+        "zalm": { "type": "recipe", "settings": { "title": "Zalm met beurre blanc", "meta": "30 min · Vis", "category": "vis", "fallback_image": "recept-vis.jpg" } },
+        "pasta": { "type": "recipe", "settings": { "title": "Pasta met gamba's", "meta": "25 min · Vis", "category": "vis", "fallback_image": "recept-pasta.jpg" } },
+        "ribeye": { "type": "recipe", "settings": { "title": "Ribeye van de plaat", "meta": "35 min · Vlees", "category": "vlees", "fallback_image": "recept-steak.jpg" } },
+        "soep": { "type": "recipe", "settings": { "title": "Pompoensoep met salie", "meta": "40 min · Warm voorgerecht", "category": "warm vega", "fallback_image": "recept-soep.jpg" } },
+        "ribs": { "type": "recipe", "settings": { "title": "Spareribs uit de oven", "meta": "3 uur · Vlees", "category": "vlees", "fallback_image": "recept-ribs.jpg" } },
+        "salade": { "type": "recipe", "settings": { "title": "Thaise biefsalade", "meta": "20 min · Koud voorgerecht", "category": "koud vlees", "fallback_image": "recept-voorgerecht.jpg" } },
+        "kip": { "type": "recipe", "settings": { "title": "Krokante kip met knoflooksaus", "meta": "50 min · Vlees", "category": "vlees", "fallback_image": "tip-vuur.jpg" } },
+        "dessert": { "type": "recipe", "settings": { "title": "Karamel en vanille", "meta": "45 min · Zoet", "category": "zoet", "fallback_image": "recept-dessert.jpg" } }
+      },
+      "block_order": ["zalm", "pasta", "ribeye", "soep", "ribs", "salade", "kip", "dessert"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

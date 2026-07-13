@@ -1,0 +1,68 @@
+{% comment %}
+  Landing: één doel, e-mailadres achterlaten. Het klantformulier zet inschrijvingen
+  automatisch als e-mailabonnee in Shopify (Klanten → abonnees → Shopify Email).
+{% endcomment %}
+
+<section class="hero">
+  <div class="hero-media">
+    <img src="{{ 'hero.jpg' | asset_url }}" alt="Donker gedekte tafel met borden bij kaarslicht" fetchpriority="high" width="2400" height="1600">
+  </div>
+  <div class="hero-content">
+    <h1 class="display">
+      <span class="line"><span>Maarten</span></span>
+      <span class="line"><span class="lockup-sub">In de keuken</span></span>
+    </h1>
+    <p class="lead hero-sub">{{ section.settings.subtekst }}</p>
+
+    {% form 'customer', class: 'signup-form', id: 'landing-signup' %}
+      {% if form.posted_successfully? %}
+        <p class="form-success">Je staat op de lijst. Je hoort het als eerste.</p>
+      {% else %}
+        <input type="hidden" name="contact[tags]" value="nieuwsbrief, landing">
+        <input type="email" name="contact[email]" placeholder="je e-mailadres" required aria-label="E-mailadres" autocomplete="email">
+        <button type="submit" class="btn btn-primary">Houd me op de hoogte</button>
+        {% if form.errors %}
+          <p class="form-error">Controleer je e-mailadres en probeer het nog eens.</p>
+        {% endif %}
+      {% endif %}
+    {% endform %}
+    <p class="signup-note">Alleen een berichtje als er echt iets is. Uitschrijven kan altijd.</p>
+  </div>
+</section>
+
+<section class="section cream-band">
+  <div class="wrap">
+    <div class="coming-grid">
+      <div class="coming-item reveal">
+        <i class="ph ph-fork-knife" aria-hidden="true"></i>
+        <h3>Recepten</h3>
+        <p>Van koud voorgerecht tot toetje, geschreven zoals Maarten kookt.</p>
+      </div>
+      <div class="coming-item reveal">
+        <i class="ph ph-video-camera" aria-hidden="true"></i>
+        <h3>Kookvideo's</h3>
+        <p>Elke week nieuw, rechtstreeks uit de keuken.</p>
+      </div>
+      <div class="coming-item reveal">
+        <i class="ph ph-wine" aria-hidden="true"></i>
+        <h3>Wijntips</h3>
+        <p>Bij elk gerecht de fles die erbij hoort.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtekst",
+      "label": "Subtekst in de hero",
+      "default": "Binnenkort: recepten, technieken en de wijn die erbij hoort. Laat je e-mailadres achter en hoor het als eerste."
+    }
+  ],
+  "presets": [{ "name": "Landing" }]
+}
+{% endschema %}

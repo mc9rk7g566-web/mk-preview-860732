@@ -1,0 +1,12 @@
+{% layout none %}
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Cadeaubon | {{ shop.name }}</title>
+</head>
+<body>
+  <p>Cadeaubon: {{ gift_card.initial_value | money }}</p>
+  <p>Code: {{ gift_card.code | format_code }}</p>
+</body>
+</html>

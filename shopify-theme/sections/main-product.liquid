@@ -1,0 +1,55 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% if settings.community_url != blank %}
+  {% assign community_url = settings.community_url %}
+{% else %}
+  {% assign community_url = routes.root_url | append: '#community' %}
+{% endif %}
+<section class="section product-section">
+  <div class="wrap about product-layout">
+    <div class="about-media product-media reveal">
+      {% if product.featured_image != blank %}
+        {{ product.featured_image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(max-width: 860px) 100vw, 42vw', fetchpriority: 'high', alt: product.title }}
+      {% else %}
+        <img src="{{ 'recept-dessert.jpg' | asset_url }}" width="1200" height="1500" alt="Voorbeeldbeeld voor het kookboek">
+      {% endif %}
+      {% if section.settings.caption != blank %}<p class="meta book-caption">{{ section.settings.caption }}</p>{% endif %}
+    </div>
+    <div class="about-body product-info reveal" data-product-root>
+      <span class="lockup-sub">{{ section.settings.eyebrow }}</span>
+      <h1 class="display product-title">{{ product.title }}</h1>
+      <div class="product-description">{{ product.description }}</div>
+      <p class="product-price" data-product-price>{{ current_variant.price | money_with_currency }}{% if current_variant.compare_at_price > current_variant.price %}<s>{{ current_variant.compare_at_price | money_with_currency }}</s>{% endif %}</p>
+      {% form 'product', product, class: 'product-form' %}
+        {% if form.errors %}<div class="form-errors" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+        {% unless product.has_only_default_variant %}
+          <label for="Variant-{{ section.id }}">Uitvoering</label>
+          <select id="Variant-{{ section.id }}" name="id" data-variant-select>
+            {% for variant in product.variants %}
+              <option value="{{ variant.id }}" data-price="{{ variant.price | money_with_currency | escape }}" data-available="{{ variant.available }}"{% if variant == current_variant %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>{{ variant.title }}{% unless variant.available %} — Uitverkocht{% endunless %}</option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+        {% endunless %}
+        <div class="quantity-field"><label for="Quantity-{{ section.id }}">Aantal</label><input id="Quantity-{{ section.id }}" type="number" name="quantity" value="1" min="1" inputmode="numeric"></div>
+        <button class="btn btn-primary product-submit" type="submit" name="add" data-add-to-cart{% unless current_variant.available %} disabled{% endunless %}>
+          <i class="ph ph-shopping-bag" aria-hidden="true"></i><span>{% if current_variant.available %}In winkelwagen{% else %}Uitverkocht{% endif %}</span>
+        </button>
+        {% if section.settings.show_dynamic_checkout and current_variant.available %}<div class="dynamic-checkout">{{ form | payment_button }}</div>{% endif %}
+      {% endform %}
+      <div class="shop-cta"><a class="btn btn-glass" href="{{ community_url }}"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a><a class="cart-text-link" href="{{ routes.cart_url }}">Bekijk winkelwagen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+    </div>
+  </div>
+</section>
+<script type="application/json" data-product-json>{{ product.variants | json }}</script>
+
+{% schema %}
+{
+  "name": "Kookboekproduct",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Bovenkop", "default": "Het kookboek" },
+    { "type": "text", "id": "caption", "label": "Bijschrift afbeelding", "default": "Het eerste kookboek van Maarten." },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Versnelde betaalknop tonen", "default": false }
+  ]
+}
+{% endschema %}

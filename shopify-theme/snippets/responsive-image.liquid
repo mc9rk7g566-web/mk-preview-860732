@@ -1,0 +1,10 @@
+{% liquid
+  assign selected_image = image
+  assign fallback_url = fallback | asset_url
+  assign image_alt = alt | default: selected_image.alt
+%}
+{% if selected_image != blank %}
+  {{ selected_image | image_url: width: 1800 | image_tag: widths: '480, 720, 960, 1200, 1500, 1800', sizes: sizes, loading: loading, fetchpriority: fetchpriority, alt: image_alt }}
+{% else %}
+  <img src="{{ fallback_url }}" width="1800" height="1200" alt="{{ image_alt | escape }}"{% if loading %} loading="{{ loading }}"{% endif %}{% if fetchpriority %} fetchpriority="{{ fetchpriority }}"{% endif %}>
+{% endif %}

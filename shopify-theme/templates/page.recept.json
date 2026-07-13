@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-recipe",
+      "blocks": {
+        "i1": { "type": "ingredient", "settings": { "name": "Zalmfilet met vel", "amount": "4 × 150 g" } },
+        "i2": { "type": "ingredient", "settings": { "name": "Sjalotten", "amount": "2, fijngesneden" } },
+        "i3": { "type": "ingredient", "settings": { "name": "Droge witte wijn", "amount": "150 ml" } },
+        "i4": { "type": "ingredient", "settings": { "name": "Witte wijnazijn", "amount": "2 el" } },
+        "i5": { "type": "ingredient", "settings": { "name": "Koude roomboter", "amount": "175 g, in blokjes" } },
+        "i6": { "type": "ingredient", "settings": { "name": "Citroen", "amount": "een halve" } },
+        "i7": { "type": "ingredient", "settings": { "name": "Bieslook", "amount": "klein bosje" } },
+        "i8": { "type": "ingredient", "settings": { "name": "Zout en peper", "amount": "naar smaak" } },
+        "s1": { "type": "step", "settings": { "text": "Haal de zalm een half uur voor het bakken uit de koelkast en dep het vel goed droog. Droog vel wordt krokant vel." } },
+        "s2": { "type": "step", "settings": { "text": "Zet de sjalotten met de wijn en de azijn op middelhoog vuur en laat inkoken tot er nog een paar eetlepels vocht over zijn." } },
+        "s3": { "type": "step", "settings": { "text": "Draai het vuur laag en klop de koude boter er blokje voor blokje door. Laat de saus nooit koken, dan schift hij. Breng op smaak met citroensap, zout en peper." } },
+        "s4": { "type": "step", "settings": { "text": "Verhit een pan tot de olie glanst. Bak de zalm op het vel in 5 tot 6 minuten krokant, draai kort om en haal de pan van het vuur. De restwarmte gaart hem af." } },
+        "s5": { "type": "step", "settings": { "text": "Serveer de zalm op de saus, met bieslook erover. Eerst de saus op het bord, dan de vis. Zo blijft het vel krokant." } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "s1", "s2", "s3", "s4", "s5"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

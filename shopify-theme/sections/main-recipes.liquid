@@ -1,0 +1,89 @@
+{% if settings.community_url != blank %}{% assign community_url = settings.community_url %}{% else %}{% assign community_url = routes.root_url | append: '#community' %}{% endif %}
+<section class="page-head">
+  <div class="wrap">
+    <h1 class="display page-title">{{ section.settings.heading }}</h1>
+    <p class="lead">{{ section.settings.intro }}</p>
+    <div class="search-bar"><i class="ph ph-magnifying-glass" aria-hidden="true"></i><input type="search" data-search placeholder="Zoek een recept" aria-label="Zoek een recept"></div>
+    <div class="chips" role="group" aria-label="Filter recepten">
+      <button class="chip" data-filter="alles" aria-pressed="true">Alles</button>
+      <button class="chip" data-filter="koud" aria-pressed="false">Koude voorgerechten</button>
+      <button class="chip" data-filter="warm" aria-pressed="false">Warme voorgerechten</button>
+      <button class="chip" data-filter="vlees" aria-pressed="false">Vlees</button>
+      <button class="chip" data-filter="vis" aria-pressed="false">Vis</button>
+      <button class="chip" data-filter="vega" aria-pressed="false">Vega</button>
+      <button class="chip" data-filter="zoet" aria-pressed="false">Toetjes</button>
+    </div>
+  </div>
+</section>
+<section class="section recipes-section">
+  <div class="wrap">
+    <div class="recipe-grid">
+      {% for block in section.blocks %}
+        <a class="recipe-card reveal" href="{{ block.settings.link | default: '/pages/recept' }}" data-cat="{{ block.settings.category }}" {{ block.shopify_attributes }}>
+          <div class="thumb">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw', loading: 'lazy', alt: block.settings.title }}
+            {% else %}
+              <img src="{{ block.settings.fallback_image | asset_url }}" width="1200" height="1200" alt="{{ block.settings.title | escape }}" loading="lazy">
+            {% endif %}
+          </div>
+          <h3>{{ block.settings.title }}</h3><p class="meta">{{ block.settings.meta }}</p>
+        </a>
+      {% endfor %}
+    </div>
+    <p class="no-results">Geen recepten gevonden. Probeer een andere zoekterm of filter.</p>
+  </div>
+</section>
+<section class="section wine-band">
+  <div class="wrap wine-grid">
+    <div class="reveal"><h2 class="display">Weten welke fles erbij hoort?</h2><p>In de groepsapp krijg je bij elk nieuw recept de wijntip erbij, plus data voor proeverijen.</p><a class="btn btn-light" href="{{ community_url }}" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a></div>
+    <div class="wine-media reveal"><img src="{{ 'wijn-glas.jpg' | asset_url }}" width="1200" height="1783" alt="Glas rode wijn met druiven" loading="lazy"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Receptenoverzicht",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titel", "default": "Recepten" },
+    { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Van koud voorgerecht tot toetje. Bij elk recept vertel ik welke wijn erbij past." }
+  ],
+  "blocks": [
+    {
+      "type": "recipe",
+      "name": "Recept",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titel", "default": "Nieuw recept" },
+        { "type": "text", "id": "meta", "label": "Tijd en soort", "default": "30 min · Hoofdgerecht" },
+        { "type": "text", "id": "category", "label": "Filtercodes", "info": "Gebruik: koud, warm, vlees, vis, vega en/of zoet", "default": "vis" },
+        { "type": "url", "id": "link", "label": "Receptpagina" },
+        { "type": "image_picker", "id": "image", "label": "Afbeelding" },
+        {
+          "type": "select", "id": "fallback_image", "label": "Standaardafbeelding",
+          "options": [
+            { "value": "recept-vis.jpg", "label": "Zalm" }, { "value": "recept-pasta.jpg", "label": "Pasta" },
+            { "value": "recept-steak.jpg", "label": "Ribeye" }, { "value": "recept-soep.jpg", "label": "Soep" },
+            { "value": "recept-ribs.jpg", "label": "Spareribs" }, { "value": "recept-voorgerecht.jpg", "label": "Biefsalade" },
+            { "value": "tip-vuur.jpg", "label": "Kip" }, { "value": "recept-dessert.jpg", "label": "Dessert" }
+          ],
+          "default": "recept-vis.jpg"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [{
+    "name": "Receptenoverzicht",
+    "blocks": [
+      { "type": "recipe", "settings": { "title": "Zalm met beurre blanc", "meta": "30 min · Vis", "category": "vis", "fallback_image": "recept-vis.jpg" } },
+      { "type": "recipe", "settings": { "title": "Pasta met gamba's", "meta": "25 min · Vis", "category": "vis", "fallback_image": "recept-pasta.jpg" } },
+      { "type": "recipe", "settings": { "title": "Ribeye van de plaat", "meta": "35 min · Vlees", "category": "vlees", "fallback_image": "recept-steak.jpg" } },
+      { "type": "recipe", "settings": { "title": "Pompoensoep met salie", "meta": "40 min · Warm voorgerecht", "category": "warm vega", "fallback_image": "recept-soep.jpg" } },
+      { "type": "recipe", "settings": { "title": "Spareribs uit de oven", "meta": "3 uur · Vlees", "category": "vlees", "fallback_image": "recept-ribs.jpg" } },
+      { "type": "recipe", "settings": { "title": "Thaise biefsalade", "meta": "20 min · Koud voorgerecht", "category": "koud vlees", "fallback_image": "recept-voorgerecht.jpg" } },
+      { "type": "recipe", "settings": { "title": "Krokante kip met knoflooksaus", "meta": "50 min · Vlees", "category": "vlees", "fallback_image": "tip-vuur.jpg" } },
+      { "type": "recipe", "settings": { "title": "Karamel en vanille", "meta": "45 min · Zoet", "category": "zoet", "fallback_image": "recept-dessert.jpg" } }
+    ]
+  }]
+}
+{% endschema %}

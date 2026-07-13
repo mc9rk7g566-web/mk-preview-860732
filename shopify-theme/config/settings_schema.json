@@ -1,0 +1,22 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Maarten in de keuken",
+    "theme_version": "1.0.0",
+    "theme_author": "JS - Crest",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "mailto:hallo@maartenindekeuken.nl"
+  },
+  {
+    "name": "Navigatie en contact",
+    "settings": [
+      { "type": "checkbox", "id": "landing_mode", "label": "Landing-modus (verberg navigatie tot de volledige site live is)", "default": true },
+      { "type": "product", "id": "cookbook_product", "label": "Kookboekproduct" },
+      { "type": "url", "id": "community_url", "label": "Link groepsapp" },
+      { "type": "text", "id": "contact_email", "label": "Contact e-mail", "default": "info@maartenkookt.nl" },
+      { "type": "url", "id": "instagram_url", "label": "Instagram" },
+      { "type": "url", "id": "youtube_url", "label": "YouTube" },
+      { "type": "url", "id": "tiktok_url", "label": "TikTok" }
+    ]
+  }
+]

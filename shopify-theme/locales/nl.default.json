@@ -1,0 +1,24 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Ga naar inhoud"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "In winkelwagen",
+      "sold_out": "Uitverkocht",
+      "unavailable": "Niet beschikbaar",
+      "quantity": "Aantal"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Winkelwagen",
+      "empty": "Je winkelwagen is leeg.",
+      "checkout": "Afrekenen",
+      "update": "Bijwerken",
+      "remove": "Verwijderen"
+    }
+  }
+}

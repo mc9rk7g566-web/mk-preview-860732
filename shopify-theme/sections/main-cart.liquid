@@ -1,0 +1,22 @@
+<section class="page-head cart-page">
+  <div class="wrap">
+    <h1 class="display page-title">Winkelwagen</h1>
+    {% if cart.item_count == 0 %}
+      <div class="empty-cart"><p>Je winkelwagen is leeg.</p><a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">Bekijk het kookboek</a></div>
+    {% else %}
+      {% form 'cart', cart, class: 'cart-form' %}
+        <div class="cart-items">
+          {% for item in cart.items %}
+            <div class="cart-item">
+              <a class="cart-image" href="{{ item.url }}">{% if item.image %}{{ item.image | image_url: width: 360 | image_tag: widths: '180, 270, 360', loading: 'lazy', alt: item.product.title }}{% endif %}</a>
+              <div class="cart-item-info"><a href="{{ item.url }}"><h2>{{ item.product.title }}</h2></a>{% unless item.product.has_only_default_variant %}<p class="meta">{{ item.variant.title }}</p>{% endunless %}<p>{{ item.final_line_price | money_with_currency }}</p><a class="cart-remove" href="{{ item.url_to_remove }}">Verwijderen</a></div>
+              <div class="quantity-field"><label for="Updates_{{ item.key }}">Aantal</label><input id="Updates_{{ item.key }}" name="updates[]" type="number" value="{{ item.quantity }}" min="0" inputmode="numeric"></div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="cart-summary"><p><span>Subtotaal</span><strong>{{ cart.total_price | money_with_currency }}</strong></p><small>Belastingen en verzending worden berekend bij het afrekenen.</small><div class="cart-actions"><button class="btn btn-glass" type="submit" name="update">Bijwerken</button><button class="btn btn-primary" type="submit" name="checkout">Afrekenen<i class="ph ph-arrow-right" aria-hidden="true"></i></button></div></div>
+      {% endform %}
+    {% endif %}
+  </div>
+</section>
+{% schema %}{ "name": "Winkelwagen", "settings": [] }{% endschema %}

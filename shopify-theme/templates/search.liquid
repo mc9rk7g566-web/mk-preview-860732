@@ -1,0 +1,12 @@
+<div class="wrap" style="padding: 170px 24px 100px;">
+  <h1 class="display" style="font-size: clamp(2rem, 5vw, 3.5rem);">Zoeken</h1>
+  <form action="{{ routes.search_url }}" method="get" class="search-bar" style="margin-top: 30px;">
+    <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Zoek" aria-label="Zoek">
+  </form>
+  {% if search.performed %}
+    {% for item in search.results %}
+      <p style="margin-top: 16px;"><a href="{{ item.url }}">{{ item.title }}</a></p>
+    {% endfor %}
+  {% endif %}
+</div>

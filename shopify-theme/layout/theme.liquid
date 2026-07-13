@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#170a0c">
+    <title>
+      {{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; Pagina {{ current_page }}{% endif %}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}
+    </title>
+    {% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2732%27 fill=%27%237b0d1e%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Arial Black,sans-serif%27 font-size=%2734%27 font-weight=%27900%27 fill=%27%23f4ede4%27 text-anchor=%27middle%27%3EM%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="template-{{ template.name | handle }}">
+    <div class="grain" aria-hidden="true"></div>
+    {% section 'site-header' %}
+    <main id="MainContent" role="main" tabindex="-1">{{ content_for_layout }}</main>
+    {% section 'site-footer' %}
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </body>
+</html>

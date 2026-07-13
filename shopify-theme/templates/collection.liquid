@@ -1,0 +1,12 @@
+<div class="wrap" style="padding: 170px 24px 100px;">
+  <h1 class="display" style="font-size: clamp(2rem, 5vw, 3.5rem);">{{ collection.title }}</h1>
+  <div class="recipe-grid" style="margin-top: 40px;">
+    {% for product in collection.products %}
+      <a class="recipe-card" href="{{ product.url }}">
+        {% if product.featured_image %}<div class="thumb"><img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy"></div>{% endif %}
+        <h3>{{ product.title }}</h3>
+        <p class="meta">{{ product.price | money }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</div>

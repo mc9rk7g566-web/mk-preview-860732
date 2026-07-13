@@ -1,0 +1,81 @@
+{% liquid
+  assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  assign recipe_url = pages['recept'].url | default: '/pages/recept'
+  assign community_url = settings.community_url | default: '#community'
+%}
+<section class="hero">
+  <div class="hero-media">{% render 'responsive-image', image: section.settings.hero_image, fallback: 'hero.jpg', alt: 'Donker gedekte tafel met borden bij kaarslicht', sizes: '100vw', fetchpriority: 'high' %}</div>
+  <div class="hero-content">
+    <h1 class="display"><span class="line"><span>Maarten</span></span><span class="line"><span class="lockup-sub">In de keuken</span></span></h1>
+    <p class="lead hero-sub">Recepten, technieken en de wijn die erbij hoort. Elke week nieuw, rechtstreeks uit de keuken.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#community"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a>
+      <a class="btn btn-glass" href="{{ recipes_url }}">Bekijk recepten</a>
+    </div>
+  </div>
+</section>
+
+<section class="section cream-band">
+  <div class="wrap">
+    <div class="band-head reveal"><h2 class="display">Alles van Maarten, op één plek</h2><p>Nieuwe recepten, keukentechnieken en de fles die erbij hoort.</p></div>
+    <div class="carousel reveal">
+      <div class="carousel-track" tabindex="0" aria-label="Uitgelichte recepten">
+        {% assign featured_images = 'recept-vis.jpg,recept-steak.jpg,recept-pasta.jpg,recept-dessert.jpg' | split: ',' %}
+        {% assign featured_titles = "Zalm met beurre blanc,Ribeye van de plaat,Pasta met gamba's,Karamel en vanille" | split: ',' %}
+        {% assign featured_meta = '30 min · Vis,35 min · Vlees,25 min · Vis,45 min · Zoet' | split: ',' %}
+        {% for title in featured_titles %}
+          <a class="carousel-card" href="{{ recipe_url }}">
+            <img src="{{ featured_images[forloop.index0] | asset_url }}" width="1200" height="900" alt="{{ title | escape }}" loading="lazy">
+            <div class="cc-body"><div><p class="meta">{{ featured_meta[forloop.index0] }}</p><h3>{{ title }}</h3></div><span class="play-pill"><i class="ph ph-play" aria-hidden="true"></i>Bekijk recept</span></div>
+          </a>
+        {% endfor %}
+      </div>
+      <div class="carousel-nav"><button class="carousel-btn" data-prev aria-label="Vorige recepten"><i class="ph ph-arrow-left" aria-hidden="true"></i></button><button class="carousel-btn" data-next aria-label="Volgende recepten"><i class="ph ph-arrow-right" aria-hidden="true"></i></button></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap"><div class="more-grid">
+    <a class="more-card reveal" href="{{ recipes_url }}"><img src="{{ 'recept-ribs.jpg' | asset_url }}" width="1600" height="1068" alt="Spareribs op een houten plank met garnituur" loading="lazy"><div class="mc-label"><h3>Recepten</h3><i class="ph ph-arrow-right" aria-hidden="true"></i></div></a>
+    <a class="more-card reveal" href="#tips"><img src="{{ 'recept-fine.jpg' | asset_url }}" width="1200" height="1800" alt="Handen die groenten fijnsnijden" loading="lazy"><div class="mc-label"><h3>Tips &amp; technieken</h3><i class="ph ph-arrow-right" aria-hidden="true"></i></div></a>
+    <a class="more-card reveal" href="#over"><img src="{{ 'portret.jpg' | asset_url }}" width="1200" height="1847" alt="Maarten aan het werk in de keuken" loading="lazy"><div class="mc-label"><h3>Over Maarten</h3><i class="ph ph-arrow-right" aria-hidden="true"></i></div></a>
+    <a class="more-card reveal" href="#community"><img src="{{ 'wijn-glas.jpg' | asset_url }}" width="1200" height="1783" alt="Glas rode wijn met druiven" loading="lazy"><div class="mc-label"><h3>De groepsapp</h3><i class="ph ph-arrow-right" aria-hidden="true"></i></div></a>
+  </div></div>
+</section>
+
+<section class="section section-band" id="over">
+  <div class="wrap about">
+    <div class="about-media reveal"><img src="{{ 'portret.jpg' | asset_url }}" width="1200" height="1847" alt="Maarten aan het werk in de keuken" loading="lazy"></div>
+    <div class="about-body reveal"><span class="lockup-sub">Over Maarten</span><h2 class="display">In de keuken draait alles om balans</h2><p>Eerlijk product, pure smaken en creatieve gerechten met karakter. Ik kook elke dag en deel wat werkt, van techniek tot de wijn die het gerecht af maakt.</p><p>Geen sterrenkeuken-taal. Wel de kleine dingen die het verschil maken tussen goed en onvergetelijk.</p><a class="btn btn-glass" href="{{ recipes_url }}">Bekijk recepten<i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+  </div>
+</section>
+
+<section class="section" id="tips">
+  <div class="wrap">
+    <div class="section-head reveal"><h2 class="display">Tips &amp; technieken</h2></div>
+    <div class="tips-row reveal">
+      <div class="tip-card has-img"><img src="{{ 'recept-fine.jpg' | asset_url }}" width="1200" height="1800" alt="Handen die groenten fijnsnijden" loading="lazy"><div class="tip-overlay"><h3>Scherp mes, betere smaak</h3><p class="meta">Snijtechniek</p></div></div>
+      <div class="tip-card"><i class="ph ph-fire" aria-hidden="true"></i><h3>Laat de pan heet worden</h3><p>Vlees plakt als de pan te koud is. Wacht tot de olie glanst en leg het er dan pas in. Niet schuiven, laten liggen.</p></div>
+      <div class="tip-card"><i class="ph ph-cooking-pot" aria-hidden="true"></i><h3>Proef terwijl je kookt</h3><p>Breng op smaak in stappen, niet aan het eind. Zout trekt smaak uit je ingrediënten en heeft tijd nodig.</p></div>
+      <div class="tip-card"><i class="ph ph-wine" aria-hidden="true"></i><h3>Kook met de wijn die je drinkt</h3><p>Een gerecht en een glas uit dezelfde streek passen bijna altijd. Zo simpel kan het zijn.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section wine-band" id="community">
+  <div class="wrap wine-grid">
+    <div class="reveal"><h2 class="display">Bij elk recept een wijn die klopt</h2><p>In de groepsapp deel ik wijntips bij de recepten, flessen die ik zelf op tafel zet en data voor proeverijen. Daar hoor je het eerst.</p><a class="btn btn-light" href="{{ community_url }}" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a></div>
+    <div class="wine-media reveal"><img src="{{ 'wijn-donker.jpg' | asset_url }}" width="1200" height="1799" alt="Rode wijn wordt ingeschonken" loading="lazy"></div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    { "type": "image_picker", "id": "hero_image", "label": "Hero-afbeelding" }
+  ],
+  "presets": [{ "name": "Homepage" }]
+}
+{% endschema %}

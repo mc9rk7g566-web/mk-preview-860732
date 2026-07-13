@@ -1,0 +1,12 @@
+{
+  "current": {
+    "landing_mode": true,
+    "contact_email": "info@maartenkookt.nl"
+  },
+  "presets": {
+    "Maarten standaard": {
+      "landing_mode": true,
+      "contact_email": "info@maartenkookt.nl"
+    }
+  }
+}
