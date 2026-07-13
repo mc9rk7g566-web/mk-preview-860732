@@ -666,6 +666,23 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 }
 
 /* --------------------------------------------------------------------------
+   Kookboek/shop
+   -------------------------------------------------------------------------- */
+.book-caption { margin-top: 12px; }
+.shop-note {
+  margin-top: 30px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-card);
+  padding: 24px 28px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.shop-note i { color: var(--tan); font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+.shop-note p { color: var(--cream-2); font-size: 0.92rem; font-weight: 500; line-height: 1.6; }
+.shop-buy { margin-top: 24px; }
+.shop-cta { margin-top: 24px; }
+
+/* --------------------------------------------------------------------------
    Footer: gecentreerd met M-icoon en social-pills (babi.sh-DNA, merk-uitvoering)
    -------------------------------------------------------------------------- */
 .footer { background: var(--ink-2); border-top: 1px solid var(--line); }
