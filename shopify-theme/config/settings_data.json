@@ -1,12 +1,14 @@
 {
   "current": {
     "landing_mode": true,
-    "contact_email": "info@maartenkookt.nl"
+    "contact_email": "info@maartenkookt.nl",
+    "instagram_url": "https://www.instagram.com/maartenkievit"
   },
   "presets": {
     "Maarten standaard": {
       "landing_mode": true,
-      "contact_email": "info@maartenkookt.nl"
+      "contact_email": "info@maartenkookt.nl",
+      "instagram_url": "https://www.instagram.com/maartenkievit"
     }
   }
 }

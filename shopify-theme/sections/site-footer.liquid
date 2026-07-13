@@ -12,7 +12,7 @@
 %}
 <footer class="footer">
   <div class="footer-inner">
-    <span class="m-icon" aria-hidden="true">M</span>
+    <img class="m-icon" src="{{ 'mk-icoon-bordeaux.svg' | asset_url }}" alt="Maarten kookt" width="64" height="64">
     <a class="wordmark" href="{{ routes.root_url }}"><span class="wm-name">Maarten</span><span class="wm-sub">In de keuken</span></a>
     <ul class="footer-links">
       <li><a href="/pages/recepten">recepten</a></li>
@@ -22,11 +22,11 @@
       <li><a href="{{ community_url }}" rel="noopener">de groepsapp</a></li>
       <li><a href="mailto:{{ settings.contact_email }}">contact</a></li>
     </ul>
+    {% if settings.instagram_url != blank %}
     <div class="socials">
-      {% if settings.instagram_url != blank %}<a href="{{ settings.instagram_url }}" aria-label="Instagram" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>{% endif %}
-      {% if settings.youtube_url != blank %}<a href="{{ settings.youtube_url }}" aria-label="YouTube" rel="noopener"><i class="ph ph-youtube-logo" aria-hidden="true"></i></a>{% endif %}
-      {% if settings.tiktok_url != blank %}<a href="{{ settings.tiktok_url }}" aria-label="TikTok" rel="noopener"><i class="ph ph-tiktok-logo" aria-hidden="true"></i></a>{% endif %}
+      <a href="{{ settings.instagram_url }}" target="_blank" aria-label="Instagram" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
     </div>
+    {% endif %}
     <p class="footer-note">Binnenkort: het eerste kookboek. De groepsapp weet het eerst.</p>
     <div class="footer-bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} Maarten, in de keuken</span>

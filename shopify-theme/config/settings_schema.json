@@ -14,9 +14,7 @@
       { "type": "product", "id": "cookbook_product", "label": "Kookboekproduct" },
       { "type": "url", "id": "community_url", "label": "Link groepsapp" },
       { "type": "text", "id": "contact_email", "label": "Contact e-mail", "default": "info@maartenkookt.nl" },
-      { "type": "url", "id": "instagram_url", "label": "Instagram" },
-      { "type": "url", "id": "youtube_url", "label": "YouTube" },
-      { "type": "url", "id": "tiktok_url", "label": "TikTok" }
+      { "type": "url", "id": "instagram_url", "label": "Instagram", "info": "Bijv. https://www.instagram.com/maartenkievit" }
     ]
   }
 ]
