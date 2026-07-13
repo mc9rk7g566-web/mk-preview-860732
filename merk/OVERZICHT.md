@@ -36,4 +36,4 @@
 ## Nog te doen
 - Merk-intakevragen naar Maarten → `klanten/Maarten-Kievit/06_MERK-INTAKE-VRAGEN.md` (in het Mainframe)
 - Echte content: foto's/video's van Maarten, echte recepten, WhatsApp-invitelink
-- Instagram staat gekoppeld aan **@maartenkievit**; YouTube/TikTok nog niet (bewust weg)
+- Instagram staat gekoppeld aan **@maarten.kievit**; YouTube/TikTok nog niet (bewust weg)

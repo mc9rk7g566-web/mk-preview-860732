@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Maarten in de keuken",
+    "theme_name": "Maarten kookt",
     "theme_version": "1.0.0",
     "theme_author": "JS - Crest",
     "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
-    "theme_support_url": "mailto:hallo@maartenindekeuken.nl"
+    "theme_support_url": "mailto:info@maartenkookt.nl"
   },
   {
     "name": "Navigatie en contact",
@@ -14,7 +14,7 @@
       { "type": "product", "id": "cookbook_product", "label": "Kookboekproduct" },
       { "type": "url", "id": "community_url", "label": "Link groepsapp" },
       { "type": "text", "id": "contact_email", "label": "Contact e-mail", "default": "info@maartenkookt.nl" },
-      { "type": "url", "id": "instagram_url", "label": "Instagram", "info": "Bijv. https://www.instagram.com/maartenkievit" }
+      { "type": "url", "id": "instagram_url", "label": "Instagram", "info": "Bijv. https://www.instagram.com/maarten.kievit" }
     ]
   }
 ]
