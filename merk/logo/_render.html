@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Render</title>
+<style>
+  html, body { margin: 0; height: 100%; }
+  body { display: flex; align-items: center; justify-content: center; }
+  img { width: 86%; height: auto; display: block; }
+  body.vullend img { width: 62%; }
+</style>
+</head>
+<body>
+<script>
+  const p = new URLSearchParams(location.search);
+  document.body.style.background = '#' + (p.get('bg') || 'F4EDE4');
+  if (p.get('m') === 'icoon') document.body.classList.add('vullend');
+  const img = document.createElement('img');
+  img.src = p.get('f');
+  document.body.appendChild(img);
+</script>
+</body>
+</html>

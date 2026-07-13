@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merkgids | Maarten kookt</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2732%27 fill=%27%237b0d1e%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-family=%27Arial Black,sans-serif%27 font-size=%2734%27 font-weight=%27900%27 fill=%27%23f4ede4%27 text-anchor=%27middle%27%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #170a0c; --ink-2: #1f0e11; --surface: #2a1317;
+    --line: rgba(244,237,228,.14);
+    --cream: #f4ede4; --cream-2: #e5d9c6; --tan: #cdb998;
+    --bordeaux: #7b0d1e; --bordeaux-2: #b31b2b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--ink); color: var(--cream); font-family: Montserrat, sans-serif; font-size: 1rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  ::selection { background: var(--bordeaux-2); color: var(--cream); }
+  img { display: block; max-width: 100%; }
+  .display { font-family: 'Lilita One', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: .012em; line-height: 1.05; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  h2.display { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--cream); margin-bottom: 8px; }
+  .sectienr { color: var(--tan); font-size: .8rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; }
+  p.intro { color: var(--cream-2); max-width: 62ch; margin-top: 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 36px; }
+  @media (max-width: 760px) { .grid2, .grid3, .grid4 { grid-template-columns: 1fr; } }
+  .kaart { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--surface); }
+  .kaart .vlak { display: flex; align-items: center; justify-content: center; padding: 40px; min-height: 200px; }
+  .vlak.creme { background: var(--cream); }
+  .vlak.donker { background: var(--ink-2); }
+  .vlak.bordeaux { background: var(--bordeaux); }
+  .kaart figcaption { padding: 14px 18px; font-size: .82rem; font-weight: 500; color: var(--tan); border-top: 1px solid var(--line); }
+  .kaart img { max-height: 140px; width: auto; max-width: 88%; }
+
+  /* Cover */
+  .cover { min-height: 92vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border-bottom: 1px solid var(--line); padding: 60px 24px; }
+  .cover img { width: min(520px, 80vw); }
+  .cover .tagline { margin-top: 40px; color: var(--tan); letter-spacing: .3em; text-transform: uppercase; font-size: .85rem; font-weight: 600; }
+  .cover .meta-regel { margin-top: 10px; color: var(--cream-2); font-size: .85rem; }
+
+  /* Kleuren */
+  .swatch { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+  .swatch .kleur { height: 130px; }
+  .swatch .info { padding: 14px 16px; background: var(--surface); font-size: .82rem; }
+  .swatch .info strong { display: block; color: var(--cream); font-size: .95rem; }
+  .swatch .info span { color: var(--tan); font-weight: 500; }
+
+  /* Typografie */
+  .specimen { border: 1px solid var(--line); border-radius: 18px; padding: 34px; margin-top: 24px; background: var(--ink-2); }
+  .specimen .label { color: var(--tan); font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 14px; }
+  .specimen .voorbeeld-display { font-family: 'Lilita One', sans-serif; text-transform: uppercase; font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05; }
+  .specimen .voorbeeld-body { font-size: 1.05rem; max-width: 60ch; color: var(--cream-2); }
+  .schaal { margin-top: 14px; color: var(--cream-2); font-size: .88rem; }
+  .schaal code { color: var(--tan); font-family: monospace; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 30px; font-size: .92rem; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--tan); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+  td:first-child { color: var(--cream); font-weight: 600; white-space: nowrap; }
+  td { color: var(--cream-2); }
+
+  .paneel { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+  @media (max-width: 760px) { .paneel { grid-template-columns: 1fr; } }
+  .paneel .kolom { border-radius: 18px; padding: 28px; }
+  .paneel .wel { background: var(--surface); border: 1px solid var(--line); }
+  .paneel .niet { background: var(--bordeaux); }
+  .paneel h3 { font-family: 'Lilita One', sans-serif; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 14px; }
+  .paneel ul { list-style: none; }
+  .paneel li { padding: 7px 0; font-size: .92rem; font-weight: 500; }
+  .paneel .wel li { color: var(--cream-2); }
+  .paneel .niet li { color: rgba(244,237,228,.9); }
+  .paneel li::before { content: "\2014\00a0"; color: var(--tan); }
+  .paneel .niet li::before { color: rgba(244,237,228,.6); }
+
+  .fotorij { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+  @media (max-width: 760px) { .fotorij { grid-template-columns: 1fr; } }
+  .fotorij img { border-radius: 14px; aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+
+  footer { padding: 60px 24px; text-align: center; color: var(--tan); font-size: .82rem; }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    body { background: var(--ink) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    nav { display: none; }
+    .fade { opacity: 1 !important; }
+    section { page-break-inside: avoid; }
+    .cover { page-break-after: always; min-height: 95vh; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="cover">
+    <img src="logo/lockup-primair-creme.svg" alt="Maarten, in de keuken">
+    <p class="tagline">Passie. Smaak. Vakmanschap.</p>
+    <p class="meta-regel">Merkgids v1 &middot; juli 2026 &middot; maartenkookt.nl</p>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">01 &middot; Het merk in één zin</p>
+      <h2 class="display">Eerlijk koken, met de wijn die erbij hoort</h2>
+      <p class="intro">Maarten kookt elke dag en deelt wat werkt: eerlijke recepten, technieken die je meteen kunt gebruiken en bij elk gerecht de fles die het af maakt. Geen sterrenkeuken-taal, wel vakmanschap. Het merk is warm, donker en zelfverzekerd: het eten is altijd het felste op het scherm.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">02 &middot; Logo-systeem</p>
+      <h2 class="display">Vier vormen, één merk</h2>
+      <p class="intro">Alle logo's zijn opgebouwd uit Lilita One, als vector uitgesneden. Gebruik altijd de aangeleverde bestanden (SVG voor drukwerk en schaalbaar gebruik, 4K-PNG voor social en video), nooit zelf nagezet.</p>
+      <div class="grid2">
+        <figure class="kaart"><div class="vlak donker"><img src="logo/lockup-primair-creme.svg" alt="Primair lockup, crème op donker"></div><figcaption>Primair &middot; lockup met streepjes &middot; op donker en op foto's</figcaption></figure>
+        <figure class="kaart"><div class="vlak creme"><img src="logo/lockup-primair-bordeaux.svg" alt="Primair lockup, bordeaux op crème"></div><figcaption>Primair &middot; bordeaux op crème</figcaption></figure>
+        <figure class="kaart"><div class="vlak creme"><img src="logo/wordmark-maartenkookt-bordeaux.svg" alt="Wordmark Maarten kookt"></div><figcaption>Wordmark &middot; voor smalle toepassingen (mail, banner)</figcaption></figure>
+        <figure class="kaart"><div class="vlak donker"><img src="logo/wordmark-maartenkookt-creme.svg" alt="Wordmark Maarten kookt, crème"></div><figcaption>Wordmark &middot; crème op donker</figcaption></figure>
+        <figure class="kaart"><div class="vlak creme" style="gap: 40px;"><img src="logo/mk-icoon-bordeaux.svg" alt="MK-icoon bordeaux" style="max-height: 120px;"><img src="logo/mk-monogram-bordeaux.svg" alt="MK-monogram bordeaux" style="max-height: 90px;"></div><figcaption>Icoon + monogram &middot; MK staat voor Maarten kookt &middot; avatar, favicon, watermerk</figcaption></figure>
+        <figure class="kaart"><div class="vlak donker" style="gap: 40px;"><img src="logo/mk-icoon-creme.svg" alt="MK-icoon crème" style="max-height: 120px;"><img src="logo/mk-monogram-creme.svg" alt="MK-monogram crème" style="max-height: 90px;"></div><figcaption>Icoon + monogram &middot; op donker</figcaption></figure>
+      </div>
+      <table>
+        <tr><th>Regel</th><th>Waarom</th></tr>
+        <tr><td>Vrije ruimte</td><td>Houd rondom het logo minimaal de hoogte van de letter M vrij van andere elementen.</td></tr>
+        <tr><td>Kleuren</td><td>Alleen bordeaux op crème, of crème op donker/bordeaux/foto. Nooit twee kleuren in één logo, nooit andere kleuren.</td></tr>
+        <tr><td>Op foto's</td><td>Alleen de crème-versie, en alleen op rustige, donkere delen van het beeld.</td></tr>
+        <tr><td>Niet doen</td><td>Niet roteren, uitrekken, van schaduw of contour voorzien, of opnieuw zetten in een ander font.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">03 &middot; Kleur</p>
+      <h2 class="display">Bordeaux is het accent, niet het behang</h2>
+      <p class="intro">Het palet is warm en donker. Bordeaux markeert knoppen, actieve staten en het wijnmoment, en staat nooit als groot vlak naast foodfotografie: het eten levert de kleur, de chrome blijft stil.</p>
+      <div class="grid4">
+        <div class="swatch"><div class="kleur" style="background: #7b0d1e;"></div><div class="info"><strong>#7B0D1E</strong><span>Bordeaux &middot; banden, wijnmoment</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #b31b2b;"></div><div class="info"><strong>#B31B2B</strong><span>Bordeaux helder &middot; knoppen, actief</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #f4ede4;"></div><div class="info"><strong>#F4EDE4</strong><span>Crème &middot; tekst op donker, lichte band</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #e5d9c6;"></div><div class="info"><strong>#E5D9C6</strong><span>Crème 2 &middot; secundaire tekst</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #cdb998;"></div><div class="info"><strong>#CDB998</strong><span>Tan &middot; meta, labels, streepjes</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #170a0c;"></div><div class="info"><strong>#170A0C</strong><span>Bordeaux-zwart &middot; canvas</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #1f0e11;"></div><div class="info"><strong>#1F0E11</strong><span>Donker 2 &middot; sectiebanden</span></div></div>
+        <div class="swatch"><div class="kleur" style="background: #2a1317;"></div><div class="info"><strong>#2A1317</strong><span>Surface &middot; kaarten, invoervelden</span></div></div>
+      </div>
+      <table>
+        <tr><th>Regel</th><th>Uitleg</th></tr>
+        <tr><td>Nooit puur zwart of wit</td><td>Altijd #170A0C en #F4EDE4. Puur #000/#FFF oogt hard en goedkoop naast foodfotografie.</td></tr>
+        <tr><td>Accent spaarzaam</td><td>Bordeaux-helder alleen op het primaire actie-niveau. Terughoudendheid leest als duur.</td></tr>
+        <tr><td>Eén licht moment</td><td>De crème-band is het ene bewuste kleurblok per pagina, nooit afwisselend licht/donker.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">04 &middot; Typografie</p>
+      <h2 class="display">Eén stem: Lilita One</h2>
+      <p class="intro">Koppen, kaarttitels en het logo spreken allemaal in Lilita One, altijd in kapitalen. Montserrat doet het leeswerk. Meer gewichten of families zijn er niet: de hiërarchie komt uit grootte, niet uit gewicht.</p>
+      <div class="specimen">
+        <p class="label">Display &middot; Lilita One &middot; uppercase</p>
+        <p class="voorbeeld-display">Ribeye van de plaat</p>
+        <p class="schaal">Schaal: hero <code>clamp(3.4&ndash;8.5rem)</code> &middot; sectiekop <code>1.9&ndash;3.4rem</code> &middot; kaarttitel <code>1.15rem</code></p>
+      </div>
+      <div class="specimen">
+        <p class="label">Body &middot; Montserrat 400/500/600</p>
+        <p class="voorbeeld-body">Haal de zalm een half uur voor het bakken uit de koelkast en dep het vel goed droog. Droog vel wordt krokant vel.</p>
+        <p class="schaal">Body <code>1rem / lh 1.75</code> &middot; lead <code>1&ndash;1.15rem, gewicht 500</code> &middot; meta/labels <code>0.8125rem, gewicht 500&ndash;600, tan</code></p>
+      </div>
+      <table>
+        <tr><th>Regel</th><th>Uitleg</th></tr>
+        <tr><td>Kapitalen</td><td>Lilita One altijd uppercase. Nooit in lopende tekst gebruiken.</td></tr>
+        <tr><td>Navigatie</td><td>Navigatielinks in Montserrat 600, kleine letters (contrast met de kapitalen erboven).</td></tr>
+        <tr><td>Streepjes-lockup</td><td>Sublabels tussen twee korte streepjes (zoals in het logo) zijn een merk-element; spaarzaam gebruiken, maximaal één per scherm.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">05 &middot; Fotografie</p>
+      <h2 class="display">Donker, warm en dichtbij</h2>
+      <p class="intro">Beeld is de enige kleurbron naast het palet. Donkere ondergronden, warm licht, het gerecht scherp en dichtbij. Geen felle studioverlichting, geen witte achtergronden, geen AI-gegenereerd voedsel.</p>
+      <div class="fotorij">
+        <img src="../img/recept-vis.jpg" alt="Voorbeeld: zalm op donker bord">
+        <img src="../img/wijn-donker.jpg" alt="Voorbeeld: wijn wordt ingeschonken">
+        <img src="../img/portret.jpg" alt="Voorbeeld: Maarten aan het werk onder warme lampen">
+      </div>
+      <table>
+        <tr><th>Wel</th><th>Niet</th></tr>
+        <tr><td>Warm strijklicht, diepe schaduwen, hout en leisteen</td><td>Flitslicht, witte of drukke achtergronden</td></tr>
+        <tr><td>Handen, stoom, beweging: er wordt écht gekookt</td><td>Steriele stockfoto's zonder mens</td></tr>
+        <tr><td>Wijn in het beeldverhaal (glas, fles, inschenken)</td><td>AI-gegenereerd eten of nep-perfectie</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">06 &middot; Grafische elementen</p>
+      <h2 class="display">De details die het af maken</h2>
+      <div class="grid3">
+        <div class="kaart"><div class="vlak donker"><span class="display" style="font-size: .95rem; color: #cdb998; letter-spacing: .28em; display: inline-flex; align-items: center; gap: 12px;"><span style="width: 30px; height: 2px; background: #cdb998;"></span>IN DE KEUKEN<span style="width: 30px; height: 2px; background: #cdb998;"></span></span></div><figcaption>Streepjes-lockup voor sublabels</figcaption></div>
+        <div class="kaart"><div class="vlak donker"><span style="background: #b31b2b; color: #f4ede4; border-radius: 999px; padding: 14px 28px; font-weight: 600; font-size: .9rem;">Proef mee</span></div><figcaption>Pill-vorm voor alles wat klikbaar is</figcaption></div>
+        <div class="kaart"><div class="vlak donker" style="background: #170a0c url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27160%27 height=%27160%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%272%27/%3E%3C/filter%3E%3Crect width=%27160%27 height=%27160%27 filter=%27url(%23n)%27 opacity=%270.18%27/%3E%3C/svg%3E');"><span style="color: #cdb998; font-size: .85rem; font-weight: 500;">subtiele filmkorrel</span></div><figcaption>Grain-textuur op donkere vlakken (±5%)</figcaption></div>
+      </div>
+      <table>
+        <tr><th>Regel</th><th>Uitleg</th></tr>
+        <tr><td>Vorm = functie</td><td>Volledig rond (pill) betekent klikbaar. Kaarten en media: hoekradius 24px. Geen andere radii.</td></tr>
+        <tr><td>Geen schaduwen</td><td>Diepte komt van kleurbanden en frosted glass op foto's, nooit van slagschaduwen.</td></tr>
+        <tr><td>Iconen</td><td>Phosphor (regular). Nooit emoji in merkuitingen.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">07 &middot; Stem &amp; toon</p>
+      <h2 class="display">Eerlijk, direct, zonder poespas</h2>
+      <div class="paneel">
+        <div class="kolom wel">
+          <h3>Zo klinken we</h3>
+          <ul>
+            <li>Korte zinnen. Direct aanspreken ("dep het vel droog").</li>
+            <li>Vakmanschap uitgelegd in gewone woorden.</li>
+            <li>Waarom erbij: "droog vel wordt krokant vel".</li>
+            <li>Warm en gastvrij: "proef mee", "de tafel is gedekt".</li>
+            <li>Nederlands, kleine letters in navigatie, kapitalen in koppen.</li>
+          </ul>
+        </div>
+        <div class="kolom niet">
+          <h3>Zo nooit</h3>
+          <ul>
+            <li>Sterrenkeuken-jargon of chef-Frans zonder uitleg.</li>
+            <li>Superlatieven en beloftes ("de beste", "ultiem", "geheim").</li>
+            <li>Verzonnen cijfers, views of testimonials.</li>
+            <li>Uitroeptekens stapelen, emoji in merkuitingen.</li>
+            <li>"100% / gegarandeerd / viraal" en vergelijkbare claims.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="sectienr">08 &middot; Eerlijkheid</p>
+      <h2 class="display">Wat we claimen en wat niet</h2>
+      <div class="paneel">
+        <div class="kolom wel">
+          <h3>Wat we claimen</h3>
+          <ul>
+            <li>Maarten kookt elke dag en deelt echte recepten en technieken.</li>
+            <li>Bij elk recept hoort een wijntip: dat is het handelsmerk.</li>
+            <li>Wat we leveren (output), nooit wat het oplevert (outcome).</li>
+          </ul>
+        </div>
+        <div class="kolom niet">
+          <h3>Wat we nooit claimen</h3>
+          <ul>
+            <li>Volgers-, views- of verkoopcijfers (nog niet gemeten: UNVERIFIED).</li>
+            <li>Testimonials of reviews (bestaan nog niet: UNVERIFIED).</li>
+            <li>Resultaatbeloftes over smaak, gezondheid of succes.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="intro" style="margin-top: 28px;">Open gaten (bewust niet ingevuld): merkverhaal in Maartens eigen woorden, de ideale kijker/koper, en de argumentlijn richting kookboek-verkoop. Die volgen uit een gesprek met Maarten, niet uit aannames.</p>
+    </div>
+  </section>
+
+  <footer>
+    Merkgids Maarten kookt &middot; v1 &middot; juli 2026 &middot; opgesteld door JS - Crest &middot; Passie. Smaak. Vakmanschap.
+  </footer>
+
+</body>
+</html>
