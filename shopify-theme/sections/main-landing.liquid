@@ -1,52 +1,71 @@
 {% comment %}
   Landing: één doel, e-mailadres achterlaten. Het klantformulier zet inschrijvingen
   automatisch als e-mailabonnee in Shopify (Klanten → abonnees → Shopify Email).
+  Alle teksten + de hero-foto zijn aanpasbaar via Online Store → Themes → Customize
+  (geen code nodig). De merknaam "Maarten Kookt" blijft vast (dat is het logo/merk).
 {% endcomment %}
 
 <section class="hero">
   <div class="hero-media">
-    <img src="{{ 'hero.jpg' | asset_url }}" alt="Donker gedekte tafel met borden bij kaarslicht" fetchpriority="high" width="2400" height="1600">
+    {% if section.settings.hero_image %}
+      <img src="{{ section.settings.hero_image | image_url: width: 2400 }}"
+           srcset="{{ section.settings.hero_image | image_url: width: 1200 }} 1200w,
+                   {{ section.settings.hero_image | image_url: width: 2400 }} 2400w"
+           sizes="100vw"
+           alt="{{ section.settings.hero_image.alt | default: 'Maarten kookt' | escape }}"
+           fetchpriority="high" width="2400" height="1600">
+    {% else %}
+      <img src="{{ 'hero.jpg' | asset_url }}" alt="Donker gedekte tafel met borden bij kaarslicht" fetchpriority="high" width="2400" height="1600">
+    {% endif %}
   </div>
   <div class="hero-content">
+    {% if section.settings.kicker != blank %}<p class="meta hero-kicker">{{ section.settings.kicker }}</p>{% endif %}
     <h1 class="display">
       <span class="line"><span>Maarten</span></span>
       <span class="line"><span class="lockup-sub">Kookt</span></span>
     </h1>
     <p class="lead hero-sub">{{ section.settings.subtekst }}</p>
 
-    {% form 'customer', class: 'signup-form', id: 'landing-signup' %}
-      {% if form.posted_successfully? %}
-        <p class="form-success">Je staat op de lijst. Je hoort het als eerste.</p>
-      {% else %}
-        <input type="hidden" name="contact[tags]" value="nieuwsbrief, landing">
-        <input type="email" name="contact[email]" placeholder="je e-mailadres" required aria-label="E-mailadres" autocomplete="email">
-        <button type="submit" class="btn btn-primary">Houd me op de hoogte</button>
-        {% if form.errors %}
-          <p class="form-error">Controleer je e-mailadres en probeer het nog eens.</p>
-        {% endif %}
-      {% endif %}
-    {% endform %}
-    <p class="signup-note">Alleen een berichtje als er echt iets is. Uitschrijven kan altijd.</p>
+    <div class="signup{% if form.posted_successfully? %} is-done{% endif %}" data-signup>
+      <div class="signup-live">
+        {% form 'customer', class: 'signup-form', id: 'landing-signup' %}
+          <input type="hidden" name="contact[tags]" value="nieuwsbrief, landing">
+          <input type="email" name="contact[email]" placeholder="je mailadres" required aria-label="E-mailadres" autocomplete="email">
+          <button type="submit" class="btn btn-primary">{{ section.settings.button_label }}</button>
+          {% if form.errors %}<p class="form-error">Controleer je mailadres en probeer het nog eens.</p>{% endif %}
+        {% endform %}
+        {% if section.settings.note_text != blank %}<p class="signup-note">{{ section.settings.note_text }}</p>{% endif %}
+      </div>
+      <div class="signup-done" aria-live="polite">
+        <span class="signup-done-mark"><i class="ph ph-check" aria-hidden="true"></i></span>
+        <p class="signup-done-title">Je hoort erbij</p>
+        <p class="signup-done-text">{{ section.settings.success_text }}</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section cream-band">
   <div class="wrap">
+    <div class="band-head">
+      <h2 class="display">{{ section.settings.band_heading }}</h2>
+      <p>{{ section.settings.band_subtext }}</p>
+    </div>
     <div class="coming-grid">
       <div class="coming-item reveal">
         <i class="ph ph-fork-knife" aria-hidden="true"></i>
-        <h3>Recepten</h3>
-        <p>Van koud voorgerecht tot toetje, geschreven zoals Maarten kookt.</p>
+        <h3>{{ section.settings.item1_title }}</h3>
+        <p>{{ section.settings.item1_text }}</p>
       </div>
       <div class="coming-item reveal">
         <i class="ph ph-video-camera" aria-hidden="true"></i>
-        <h3>Kookvideo's</h3>
-        <p>Elke week nieuw, rechtstreeks uit de keuken.</p>
+        <h3>{{ section.settings.item2_title }}</h3>
+        <p>{{ section.settings.item2_text }}</p>
       </div>
       <div class="coming-item reveal">
         <i class="ph ph-wine" aria-hidden="true"></i>
-        <h3>Wijntips</h3>
-        <p>Bij elk gerecht de fles die erbij hoort.</p>
+        <h3>{{ section.settings.item3_title }}</h3>
+        <p>{{ section.settings.item3_text }}</p>
       </div>
     </div>
   </div>
@@ -56,12 +75,26 @@
 {
   "name": "Landing",
   "settings": [
-    {
-      "type": "text",
-      "id": "subtekst",
-      "label": "Subtekst in de hero",
-      "default": "Binnenkort: recepten, technieken en de wijn die erbij hoort. Laat je e-mailadres achter en hoor het als eerste."
-    }
+    { "type": "header", "content": "Achtergrondfoto" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero-foto (grote achtergrond)", "info": "Laat leeg voor de standaardfoto." },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "kicker", "label": "Kleine tekst bovenaan", "default": "Binnenkort online" },
+    { "type": "textarea", "id": "subtekst", "label": "Subtitel", "default": "Elke week een nieuw recept, de techniek erachter én de wijn die erbij hoort. Laat je e-mailadres achter, dan ben je er als eerste bij." },
+    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Ik wil erbij zijn" },
+    { "type": "text", "id": "note_text", "label": "Tekst onder de knop", "default": "Alleen een bericht als er echt iets nieuws is. Geen spam, uitschrijven kan altijd." },
+    { "type": "text", "id": "success_text", "label": "Bedanktekst na inschrijven", "default": "Gelukt — je staat op de lijst. Je hoort het als eerste." },
+    { "type": "header", "content": "Blok 'Wat je binnenkort krijgt'" },
+    { "type": "text", "id": "band_heading", "label": "Kop", "default": "Wat je binnenkort krijgt" },
+    { "type": "textarea", "id": "band_subtext", "label": "Ondertekst", "default": "Geen nieuwsbrief vol reclame — wél de dingen waar je in de keuken écht iets aan hebt." },
+    { "type": "header", "content": "Item 1" },
+    { "type": "text", "id": "item1_title", "label": "Titel", "default": "Recepten" },
+    { "type": "textarea", "id": "item1_text", "label": "Tekst", "default": "Van koud voorgerecht tot toetje, geschreven zoals Maarten kookt." },
+    { "type": "header", "content": "Item 2" },
+    { "type": "text", "id": "item2_title", "label": "Titel", "default": "Kookvideo's" },
+    { "type": "textarea", "id": "item2_text", "label": "Tekst", "default": "Elke week nieuw, rechtstreeks uit de keuken." },
+    { "type": "header", "content": "Item 3" },
+    { "type": "text", "id": "item3_title", "label": "Titel", "default": "Wijntips" },
+    { "type": "textarea", "id": "item3_text", "label": "Tekst", "default": "Bij elk gerecht de fles die erbij hoort." }
   ],
   "presets": [{ "name": "Landing" }]
 }

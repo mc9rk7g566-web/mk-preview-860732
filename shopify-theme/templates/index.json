@@ -1,4 +1,23 @@
 {
-  "sections": { "main": { "type": "main-landing", "settings": {} } },
+  "sections": {
+    "main": {
+      "type": "main-landing",
+      "settings": {
+        "kicker": "Binnenkort",
+        "subtekst": "Maarten deelt hier binnenkort zijn gerechten en de wijnen die er precies bij passen. Laat je mailadres achter, dan hoor jij het als eerste.",
+        "button_label": "Ik wil erbij zijn",
+        "note_text": "We mailen je alleen als er echt iets te melden is. Uitschrijven kan altijd.",
+        "success_text": "Je staat op de lijst. Zodra Maarten begint, ben jij een van de eersten die het hoort.",
+        "band_heading": "Wat je binnenkort krijgt",
+        "band_subtext": "Geen nieuwsbrief vol reclame, maar de dingen waar je in de keuken echt iets aan hebt.",
+        "item1_title": "Recepten",
+        "item1_text": "Van voorgerecht tot toetje, geschreven zoals Maarten kookt.",
+        "item2_title": "Kookvideo's",
+        "item2_text": "Elke week nieuw, rechtstreeks uit de keuken.",
+        "item3_title": "Wijntips",
+        "item3_text": "Bij elk gerecht de fles die erbij hoort."
+      }
+    }
+  },
   "order": ["main"]
 }

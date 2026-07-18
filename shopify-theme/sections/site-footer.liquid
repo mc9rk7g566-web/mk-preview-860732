@@ -14,6 +14,7 @@
   <div class="footer-inner">
     <img class="m-icon" src="{{ 'mk-icoon-bordeaux.svg' | asset_url }}" alt="Maarten kookt" width="64" height="64">
     <a class="wordmark" href="{{ routes.root_url }}"><span class="wm-name">Maarten</span><span class="wm-sub">Kookt</span></a>
+    {% unless settings.landing_mode %}
     <ul class="footer-links">
       <li><a href="/pages/recepten">recepten</a></li>
       <li><a href="{{ routes.root_url }}#tips">tips &amp; technieken</a></li>
@@ -22,12 +23,17 @@
       <li><a href="{{ community_url }}" rel="noopener">de groepsapp</a></li>
       <li><a href="mailto:{{ settings.contact_email }}">contact</a></li>
     </ul>
+    {% endunless %}
     {% if settings.instagram_url != blank %}
     <div class="socials">
       <a href="{{ settings.instagram_url }}" target="_blank" aria-label="Instagram" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
     </div>
     {% endif %}
+    {% if settings.landing_mode %}
+    <p class="footer-note"><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
+    {% else %}
     <p class="footer-note">Binnenkort: het eerste kookboek. De groepsapp weet het eerst.</p>
+    {% endif %}
     <div class="footer-bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} Maarten kookt</span>
       <span class="tagline">Passie. Smaak. Vakmanschap.</span>
