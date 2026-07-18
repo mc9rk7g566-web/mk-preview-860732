@@ -26,10 +26,11 @@
     </h1>
     <p class="lead hero-sub">{{ section.settings.subtekst }}</p>
 
-    <div class="signup{% if form.posted_successfully? %} is-done{% endif %}" data-signup>
+    <div class="signup" data-signup>
       <div class="signup-live">
         {% form 'customer', class: 'signup-form', id: 'landing-signup' %}
           <input type="hidden" name="contact[tags]" value="nieuwsbrief, landing">
+          <input type="hidden" name="return_to" value="/#landing-signup">
           <input type="email" name="contact[email]" placeholder="je mailadres" required aria-label="E-mailadres" autocomplete="email">
           <button type="submit" class="btn btn-primary">{{ section.settings.button_label }}</button>
           {% if form.errors %}<p class="form-error">Controleer je mailadres en probeer het nog eens.</p>{% endif %}

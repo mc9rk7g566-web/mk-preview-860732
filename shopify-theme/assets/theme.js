@@ -62,20 +62,18 @@
     }, { passive: true });
   }
 
-  /* ---- Inschrijven: AJAX-submit + soepele overgang naar bedankstaat (geen paginaherlaad) ---- */
+  /* ---- Inschrijven: native submit (Shopify's spam-check/captcha moet de POST afhandelen;
+         een AJAX-fetch omzeilt die en dan wordt de inschrijving stil geweigerd).
+         Na terugkeer met ?customer_posted=true tonen we de bedankstaat. ---- */
   var signupWrap = document.querySelector("[data-signup]");
   var signupForm = document.getElementById("landing-signup");
-  if (signupWrap && signupForm && !signupWrap.classList.contains("is-done")) {
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+  if (signupWrap && signupForm) {
+    if (window.location.search.indexOf("customer_posted=true") !== -1) {
+      signupWrap.classList.add("is-done");
+    }
+    signupForm.addEventListener("submit", function () {
       var btn = signupForm.querySelector("button[type=submit]");
-      if (btn) { btn.disabled = true; btn.setAttribute("aria-busy", "true"); }
-      var reveal = function () { signupWrap.classList.add("is-done"); };
-      fetch(signupForm.action, {
-        method: "POST",
-        body: new FormData(signupForm),
-        headers: { "Accept": "text/html" }
-      }).then(reveal).catch(reveal);
+      if (btn) { btn.setAttribute("aria-busy", "true"); }
     });
   }
 
