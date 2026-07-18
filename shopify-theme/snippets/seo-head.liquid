@@ -1,0 +1,60 @@
+{%- comment -%}
+  SEO-head: meta description (met fallback), Open Graph/Twitter-tags en JSON-LD.
+  Gerenderd vanuit layout/theme.liquid. Homepage-titel/-description die Job in
+  Shopify-admin zet (Online Store → Voorkeuren) blijft altijd leidend.
+{%- endcomment -%}
+{%- liquid
+  assign fallback_description = 'Maarten Kookt: recepten, keukentechnieken en de wijn die erbij hoort. Elke week nieuw, rechtstreeks uit de keuken van Maarten Kievit.'
+  assign meta_description = page_description | default: fallback_description
+
+  assign og_image = 'hero.jpg' | asset_url
+  if template.name == 'product' and product.featured_image
+    assign og_image = product.featured_image | image_url: width: 1200
+  endif
+  unless og_image contains 'https:'
+    assign og_image = og_image | prepend: 'https:'
+  endunless
+-%}
+<meta name="description" content="{{ meta_description | escape }}">
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+<meta property="og:description" content="{{ meta_description | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{{ og_image }}">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+{%- if template.name == 'index' -%}
+{%- liquid
+  assign portret = 'portret.jpg' | asset_url
+  unless portret contains 'https:'
+    assign portret = portret | prepend: 'https:'
+  endunless
+-%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "{{ shop.url }}/#website",
+        "url": "{{ shop.url }}",
+        "name": "Maarten Kookt",
+        "alternateName": "Maarten kookt",
+        "inLanguage": "nl",
+        "publisher": { "@id": "{{ shop.url }}/#maarten" }
+      },
+      {
+        "@type": "Person",
+        "@id": "{{ shop.url }}/#maarten",
+        "name": "Maarten Kievit",
+        "alternateName": "Maarten Kookt",
+        "description": "Kok. Deelt recepten, keukentechnieken en wijntips die erbij passen.",
+        "url": "{{ shop.url }}",
+        "image": "{{ portret }}"{% if settings.instagram_url != blank %},
+        "sameAs": ["{{ settings.instagram_url }}"]{% endif %}
+      }
+    ]
+  }
+</script>
+{%- endif -%}

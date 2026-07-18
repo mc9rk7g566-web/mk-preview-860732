@@ -56,6 +56,16 @@ a { color: inherit; text-decoration: none; }
   border-radius: 4px;
 }
 
+/* Skip-link: verborgen tot toetsenbord-focus (a11y), niet zichtbaar in beeld */
+.skip-link {
+  position: absolute; top: -100px; left: 12px; z-index: 100;
+  background: var(--bordeaux); color: var(--cream);
+  padding: 10px 18px; border-radius: 0 0 10px 10px;
+  font-weight: 600; font-size: 0.9rem;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 0; }
+
 /* Grain: vaste laag, pointer-events none. Geeft het donker textuur zonder repaints */
 .grain {
   position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: 0.045;
@@ -685,6 +695,8 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 /* --------------------------------------------------------------------------
    Landingspagina: e-mail-inschrijving + komt-eraan-band
    -------------------------------------------------------------------------- */
+.hero-kicker { margin-bottom: 16px; }
+
 .signup-form {
   margin-top: 34px;
   display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
@@ -777,7 +789,12 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
    -------------------------------------------------------------------------- */
 .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: no-preference) {
-  .js .reveal { opacity: 0; transform: translateY(26px); }
+  .js .reveal {
+    opacity: 0; transform: translateY(26px);
+    /* Zachte fallback-fade voor elke tak die opacity/transform direct zet;
+       het GSAP-pad zet inline transition:none en animeert zelf. */
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
 }
 
 /* Pagina-header (recepten) */
@@ -785,3 +802,67 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 .page-head .lead { margin-top: 20px; }
 .page-head .search-bar { margin-top: 34px; }
 .page-head .chips { margin-top: 22px; }
+
+/* ==========================================================================
+   Premium-laag: intro-preloader, scroll-nav, verfijnde kicker, succes-moment
+   ========================================================================== */
+
+/* Intro: crème doek + MK-logo, licht 'gordijn' omhoog (JS-Crest-gevoel) */
+.intro {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  animation: intro-lift 0.8s cubic-bezier(0.76, 0, 0.24, 1) 0.95s forwards;
+}
+.intro-logo {
+  width: 104px; height: 104px;
+  opacity: 0; transform: scale(0.9) translateY(6px);
+  animation: intro-logo-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+@keyframes intro-logo-in { to { opacity: 1; transform: none; } }
+@keyframes intro-lift { to { transform: translateY(-101%); } }
+.intro--skip { display: none; }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+/* Header: verbergt bij scrollen omlaag, komt terug bij omhoog */
+.nav { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s, border-color 0.35s; will-change: transform; }
+.nav--hidden { transform: translateY(-100%); }
+.nav.menu-open.nav--hidden { transform: none; }
+
+/* Verfijnde kicker: editorial, ruim gespatieerd */
+.hero-kicker {
+  margin-bottom: 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.42em;
+  font-size: 0.72rem;
+  color: var(--tan);
+}
+
+/* Inschrijf-blok: form en bedankstaat gestapeld → soepele wissel zonder sprong */
+.signup { display: grid; align-items: center; margin-top: 34px; width: 100%; max-width: 520px; }
+.signup > .signup-live, .signup > .signup-done { grid-column: 1; grid-row: 1; }
+.signup .signup-form { margin-top: 0; }
+/* voorkom in-zoom op mobiel bij focus (input < 16px) */
+.signup-form input[type="email"] { font-size: 16px; }
+.signup-live { transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.signup.is-done .signup-live { opacity: 0; transform: translateY(-10px); pointer-events: none; }
+.signup-done {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(12px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+}
+.signup.is-done .signup-done { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.signup-done-mark {
+  width: 62px; height: 62px; border-radius: 999px;
+  background: var(--bordeaux-bright); color: var(--cream);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.7rem; box-shadow: 0 12px 30px rgba(179, 27, 43, 0.35);
+  transform: scale(0.5);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+.signup.is-done .signup-done-mark { transform: scale(1); }
+.signup-done-title {
+  font-family: var(--font-display); text-transform: uppercase;
+  font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.05; margin-top: 20px;
+}
+.signup-done-text { color: var(--cream-2); font-weight: 500; margin-top: 12px; max-width: 40ch; }

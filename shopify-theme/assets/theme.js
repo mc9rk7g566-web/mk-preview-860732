@@ -5,7 +5,7 @@
   document.documentElement.classList.add("js");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hasGsap = typeof gsap !== "undefined";
+  var hasGsap = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
   var nav = document.querySelector(".nav");
 
   /* ---- Fullscreen menu-overlay (burger draait naar X, links staggeren in) ---- */
@@ -41,6 +41,41 @@
     });
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && overlay.classList.contains("is-open")) closeMenu();
+    });
+  }
+
+  /* ---- Header verbergt bij scrollen omlaag, komt terug bij omhoog (soepel, geen getril) ---- */
+  if (nav) {
+    var lastNavY = window.pageYOffset || 0;
+    var navTicking = false;
+    var updateNav = function () {
+      var y = window.pageYOffset || 0;
+      if (Math.abs(y - lastNavY) > 6) {
+        if (y > lastNavY && y > 160) nav.classList.add("nav--hidden");
+        else if (y < lastNavY) nav.classList.remove("nav--hidden");
+        lastNavY = y;
+      }
+      navTicking = false;
+    };
+    window.addEventListener("scroll", function () {
+      if (!navTicking) { window.requestAnimationFrame(updateNav); navTicking = true; }
+    }, { passive: true });
+  }
+
+  /* ---- Inschrijven: AJAX-submit + soepele overgang naar bedankstaat (geen paginaherlaad) ---- */
+  var signupWrap = document.querySelector("[data-signup]");
+  var signupForm = document.getElementById("landing-signup");
+  if (signupWrap && signupForm && !signupWrap.classList.contains("is-done")) {
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var btn = signupForm.querySelector("button[type=submit]");
+      if (btn) { btn.disabled = true; btn.setAttribute("aria-busy", "true"); }
+      var reveal = function () { signupWrap.classList.add("is-done"); };
+      fetch(signupForm.action, {
+        method: "POST",
+        body: new FormData(signupForm),
+        headers: { "Accept": "text/html" }
+      }).then(reveal).catch(reveal);
     });
   }
 
@@ -124,6 +159,14 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // GSAP stuurt de reveals zelf aan; CSS-fallback-transition uit zodat die niet meevecht
+  gsap.set(".reveal", { transition: "none" });
+
+  // Lazy beelden verschuiven de layout bij laden → triggerposities herberekenen
+  document.querySelectorAll("img[loading='lazy']").forEach(function (img) {
+    if (!img.complete) img.addEventListener("load", function () { ScrollTrigger.refresh(); }, { once: true });
+  });
+
   // Nav krijgt glas zodra de pagina scrolt (feedback: je hebt de hero verlaten)
   if (nav && !nav.classList.contains("is-solid")) {
     ScrollTrigger.create({
@@ -172,11 +215,15 @@
     }
   });
 
-  // Vangnet: alles wat na 2,5s nog verborgen is, tonen (bv. boven de vouw geladen)
+  // Vangnet: alleen wat ná 2,5s nog verborgen is én (vlakbij) in beeld staat, tonen.
+  // Below-fold reveals blijven aan ScrollTrigger — die klopt weer na refresh() hierboven.
   window.setTimeout(function () {
     document.querySelectorAll(".reveal").forEach(function (el) {
       if (parseFloat(window.getComputedStyle(el).opacity) < 0.05) {
-        gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.95 && r.bottom > 0) {
+          gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+        }
       }
     });
   }, 2500);
