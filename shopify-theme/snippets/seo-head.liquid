@@ -14,11 +14,16 @@
   unless og_image contains 'https:'
     assign og_image = og_image | prepend: 'https:'
   endunless
+
+  assign og_title = page_title | default: 'Maarten kookt'
+  if template.name == 'index' and og_title == shop.name
+    assign og_title = 'Maarten kookt – Recepten, technieken en wijntips'
+  endif
 -%}
 <meta name="description" content="{{ meta_description | escape }}">
-<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:site_name" content="Maarten kookt">
 <meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
-<meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
+<meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:description" content="{{ meta_description | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:image" content="{{ og_image }}">
