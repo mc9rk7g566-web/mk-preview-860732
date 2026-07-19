@@ -43,6 +43,10 @@
         <p class="signup-done-text">{{ section.settings.success_text }}</p>
       </div>
     </div>
+
+    {% if section.settings.cta_label != blank %}
+    <a class="btn btn-glass hero-recipe-link" href="#recept">{{ section.settings.cta_label }}<i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+    {% endif %}
   </div>
 </section>
 
@@ -84,6 +88,7 @@
     { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Ik wil erbij zijn" },
     { "type": "text", "id": "note_text", "label": "Tekst onder de knop", "default": "Alleen een bericht als er echt iets nieuws is. Geen spam, uitschrijven kan altijd." },
     { "type": "text", "id": "success_text", "label": "Bedanktekst na inschrijven", "default": "Gelukt — je staat op de lijst. Je hoort het als eerste." },
+    { "type": "text", "id": "cta_label", "label": "Knop naar het recept (leeg = geen knop)", "default": "Bekijk het eerste recept" },
     { "type": "header", "content": "Blok 'Wat je binnenkort krijgt'" },
     { "type": "text", "id": "band_heading", "label": "Kop", "default": "Wat je binnenkort krijgt" },
     { "type": "textarea", "id": "band_subtext", "label": "Ondertekst", "default": "Geen nieuwsbrief vol reclame — wél de dingen waar je in de keuken écht iets aan hebt." },
