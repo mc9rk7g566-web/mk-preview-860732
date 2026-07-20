@@ -9,12 +9,14 @@
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
     assign wine_url = settings.community_url
-    assign wine_label = 'Proef mee'
-    assign wine_icon = 'ph-whatsapp-logo'
+    assign wine_label = 'Join The Cellar Club'
+    assign wine_icon = 'ph-wine'
+    assign wine_blank = true
   else
-    assign wine_url = routes.root_url | append: '#landing-signup'
-    assign wine_label = 'Houd me op de hoogte'
-    assign wine_icon = 'ph-envelope-simple'
+    assign wine_url = routes.root_url | append: '#recept'
+    assign wine_label = 'Bekijk het recept'
+    assign wine_icon = 'ph-arrow-right'
+    assign wine_blank = false
   endif
 %}
 <article class="recipe-feature recipe-detail">
@@ -79,7 +81,7 @@
         <span class="wt-label"><i class="ph ph-wine" aria-hidden="true"></i>De wijntip van Maarten</span>
         <h2>{{ section.settings.wine_title }}</h2>
         <p>{{ section.settings.wine_text }}</p>
-        <a class="btn btn-light" href="{{ wine_url }}" {% if settings.community_url != blank %}rel="noopener"{% endif %}><i class="ph {{ wine_icon }}" aria-hidden="true"></i>{{ wine_label }}</a>
+        <a class="btn btn-light" href="{{ wine_url }}"{% if wine_blank %} target="_blank" rel="noopener"{% endif %}><i class="ph {{ wine_icon }}" aria-hidden="true"></i>{{ wine_label }}</a>
       </div>
     </div>
   </section>
@@ -151,7 +153,7 @@
     { "type": "header", "content": "Wijntip" },
     { "type": "image_picker", "id": "wine_image", "label": "Foto" },
     { "type": "text", "id": "wine_title", "label": "Titel", "default": "De wijn die erbij past" },
-    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. De wijntip bij elk gerecht deel ik in de groepsapp." }
+    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. Zulke mooie flessen koop je in The Cellar Club, zijn besloten wijnclub." }
   ],
   "blocks": [
     { "type": "ingredient", "name": "Ingrediënt", "settings": [{ "type": "text", "id": "name", "label": "Naam" }, { "type": "text", "id": "amount", "label": "Hoeveelheid" }] },

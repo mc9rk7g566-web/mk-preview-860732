@@ -37,7 +37,7 @@
         </button>
         {% if section.settings.show_dynamic_checkout and current_variant.available %}<div class="dynamic-checkout">{{ form | payment_button }}</div>{% endif %}
       {% endform %}
-      <div class="shop-cta"><a class="btn btn-glass" href="{{ community_url }}"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a><a class="cart-text-link" href="{{ routes.cart_url }}">Bekijk winkelwagen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="shop-cta"><a class="btn btn-glass" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-wine" aria-hidden="true"></i>The Cellar Club</a><a class="cart-text-link" href="{{ routes.cart_url }}">Bekijk winkelwagen <i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
     </div>
   </div>
 </section>

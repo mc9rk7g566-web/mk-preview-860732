@@ -1,6 +1,6 @@
 {% comment %}
-  Groepsapp-sectie: het hoofddoel van de site. Grote bordeaux-band die mensen naar
-  de WhatsApp-groepsapp stuurt. Link staat in Thema-instellingen (community_url).
+  The Cellar Club: de besloten WhatsApp-wijnclub van Maarten (exclusieve wijnen kopen).
+  Grote bordeaux-band die mensen naar de club stuurt. Link = community_url in Thema-instellingen.
 {% endcomment %}
 {% assign community_url = settings.community_url | default: '#' %}
 <section class="section community">
@@ -26,7 +26,7 @@
           <a class="btn btn-light community-cta" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.button_label }}</a>
           {% if section.settings.note != blank %}<p class="community-note">{{ section.settings.note }}</p>{% endif %}
         {% else %}
-          <p class="community-note">Zet de groepsapp-link in de thema-instellingen om deze knop te activeren.</p>
+          <p class="community-note">Zet de The Cellar Club-link in de thema-instellingen om deze knop te activeren.</p>
         {% endif %}
       </div>
     </div>
@@ -35,18 +35,18 @@
 
 {% schema %}
 {
-  "name": "Groepsapp",
+  "name": "The Cellar Club",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Foto", "info": "Laat leeg voor de standaardfoto." },
-    { "type": "text", "id": "label", "label": "Klein label", "default": "De groepsapp van Maarten" },
-    { "type": "text", "id": "heading", "label": "Kop", "default": "Kook mee — kom in de groepsapp" },
-    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Hier begint alles. In de groepsapp deel ik elk nieuw recept als eerste, de wijn die erbij past en wanneer er weer iets te proeven valt. Kom erbij en kook met me mee." },
-    { "type": "text", "id": "point1", "label": "Punt 1", "default": "Elk nieuw recept als eerste" },
-    { "type": "text", "id": "point2", "label": "Punt 2", "default": "De wijntip bij elk gerecht" },
+    { "type": "text", "id": "label", "label": "Klein label", "default": "De wijnclub van Maarten" },
+    { "type": "text", "id": "heading", "label": "Kop", "default": "Join The Cellar Club" },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Een besloten club voor wie van wijn houdt. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt kopen. Geen recepten, puur mooie wijn." },
+    { "type": "text", "id": "point1", "label": "Punt 1", "default": "Exclusieve wijnen om te kopen" },
+    { "type": "text", "id": "point2", "label": "Punt 2", "default": "Persoonlijk uitgezocht door Maarten" },
     { "type": "text", "id": "point3", "label": "Punt 3", "default": "Uitnodigingen voor proeverijen" },
-    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Kom in de groepsapp" },
-    { "type": "text", "id": "note", "label": "Tekst onder de knop", "default": "Gratis. Je opent WhatsApp en je zit erin." }
+    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Join The Cellar Club" },
+    { "type": "text", "id": "note", "label": "Tekst onder de knop", "default": "Alleen voor liefhebbers. Je opent WhatsApp en je zit erin." }
   ],
-  "presets": [{ "name": "Groepsapp" }]
+  "presets": [{ "name": "The Cellar Club" }]
 }
 {% endschema %}

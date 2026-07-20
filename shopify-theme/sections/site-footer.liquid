@@ -6,7 +6,7 @@
     <ul class="footer-links">
       <li><a href="{{ pages['recepten'].url | default: '/pages/recepten' }}">recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over maarten</a></li>
-      {% if settings.community_url != blank %}<li><a href="{{ settings.community_url }}" rel="noopener">de groepsapp</a></li>{% endif %}
+      {% if settings.community_url != blank %}<li><a href="{{ settings.community_url }}" target="_blank" rel="noopener">the cellar club</a></li>{% endif %}
       <li><a href="mailto:{{ settings.contact_email }}">contact</a></li>
     </ul>
     {% endunless %}
@@ -15,11 +15,7 @@
       <a href="{{ settings.instagram_url }}" target="_blank" aria-label="Instagram" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i></a>
     </div>
     {% endif %}
-    {% if settings.landing_mode %}
     <p class="footer-note"><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
-    {% else %}
-    <p class="footer-note">Binnenkort: het eerste kookboek. De groepsapp weet het eerst.</p>
-    {% endif %}
     <div class="footer-bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} Maarten kookt</span>
       <span class="tagline">Passie. Smaak. Vakmanschap.</span>

@@ -38,7 +38,6 @@
         {% render 'responsive-image', image: section.settings.about_image, fallback: 'maarten-portret.jpg', alt: 'Maarten in de keuken met het afgemaakte gerecht', sizes: '(max-width: 860px) 100vw, 42vw', loading: 'lazy' %}
       </div>
       <div class="about-body reveal">
-        <span class="lockup-sub">Over Maarten</span>
         <h2 class="display">{{ section.settings.about_title }}</h2>
         <p>{{ section.settings.about_text_1 }}</p>
         {% if section.settings.about_text_2 != blank %}<p>{{ section.settings.about_text_2 }}</p>{% endif %}

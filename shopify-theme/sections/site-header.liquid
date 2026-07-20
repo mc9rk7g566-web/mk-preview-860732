@@ -2,12 +2,14 @@
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
     assign cta_url = settings.community_url
-    assign cta_label = 'Proef mee'
-    assign cta_icon = 'ph-whatsapp-logo'
+    assign cta_label = 'The Cellar Club'
+    assign cta_icon = 'ph-wine'
+    assign cta_blank = true
   else
-    assign cta_url = routes.root_url | append: '#landing-signup'
-    assign cta_label = 'Ik wil erbij zijn'
-    assign cta_icon = 'ph-envelope-simple'
+    assign cta_url = routes.root_url | append: '#recept'
+    assign cta_label = 'Bekijk het recept'
+    assign cta_icon = 'ph-arrow-right'
+    assign cta_blank = false
   endif
 %}
 <a class="skip-link" href="#MainContent">Ga naar inhoud</a>
@@ -20,7 +22,7 @@
     <ul class="nav-links">
       <li><a href="{{ recipes_url }}"{% if page.handle == 'recepten' or template.name == 'page' and page.templates contains 'recept' %} aria-current="page"{% endif %}>recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over</a></li>
-      <li><a class="btn btn-primary" href="{{ cta_url }}"{% if settings.community_url != blank %} rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a></li>
+      <li><a class="btn btn-primary" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a></li>
     </ul>
     <button class="nav-toggle" aria-expanded="false" aria-controls="MobileMenu" aria-label="Menu openen"><span></span><span></span></button>
     {% endunless %}
@@ -31,7 +33,7 @@
   <a href="{{ routes.root_url }}"{% if template.name == 'index' %} aria-current="page"{% endif %}>home</a>
   <a href="{{ recipes_url }}"{% if page.handle == 'recepten' %} aria-current="page"{% endif %}>recepten</a>
   <a href="{{ routes.root_url }}#over">over</a>
-  <a class="btn" href="{{ cta_url }}"{% if settings.community_url != blank %} rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a>
+  <a class="btn" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a>
   <span class="menu-tagline">Passie. Smaak. Vakmanschap.</span>
 </nav>
 {% endunless %}

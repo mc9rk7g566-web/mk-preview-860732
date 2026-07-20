@@ -3,8 +3,8 @@
     "main": {
       "type": "main-landing",
       "settings": {
-        "subtekst": "Elke week een nieuw recept. Als eerste in de groepsapp.",
-        "cta_primary_label": "Kom in de groepsapp",
+        "subtekst": "Elke week een nieuw recept, met de wijn die erbij past.",
+        "cta_primary_label": "Join The Cellar Club",
         "cta_secondary_label": "Bekijk de recepten"
       }
     },
@@ -28,14 +28,14 @@
     "community": {
       "type": "main-community",
       "settings": {
-        "label": "De groepsapp van Maarten",
-        "heading": "Kom in de groepsapp",
-        "text": "In de groepsapp deel ik elk recept als eerste, met de wijn die erbij past. En je hoort het als er iets te proeven valt.",
-        "point1": "Elk recept als eerste",
-        "point2": "De wijn die erbij past",
+        "label": "De wijnclub van Maarten",
+        "heading": "Join The Cellar Club",
+        "text": "Een besloten club voor wie van wijn houdt. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt kopen. Geen recepten, puur mooie wijn.",
+        "point1": "Exclusieve wijnen om te kopen",
+        "point2": "Persoonlijk uitgezocht door Maarten",
         "point3": "Uitnodigingen voor proeverijen",
-        "button_label": "Kom in de groepsapp",
-        "note": "Gratis. Je opent WhatsApp en je zit erin."
+        "button_label": "Join The Cellar Club",
+        "note": "Alleen voor liefhebbers. Je opent WhatsApp en je zit erin."
       }
     }
   },

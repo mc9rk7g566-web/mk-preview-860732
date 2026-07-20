@@ -1,6 +1,6 @@
 {% comment %}
   Home-hero. babi.sh-minimalisme: één grote titel, één duidelijke actie, weinig tekst.
-  Hoofddoel = de WhatsApp-groepsapp (community_url in Thema-instellingen).
+  Hoofddoel = The Cellar Club (WhatsApp-wijnclub; community_url in Thema-instellingen).
 {% endcomment %}
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
@@ -41,8 +41,8 @@
     { "type": "header", "content": "Achtergrondfoto" },
     { "type": "image_picker", "id": "hero_image", "label": "Hero-foto (grote achtergrond)", "info": "Laat leeg voor de standaardfoto." },
     { "type": "header", "content": "Hero" },
-    { "type": "textarea", "id": "subtekst", "label": "Eén korte regel (mag leeg)", "default": "Elke week een nieuw recept. Als eerste in de groepsapp." },
-    { "type": "text", "id": "cta_primary_label", "label": "Groene knop (groepsapp)", "default": "Kom in de groepsapp" },
+    { "type": "textarea", "id": "subtekst", "label": "Eén korte regel (mag leeg)", "default": "Elke week een nieuw recept, met de wijn die erbij past." },
+    { "type": "text", "id": "cta_primary_label", "label": "Bordeaux knop (The Cellar Club)", "default": "Join The Cellar Club" },
     { "type": "text", "id": "cta_secondary_label", "label": "Tweede knop", "default": "Bekijk de recepten" }
   ],
   "presets": [{ "name": "Home-hero" }]
