@@ -13,8 +13,8 @@
   var lenis = null;
   if (!reduceMotion && typeof Lenis !== "undefined") {
     lenis = new Lenis({
-      duration: 1.1,
-      easing: function (t) { return 1 - Math.pow(1 - t, 3); }, /* rustige ease-out */
+      lerp: 0.1,            /* continu interpoleren = geen stop-start, geen 'random stops' */
+      wheelMultiplier: 1,
       smoothWheel: true
     });
     if (!hasGsap) {
