@@ -1,0 +1,33 @@
+{
+  "source": "https://maartenkookt.nl/",
+  "captured": "2026-07-20",
+  "designMap": {
+    "color": {
+      "canvas": "#170A0C",
+      "surface1": "#1F0E11",
+      "surface2": "#2A1317",
+      "textPrimary": "#F4EDE4",
+      "textSecondary": "#E5D9C6",
+      "textTertiary": "#CDB998",
+      "accent": "#7B0D1E",
+      "accentBright": "#B31B2B",
+      "lightBlock": "#F4EDE4",
+      "note": "Every value is red-shifted; no pure black, no pure white. Accent is used on interactive/active surfaces only, never on body text."
+    },
+    "typography": {
+      "display": { "family": "Lilita One", "weight": 400, "case": "uppercase", "h1": "136px / 1.02, letter-spacing 1.6px", "role": "all headings + logo + card titles" },
+      "body": { "family": "Montserrat", "weight": 500, "size": "~16px", "lineHeight": "1.75" },
+      "label": { "family": "Montserrat", "weight": 600, "letterSpacing": "0.02-0.42em", "color": "#CDB998" }
+    },
+    "icons": { "system": "Phosphor (icon font, regular weight, single stroke)", "brandmark": "MK monogram in a filled bordeaux disc (mk-icoon-bordeaux.svg)", "rule": "no emoji" },
+    "radii": { "interactive": "999px (pill)", "cards": "24px", "hairline": "2px" },
+    "shadows": "none meaningful; depth via color-band changes and frosted glass (rgba(23,10,12,0.42) + blur)",
+    "motion": { "reducedMotionGuard": true, "easing": "cubic-bezier(0.16,1,0.3,1)", "durations": "0.18-0.45s" }
+  },
+  "tasteDNA": [
+    { "trigger": "Needs a premium ground that flatters dark food photography", "decision": "Canvas is #170A0C bordeaux-black, not #000000", "reason": "Pure black reads cold and flattens warm food; a red-shifted near-black keeps a wine-cellar warmth and lets the plated food be the brightest thing on screen", "evidence": "pageBackground rgb(23,10,12); surfaces rgb(31,14,17)/rgb(42,19,23) all red-shifted" },
+    { "trigger": "Wants personality without hurting readability", "decision": "One heavy display face (Lilita One, single weight, uppercase) carries ALL hierarchy; Montserrat only for body/labels", "reason": "Hierarchy comes from size not weight, so headings stay characterful and body stays legible; two families instead of five keeps the voice consistent", "evidence": "h1 136px Lilita One uppercase vs body 11.5px Montserrat 500; only 3 families loaded" },
+    { "trigger": "Deciding where saturation is allowed", "decision": "Accent bordeaux #7B0D1E marks status and one emphasis per view, never body text, never a large block beside food", "reason": "Restraint reads as expensive and the food supplies the real color; spending red everywhere would compete with the plate", "evidence": "accentCandidates are cream/tan on text; #7B0D1E only on buttons/active surfaces", "isRestraint": true },
+    { "trigger": "Many small UI marks are needed across the site", "decision": "All icons come from one line system (Phosphor, single weight); the brandmark is MK in a filled bordeaux disc; emoji are banned", "reason": "A single icon grammar keeps dozens of small marks reading as one family and matches the confident weight of Lilita One; mixed illustration styles or emoji would fracture the tone", "evidence": "Phosphor font loaded on page; mk-icoon-bordeaux.svg is a filled disc; design.md states 'Iconen: Phosphor regular. Nooit emoji.'" }
+  ]
+}

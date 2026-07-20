@@ -4,18 +4,7 @@
   één duidelijke recept-URL ziet, geen dubbele content). Kop + kookvideo + foto's,
   wijntip en 'over Maarten'. Alles aanpasbaar via Customize.
 {% endcomment %}
-{% liquid
-  assign recipe_url = section.settings.recipe_url | default: '/pages/recepten'
-  if settings.community_url != blank
-    assign wine_url = settings.community_url
-    assign wine_label = 'Proef mee'
-    assign wine_icon = 'ph-whatsapp-logo'
-  else
-    assign wine_url = '#landing-signup'
-    assign wine_label = 'Houd me op de hoogte'
-    assign wine_icon = 'ph-envelope-simple'
-  endif
-%}
+{% assign recipe_url = section.settings.recipe_url | default: '/pages/recepten' %}
 <article id="recept" class="recipe-feature">
   <section class="recipe-hero">
     <div class="wrap">
@@ -42,20 +31,6 @@
         {% if settings.instagram_url != blank and section.settings.insta_label != blank %}
         <a class="btn btn-glass" href="{{ settings.instagram_url }}" target="_blank" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i>{{ section.settings.insta_label }}</a>
         {% endif %}
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap recipe-wine-section">
-    <div class="wine-tip reveal">
-      <div class="wt-media">
-        {% render 'responsive-image', image: section.settings.wine_image, fallback: 'recept-tomyum-wijn.jpg', alt: 'Maarten schenkt witte wijn bij de kokkels', sizes: '(max-width: 767px) 100vw, 42vw', loading: 'lazy' %}
-      </div>
-      <div class="wt-body">
-        <span class="wt-label"><i class="ph ph-wine" aria-hidden="true"></i>De wijntip van Maarten</span>
-        <h2>{{ section.settings.wine_title }}</h2>
-        <p>{{ section.settings.wine_text }}</p>
-        <a class="btn btn-light" href="{{ wine_url }}" {% if settings.community_url != blank %}rel="noopener"{% endif %}><i class="ph {{ wine_icon }}" aria-hidden="true"></i>{{ wine_label }}</a>
       </div>
     </div>
   </section>
@@ -93,10 +68,6 @@
     { "type": "image_picker", "id": "photo_1", "label": "Foto 2 (naast de video)", "info": "Laat leeg voor de still uit de kookvideo." },
     { "type": "image_picker", "id": "photo_2", "label": "Foto 3", "info": "Laat leeg voor de still uit de kookvideo." },
     { "type": "text", "id": "insta_label", "label": "Instagram-knoptekst", "default": "Volg @maarten.kievit op Instagram" },
-    { "type": "header", "content": "Wijntip" },
-    { "type": "image_picker", "id": "wine_image", "label": "Foto", "info": "Laat leeg voor de still uit de kookvideo." },
-    { "type": "text", "id": "wine_title", "label": "Titel", "default": "De wijn die erbij hoort" },
-    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. Wil je bij elk nieuw recept ook de wijntip? Schrijf je in, dan hoor je het als eerste." },
     { "type": "header", "content": "Over Maarten" },
     { "type": "image_picker", "id": "about_image", "label": "Foto", "info": "Laat leeg voor de still uit de kookvideo." },
     { "type": "text", "id": "about_title", "label": "Titel", "default": "In de keuken draait alles om balans" },

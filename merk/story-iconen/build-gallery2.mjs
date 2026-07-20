@@ -12,7 +12,7 @@ const lilita = readFileSync(join(DIR, "../fonts/LilitaOne.ttf")).toString("base6
 const ICONS = [
   { label: "Kokmuts",  rec: "kokmuts-2",  alts: ["kokmuts-1"] },
   { label: "Mesje",    rec: "mesje-1",    alts: [], note: "Variant 2 werd per ongeluk een paddenstoel — weggelaten." },
-  { label: "Wijnglas", rec: "wijnglas-1", alts: ["wijnglas-2"] },
+  { label: "Wijnglas", rec: "wijnglas-dik-4", alts: ["wijnglas-dik-2", "wijnglas-slank-3"], note: "Slanke, chique vorm met een steviger, dikkere lijn zodat hij matcht met de massieve iconen en het bold logo. Dik 4 = aanrader; dik 2 = klassieker; slank-3 = de fijnere lijn." },
   { label: "Druiven",  rec: "druiven-1",  alts: ["druiven-2"] },
   { label: "Vlees",    rec: "vlees-2",    alts: ["vlees-1"], note: "Kwam als drumstick. Liever rood vlees/steak? Zeg het, dan maak ik die." },
   { label: "Vis",      rec: "vis-2",      alts: [], note: "Variant 1 was blobberig — weggelaten." },

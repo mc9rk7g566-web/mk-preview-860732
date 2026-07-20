@@ -1,0 +1,52 @@
+{% comment %}
+  Groepsapp-sectie: het hoofddoel van de site. Grote bordeaux-band die mensen naar
+  de WhatsApp-groepsapp stuurt. Link staat in Thema-instellingen (community_url).
+{% endcomment %}
+{% assign community_url = settings.community_url | default: '#' %}
+<section class="section community">
+  <div class="wrap">
+    <div class="community-card reveal">
+      <div class="community-media">
+        {% if section.settings.image != blank %}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '560, 840, 1120, 1400', sizes: '(max-width: 900px) 100vw, 46vw', loading: 'lazy', alt: 'Gedekte tafel met gerechten en wijn' }}
+        {% else %}
+          <img src="{{ 'community.jpg' | asset_url }}" width="1400" height="933" alt="Gedekte tafel met gerechten en wijn" loading="lazy">
+        {% endif %}
+      </div>
+      <div class="community-body">
+        <span class="wt-label"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.label }}</span>
+        <h2 class="display">{{ section.settings.heading }}</h2>
+        <p>{{ section.settings.text }}</p>
+        <ul class="community-list">
+          {% if section.settings.point1 != blank %}<li><i class="ph ph-check" aria-hidden="true"></i>{{ section.settings.point1 }}</li>{% endif %}
+          {% if section.settings.point2 != blank %}<li><i class="ph ph-check" aria-hidden="true"></i>{{ section.settings.point2 }}</li>{% endif %}
+          {% if section.settings.point3 != blank %}<li><i class="ph ph-check" aria-hidden="true"></i>{{ section.settings.point3 }}</li>{% endif %}
+        </ul>
+        {% if settings.community_url != blank %}
+          <a class="btn btn-light community-cta" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.button_label }}</a>
+          {% if section.settings.note != blank %}<p class="community-note">{{ section.settings.note }}</p>{% endif %}
+        {% else %}
+          <p class="community-note">Zet de groepsapp-link in de thema-instellingen om deze knop te activeren.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Groepsapp",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Foto", "info": "Laat leeg voor de standaardfoto." },
+    { "type": "text", "id": "label", "label": "Klein label", "default": "De groepsapp van Maarten" },
+    { "type": "text", "id": "heading", "label": "Kop", "default": "Kook mee — kom in de groepsapp" },
+    { "type": "textarea", "id": "text", "label": "Tekst", "default": "Hier begint alles. In de groepsapp deel ik elk nieuw recept als eerste, de wijn die erbij past en wanneer er weer iets te proeven valt. Kom erbij en kook met me mee." },
+    { "type": "text", "id": "point1", "label": "Punt 1", "default": "Elk nieuw recept als eerste" },
+    { "type": "text", "id": "point2", "label": "Punt 2", "default": "De wijntip bij elk gerecht" },
+    { "type": "text", "id": "point3", "label": "Punt 3", "default": "Uitnodigingen voor proeverijen" },
+    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Kom in de groepsapp" },
+    { "type": "text", "id": "note", "label": "Tekst onder de knop", "default": "Gratis. Je opent WhatsApp en je zit erin." }
+  ],
+  "presets": [{ "name": "Groepsapp" }]
+}
+{% endschema %}

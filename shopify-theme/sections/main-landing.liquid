@@ -1,10 +1,12 @@
 {% comment %}
-  Landing: één doel, e-mailadres achterlaten. Het klantformulier zet inschrijvingen
-  automatisch als e-mailabonnee in Shopify (Klanten → abonnees → Shopify Email).
-  Alle teksten + de hero-foto zijn aanpasbaar via Online Store → Themes → Customize
-  (geen code nodig). De merknaam "Maarten Kookt" blijft vast (dat is het logo/merk).
+  Home-hero. Eén hoofddoel: mensen in de WhatsApp-groepsapp krijgen.
+  De groepsapp-link staat in Thema-instellingen (community_url). Hero-foto en teksten
+  zijn aanpasbaar via Online Store → Themes → Customize. Merknaam "Maarten Kookt" = het merk.
 {% endcomment %}
-
+{% liquid
+  assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  assign community_url = settings.community_url | default: recipes_url
+%}
 <section class="hero">
   <div class="hero-media">
     {% if section.settings.hero_image %}
@@ -13,9 +15,9 @@
                    {{ section.settings.hero_image | image_url: width: 2400 }} 2400w"
            sizes="100vw"
            alt="{{ section.settings.hero_image.alt | default: 'Maarten kookt' | escape }}"
-           fetchpriority="high" width="2400" height="1600">
+           fetchpriority="high" width="2400" height="1350">
     {% else %}
-      <img src="{{ 'hero.jpg' | asset_url }}" alt="Donker gedekte tafel met borden bij kaarslicht" fetchpriority="high" width="2400" height="1600">
+      <img src="{{ 'hero.jpg' | asset_url }}" alt="Romige tom yum met kokkels bij kaarslicht" fetchpriority="high" width="2400" height="1350">
     {% endif %}
   </div>
   <div class="hero-content">
@@ -25,28 +27,12 @@
       <span class="line"><span class="lockup-sub">Kookt</span></span>
     </h1>
     <p class="lead hero-sub">{{ section.settings.subtekst }}</p>
-
-    <div class="signup" data-signup>
-      <div class="signup-live">
-        {% form 'customer', class: 'signup-form', id: 'landing-signup' %}
-          <input type="hidden" name="contact[tags]" value="nieuwsbrief, landing">
-          <input type="hidden" name="return_to" value="/#landing-signup">
-          <input type="email" name="contact[email]" placeholder="je mailadres" required aria-label="E-mailadres" autocomplete="email">
-          <button type="submit" class="btn btn-primary">{{ section.settings.button_label }}</button>
-          {% if form.errors %}<p class="form-error">Controleer je mailadres en probeer het nog eens.</p>{% endif %}
-        {% endform %}
-        {% if section.settings.note_text != blank %}<p class="signup-note">{{ section.settings.note_text }}</p>{% endif %}
-      </div>
-      <div class="signup-done" aria-live="polite">
-        <span class="signup-done-mark"><i class="ph ph-check" aria-hidden="true"></i></span>
-        <p class="signup-done-title">Je hoort erbij</p>
-        <p class="signup-done-text">{{ section.settings.success_text }}</p>
-      </div>
+    <div class="hero-cta">
+      {% if settings.community_url != blank %}
+        <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_primary_label }}</a>
+      {% endif %}
+      <a class="btn btn-glass" href="{{ recipes_url }}">{{ section.settings.cta_secondary_label }}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
     </div>
-
-    {% if section.settings.cta_label != blank %}
-    <a class="btn btn-glass hero-recipe-link" href="#recept">{{ section.settings.cta_label }}<i class="ph ph-arrow-down" aria-hidden="true"></i></a>
-    {% endif %}
   </div>
 </section>
 
@@ -79,30 +65,28 @@
 
 {% schema %}
 {
-  "name": "Landing",
+  "name": "Home-hero",
   "settings": [
     { "type": "header", "content": "Achtergrondfoto" },
     { "type": "image_picker", "id": "hero_image", "label": "Hero-foto (grote achtergrond)", "info": "Laat leeg voor de standaardfoto." },
     { "type": "header", "content": "Hero" },
-    { "type": "text", "id": "kicker", "label": "Kleine tekst bovenaan", "default": "Binnenkort online" },
-    { "type": "textarea", "id": "subtekst", "label": "Subtitel", "default": "Elke week een nieuw recept, de techniek erachter én de wijn die erbij hoort. Laat je e-mailadres achter, dan ben je er als eerste bij." },
-    { "type": "text", "id": "button_label", "label": "Knoptekst", "default": "Ik wil erbij zijn" },
-    { "type": "text", "id": "note_text", "label": "Tekst onder de knop", "default": "Alleen een bericht als er echt iets nieuws is. Geen spam, uitschrijven kan altijd." },
-    { "type": "text", "id": "success_text", "label": "Bedanktekst na inschrijven", "default": "Gelukt — je staat op de lijst. Je hoort het als eerste." },
-    { "type": "text", "id": "cta_label", "label": "Knop naar het recept (leeg = geen knop)", "default": "Bekijk het eerste recept" },
-    { "type": "header", "content": "Blok 'Wat je binnenkort krijgt'" },
-    { "type": "text", "id": "band_heading", "label": "Kop", "default": "Wat je binnenkort krijgt" },
-    { "type": "textarea", "id": "band_subtext", "label": "Ondertekst", "default": "Geen nieuwsbrief vol reclame — wél de dingen waar je in de keuken écht iets aan hebt." },
+    { "type": "text", "id": "kicker", "label": "Kleine tekst bovenaan", "default": "Passie · Smaak · Vakmanschap" },
+    { "type": "textarea", "id": "subtekst", "label": "Subtitel", "default": "Elke week een nieuw gerecht, de techniek erachter en de wijn die erbij past. Het eerst en het dichtstbij deel ik in de groepsapp. Kom erbij en kook mee." },
+    { "type": "text", "id": "cta_primary_label", "label": "Groene knop (groepsapp)", "default": "Kom in de groepsapp" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Tweede knop", "default": "Bekijk de recepten" },
+    { "type": "header", "content": "Blok 'Wat je hier krijgt'" },
+    { "type": "text", "id": "band_heading", "label": "Kop", "default": "Wat je hier vindt" },
+    { "type": "textarea", "id": "band_subtext", "label": "Ondertekst", "default": "Geen nieuwsbrief vol reclame, maar de dingen waar je in de keuken echt iets aan hebt." },
     { "type": "header", "content": "Item 1" },
     { "type": "text", "id": "item1_title", "label": "Titel", "default": "Recepten" },
-    { "type": "textarea", "id": "item1_text", "label": "Tekst", "default": "Van koud voorgerecht tot toetje, geschreven zoals Maarten kookt." },
+    { "type": "textarea", "id": "item1_text", "label": "Tekst", "default": "Van voorgerecht tot toetje, geschreven zoals Maarten kookt." },
     { "type": "header", "content": "Item 2" },
     { "type": "text", "id": "item2_title", "label": "Titel", "default": "Kookvideo's" },
-    { "type": "textarea", "id": "item2_text", "label": "Tekst", "default": "Elke week nieuw, rechtstreeks uit de keuken." },
+    { "type": "textarea", "id": "item2_text", "label": "Tekst", "default": "Rechtstreeks uit de keuken, van begin tot bord." },
     { "type": "header", "content": "Item 3" },
     { "type": "text", "id": "item3_title", "label": "Titel", "default": "Wijntips" },
-    { "type": "textarea", "id": "item3_text", "label": "Tekst", "default": "Bij elk gerecht de fles die erbij hoort." }
+    { "type": "textarea", "id": "item3_text", "label": "Tekst", "default": "Bij elk gerecht een wijn die erbij past." }
   ],
-  "presets": [{ "name": "Landing" }]
+  "presets": [{ "name": "Home-hero" }]
 }
 {% endschema %}

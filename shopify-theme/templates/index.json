@@ -3,18 +3,16 @@
     "main": {
       "type": "main-landing",
       "settings": {
-        "kicker": "Het eerste recept staat online",
-        "subtekst": "De eerste kookvideo staat op de site: romige tom yum met kokkels. Laat je mailadres achter, dan hoor jij het als eerste bij elk nieuw recept.",
-        "button_label": "Ik wil erbij zijn",
-        "note_text": "We mailen je alleen als er echt iets te melden is. Uitschrijven kan altijd.",
-        "success_text": "Je staat op de lijst. Bij het volgende recept ben jij een van de eersten die het hoort.",
-        "cta_label": "Bekijk het eerste recept",
+        "kicker": "Passie · Smaak · Vakmanschap",
+        "subtekst": "Elke week een nieuw recept, met de wijn die erbij past. Als eerste in de groepsapp.",
+        "cta_primary_label": "Kom in de groepsapp",
+        "cta_secondary_label": "Bekijk de recepten",
         "band_heading": "Wat je hier vindt",
-        "band_subtext": "Geen nieuwsbrief vol reclame, maar de dingen waar je in de keuken echt iets aan hebt.",
+        "band_subtext": "Recepten, kookvideo's en de wijn die erbij past.",
         "item1_title": "Recepten",
-        "item1_text": "Van voorgerecht tot toetje, geschreven zoals Maarten kookt.",
+        "item1_text": "Van voorgerecht tot toetje, zoals Maarten ze maakt.",
         "item2_title": "Kookvideo's",
-        "item2_text": "Rechtstreeks uit de keuken, van begin tot bord.",
+        "item2_text": "Stap voor stap uit de keuken, van begin tot bord.",
         "item3_title": "Wijntips",
         "item3_text": "Bij elk gerecht een wijn die erbij past."
       }
@@ -22,24 +20,33 @@
     "recept": {
       "type": "main-recipe-feature",
       "settings": {
-        "kicker": "Recept Nº 1",
+        "kicker": "Recept van de week",
         "title": "Romige tom yum met kokkels",
-        "intro": "Een Thaise klassieker met een romige twist van kokosmelk. Verse kokkels en hun kookvocht geven de soep zilte diepgang, limoen en koriander maken hem fris. Eenvoudig om te maken, met veel smaak.",
+        "intro": "Een romige Thaise tom yum met verse kokkels. Fris van limoen en koriander, klaar in 30 minuten.",
         "time": "30 min",
         "servings": "4 personen",
         "course": "Vis",
         "recipe_url": "/pages/romige-tom-yum-met-kokkels",
         "video_note": "Kijk mee hoe Maarten hem maakt",
         "insta_label": "Volg @maarten.kievit op Instagram",
-        "tip_title": "Tip van Maarten",
-        "tip_text": "Het kookvocht van de kokkels is de geheime smaakmaker van dit gerecht. Voeg het beetje bij beetje toe en proef steeds tussendoor; zo blijft de soep perfect in balans.",
-        "wine_title": "De wijn die erbij hoort",
-        "wine_text": "In de video schenkt Maarten er een droge witte wijn bij. Wil je bij elk nieuw recept ook de wijntip? Schrijf je in, dan hoor je het als eerste.",
         "about_title": "In de keuken draait alles om balans",
         "about_text_1": "Eerlijk product, pure smaken en creatieve gerechten met karakter. Ik deel wat in mijn keuken werkt, van techniek tot de wijn die het gerecht af maakt.",
         "about_text_2": "Geen sterrenkeuken-taal. Wel de kleine dingen die het verschil maken tussen goed en onvergetelijk."
       }
+    },
+    "community": {
+      "type": "main-community",
+      "settings": {
+        "label": "De groepsapp van Maarten",
+        "heading": "Kom in de groepsapp",
+        "text": "In de groepsapp deel ik elk recept als eerste, met de wijn die erbij past. En je hoort het als er iets te proeven valt.",
+        "point1": "Elk recept als eerste",
+        "point2": "De wijn die erbij past",
+        "point3": "Uitnodigingen voor proeverijen",
+        "button_label": "Kom in de groepsapp",
+        "note": "Gratis. Je opent WhatsApp en je zit erin."
+      }
     }
   },
-  "order": ["main", "recept"]
+  "order": ["main", "recept", "community"]
 }

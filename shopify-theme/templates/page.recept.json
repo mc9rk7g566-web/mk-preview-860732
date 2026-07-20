@@ -23,9 +23,9 @@
       },
       "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6"],
       "settings": {
-        "kicker": "Recept Nº 1",
+        "kicker": "Recept van de week",
         "title": "Romige tom yum met kokkels",
-        "intro": "Een Thaise klassieker met een romige twist van kokosmelk. Verse kokkels en hun kookvocht geven de soep zilte diepgang, limoen en koriander maken hem fris. Eenvoudig om te maken, met veel smaak.",
+        "intro": "Een romige Thaise tom yum met verse kokkels. Fris van limoen en koriander, klaar in 30 minuten.",
         "time": "30 min",
         "servings": "4 personen",
         "course": "Vis",
@@ -33,8 +33,8 @@
         "video_note": "Kijk mee hoe Maarten hem maakt",
         "tip_title": "Tip van Maarten",
         "tip_text": "Het kookvocht van de kokkels is de geheime smaakmaker van dit gerecht. Voeg het beetje bij beetje toe en proef steeds tussendoor; zo blijft de soep perfect in balans.",
-        "wine_title": "De wijn die erbij hoort",
-        "wine_text": "In de video schenkt Maarten er een droge witte wijn bij. Wil je bij elk nieuw recept ook de wijntip? Schrijf je in, dan hoor je het als eerste."
+        "wine_title": "De wijn die erbij past",
+        "wine_text": "In de video schenkt Maarten er een droge witte wijn bij. De wijntip bij elk gerecht deel ik in de groepsapp."
       }
     }
   },
