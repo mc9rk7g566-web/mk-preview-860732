@@ -3,22 +3,39 @@
     "main": {
       "type": "main-recipe",
       "blocks": {
-        "i1": { "type": "ingredient", "settings": { "name": "Zalmfilet met vel", "amount": "4 × 150 g" } },
-        "i2": { "type": "ingredient", "settings": { "name": "Sjalotten", "amount": "2, fijngesneden" } },
-        "i3": { "type": "ingredient", "settings": { "name": "Droge witte wijn", "amount": "150 ml" } },
-        "i4": { "type": "ingredient", "settings": { "name": "Witte wijnazijn", "amount": "2 el" } },
-        "i5": { "type": "ingredient", "settings": { "name": "Koude roomboter", "amount": "175 g, in blokjes" } },
-        "i6": { "type": "ingredient", "settings": { "name": "Citroen", "amount": "een halve" } },
-        "i7": { "type": "ingredient", "settings": { "name": "Bieslook", "amount": "klein bosje" } },
-        "i8": { "type": "ingredient", "settings": { "name": "Zout en peper", "amount": "naar smaak" } },
-        "s1": { "type": "step", "settings": { "text": "Haal de zalm een half uur voor het bakken uit de koelkast en dep het vel goed droog. Droog vel wordt krokant vel." } },
-        "s2": { "type": "step", "settings": { "text": "Zet de sjalotten met de wijn en de azijn op middelhoog vuur en laat inkoken tot er nog een paar eetlepels vocht over zijn." } },
-        "s3": { "type": "step", "settings": { "text": "Draai het vuur laag en klop de koude boter er blokje voor blokje door. Laat de saus nooit koken, dan schift hij. Breng op smaak met citroensap, zout en peper." } },
-        "s4": { "type": "step", "settings": { "text": "Verhit een pan tot de olie glanst. Bak de zalm op het vel in 5 tot 6 minuten krokant, draai kort om en haal de pan van het vuur. De restwarmte gaart hem af." } },
-        "s5": { "type": "step", "settings": { "text": "Serveer de zalm op de saus, met bieslook erover. Eerst de saus op het bord, dan de vis. Zo blijft het vel krokant." } }
+        "i1": { "type": "ingredient", "settings": { "name": "Tom yum pasta", "amount": "30 g" } },
+        "i2": { "type": "ingredient", "settings": { "name": "Kokosmelk", "amount": "500 ml" } },
+        "i3": { "type": "ingredient", "settings": { "name": "Rode chilipeper, fijngehakt", "amount": "1" } },
+        "i4": { "type": "ingredient", "settings": { "name": "Sjalotten, fijngesnipperd", "amount": "2" } },
+        "i5": { "type": "ingredient", "settings": { "name": "Knoflook, fijngehakt", "amount": "1 teen" } },
+        "i6": { "type": "ingredient", "settings": { "name": "Verse kokkels, schoongespoeld", "amount": "1 kg" } },
+        "i7": { "type": "ingredient", "settings": { "name": "Droge witte wijn", "amount": "100 ml" } },
+        "i8": { "type": "ingredient", "settings": { "name": "Kookvocht van de kokkels", "amount": "2-4 el" } },
+        "i9": { "type": "ingredient", "settings": { "name": "Vissaus", "amount": "1 el" } },
+        "i10": { "type": "ingredient", "settings": { "name": "Limoen, het sap", "amount": "1" } },
+        "i11": { "type": "ingredient", "settings": { "name": "Verse koriander", "amount": "royaal" } },
+        "s1": { "type": "step", "settings": { "text": "Verhit een pan en fruit een van de gesnipperde sjalotten kort aan. Blus af met de witte wijn en breng aan de kook. Voeg de kokkels toe, doe de deksel erop en kook 3 tot 4 minuten, tot alle schelpen open staan." } },
+        "s2": { "type": "step", "settings": { "text": "Zeef het kookvocht door een fijne zeef en bewaar het. Haal de kokkels uit de schelpen en houd een paar kokkels in de schelp apart voor de presentatie." } },
+        "s3": { "type": "step", "settings": { "text": "Fruit de andere sjalot zachtjes aan met de knoflook en de rode chili. Voeg de tom yum pasta toe en bak die ongeveer een minuut mee, zodat de aroma's goed vrijkomen." } },
+        "s4": { "type": "step", "settings": { "text": "Schenk de kokosmelk erbij en laat de soep vijf minuten zachtjes trekken." } },
+        "s5": { "type": "step", "settings": { "text": "Breng de soep op smaak met het kookvocht van de kokkels, de vissaus en het limoensap. Proef tussendoor en voeg zoveel kookvocht toe als nodig is voor een mooie zilte umami-smaak." } },
+        "s6": { "type": "step", "settings": { "text": "Voeg de kokkels toe en verwarm ze nog kort mee. Verdeel de kokkels over warme diepe borden, schenk de romige tom yum erover en garneer royaal met verse koriander. Direct serveren." } }
       },
-      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "s1", "s2", "s3", "s4", "s5"],
-      "settings": {}
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6"],
+      "settings": {
+        "kicker": "Recept Nº 1",
+        "title": "Romige tom yum met kokkels",
+        "intro": "Een Thaise klassieker met een romige twist van kokosmelk. Verse kokkels en hun kookvocht geven de soep zilte diepgang, limoen en koriander maken hem fris. Eenvoudig om te maken, met veel smaak.",
+        "time": "30 min",
+        "servings": "4 personen",
+        "course": "Vis",
+        "show_video": true,
+        "video_note": "Kijk mee hoe Maarten hem maakt",
+        "tip_title": "Tip van Maarten",
+        "tip_text": "Het kookvocht van de kokkels is de geheime smaakmaker van dit gerecht. Voeg het beetje bij beetje toe en proef steeds tussendoor; zo blijft de soep perfect in balans.",
+        "wine_title": "De wijn die erbij hoort",
+        "wine_text": "In de video schenkt Maarten er een droge witte wijn bij. Wil je bij elk nieuw recept ook de wijntip? Schrijf je in, dan hoor je het als eerste."
+      }
     }
   },
   "order": ["main"]

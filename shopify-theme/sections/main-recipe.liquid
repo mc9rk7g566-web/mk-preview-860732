@@ -1,61 +1,161 @@
-{% assign recipes_url = pages['recepten'].url | default: '/pages/recepten' %}
-{% if settings.community_url != blank %}{% assign community_url = settings.community_url %}{% else %}{% assign community_url = routes.root_url | append: '#community' %}{% endif %}
-<article>
+{% comment %}
+  Recept-detailpagina (eigen indexeerbare URL, goed voor Google). Zelfde premium
+  opzet als het uitgelichte recept op de home: gecentreerde titel + meta, kookvideo
+  met foto's, ingrediënten/bereiding in twee kolommen, wijntip en 'over Maarten'.
+  Foto's/video vallen terug op de stills uit de kookvideo; per recept aanpasbaar
+  via Customize. Recipe- + VideoObject-structured-data staat onderaan.
+{% endcomment %}
+{% liquid
+  assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  if settings.community_url != blank
+    assign wine_url = settings.community_url
+    assign wine_label = 'Proef mee'
+    assign wine_icon = 'ph-whatsapp-logo'
+  else
+    assign wine_url = routes.root_url | append: '#landing-signup'
+    assign wine_label = 'Houd me op de hoogte'
+    assign wine_icon = 'ph-envelope-simple'
+  endif
+%}
+<article class="recipe-feature recipe-detail">
   <section class="recipe-hero">
     <div class="wrap">
       <a class="back" href="{{ recipes_url }}"><i class="ph ph-arrow-left" aria-hidden="true"></i>Alle recepten</a>
-      <h1 class="display recipe-title">{{ section.settings.title }}</h1>
-      <p class="meta"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span></p>
-      <div class="recipe-media reveal">
-        {% render 'responsive-image', image: section.settings.hero_image, fallback: 'recept-vis.jpg', alt: section.settings.title, sizes: 'calc(100vw - 48px)', fetchpriority: 'high' %}
-        {% if section.settings.video_note != blank %}<span class="video-note"><i class="ph ph-video-camera" aria-hidden="true"></i>{{ section.settings.video_note }}</span>{% endif %}
+      <p class="meta recipe-kicker reveal">{{ section.settings.kicker }}</p>
+      <h1 class="display recipe-title reveal">{{ section.settings.title }}</h1>
+      <p class="lead recipe-intro reveal">{{ section.settings.intro }}</p>
+      <p class="meta recipe-meta reveal"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span></p>
+
+      <div class="recipe-showcase reveal">
+        <figure class="showcase-card showcase-card--video">
+          {% if section.settings.show_video %}
+            <video src="{{ 'recept-tomyum-video.mp4' | asset_url }}" poster="{{ 'recept-tomyum-poster.jpg' | asset_url }}" controls playsinline preload="metadata" width="464" height="832" aria-label="Kookvideo: {{ section.settings.title | escape }}"></video>
+            {% if section.settings.video_note != blank %}<figcaption class="video-note"><i class="ph ph-video-camera" aria-hidden="true"></i>{{ section.settings.video_note }}</figcaption>{% endif %}
+          {% else %}
+            {% render 'responsive-image', image: section.settings.hero_image, fallback: 'recept-tomyum-bord.jpg', alt: section.settings.title, sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+          {% endif %}
+        </figure>
+        <figure class="showcase-card">
+          {% render 'responsive-image', image: section.settings.photo_1, fallback: 'recept-tomyum-saus.jpg', alt: 'De romige tom yum wordt over de kokkels geschept', sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+        </figure>
+        <figure class="showcase-card">
+          {% render 'responsive-image', image: section.settings.photo_2, fallback: 'recept-tomyum-pan.jpg', alt: 'Pan met romige tom yum en kokkels', sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+        </figure>
       </div>
     </div>
   </section>
+
   <section class="wrap recipe-body">
-    <aside class="ingredients reveal"><h2>Ingrediënten</h2><ul>
-      {% for block in section.blocks %}{% if block.type == 'ingredient' %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{% endif %}{% endfor %}
-    </ul></aside>
-    <div class="method reveal"><h2>Bereiding</h2><ol>
-      {% for block in section.blocks %}{% if block.type == 'step' %}<li {{ block.shopify_attributes }}><p>{{ block.settings.text }}</p></li>{% endif %}{% endfor %}
-    </ol></div>
-  </section>
-  <section class="wrap recipe-wine-section">
-    <div class="wine-tip reveal">
-      <div class="wt-media">{% render 'responsive-image', image: section.settings.wine_image, fallback: 'wijn-donker.jpg', alt: 'Wijn wordt ingeschonken', sizes: '(max-width: 767px) 100vw, 42vw', loading: 'lazy' %}</div>
-      <div class="wt-body"><span class="wt-label"><i class="ph ph-wine" aria-hidden="true"></i>De wijntip van Maarten</span><h2>{{ section.settings.wine_title }}</h2><p>{{ section.settings.wine_text }}</p><a class="btn btn-light" href="{{ community_url }}" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a></div>
+    <aside class="ingredients reveal">
+      <h2>Ingrediënten</h2>
+      <ul>
+        {% for block in section.blocks %}{% if block.type == 'ingredient' %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{% endif %}{% endfor %}
+      </ul>
+      <figure class="ingredients-photo">
+        {% render 'responsive-image', image: section.settings.photo_ingredients, fallback: 'recept-tomyum-mise.jpg', alt: 'Verse ingrediënten voor de tom yum op het aanrecht', sizes: '(max-width: 860px) 100vw, 33vw', loading: 'lazy' %}
+      </figure>
+    </aside>
+    <div class="method reveal">
+      <h2>Bereiding</h2>
+      <ol>
+        {% for block in section.blocks %}{% if block.type == 'step' %}<li {{ block.shopify_attributes }}><p>{{ block.settings.text }}</p></li>{% endif %}{% endfor %}
+      </ol>
+      {% if section.settings.tip_text != blank %}
+      <div class="tip-card method-tip">
+        <i class="ph ph-lightbulb" aria-hidden="true"></i>
+        <h3>{{ section.settings.tip_title }}</h3>
+        <p>{{ section.settings.tip_text }}</p>
+      </div>
+      {% endif %}
     </div>
   </section>
+
+  <section class="wrap recipe-wine-section">
+    <div class="wine-tip reveal">
+      <div class="wt-media">
+        {% render 'responsive-image', image: section.settings.wine_image, fallback: 'recept-tomyum-wijn.jpg', alt: 'Maarten schenkt witte wijn bij de kokkels', sizes: '(max-width: 767px) 100vw, 42vw', loading: 'lazy' %}
+      </div>
+      <div class="wt-body">
+        <span class="wt-label"><i class="ph ph-wine" aria-hidden="true"></i>De wijntip van Maarten</span>
+        <h2>{{ section.settings.wine_title }}</h2>
+        <p>{{ section.settings.wine_text }}</p>
+        <a class="btn btn-light" href="{{ wine_url }}" {% if settings.community_url != blank %}rel="noopener"{% endif %}><i class="ph {{ wine_icon }}" aria-hidden="true"></i>{{ wine_label }}</a>
+      </div>
+    </div>
+  </section>
+
   <section class="section section-band">
-    <div class="wrap"><div class="section-head reveal"><h2 class="display related-title">Ook lekker</h2><a class="link-more" href="{{ recipes_url }}">Alle recepten<i class="ph ph-arrow-right" aria-hidden="true"></i></a></div>
-      <div class="recipe-grid">
-        <a class="recipe-card reveal" href="{{ recipes_url }}"><div class="thumb"><img src="{{ 'recept-pasta.jpg' | asset_url }}" width="1200" height="800" alt="Pasta met gamba's" loading="lazy"></div><h3>Pasta met gamba's</h3><p class="meta">25 min · Vis</p></a>
-        <a class="recipe-card reveal" href="{{ recipes_url }}"><div class="thumb"><img src="{{ 'recept-soep.jpg' | asset_url }}" width="1200" height="1500" alt="Pompoensoep met salie" loading="lazy"></div><h3>Pompoensoep met salie</h3><p class="meta">40 min · Warm voorgerecht</p></a>
-        <a class="recipe-card reveal" href="{{ recipes_url }}"><div class="thumb"><img src="{{ 'recept-steak.jpg' | asset_url }}" width="1200" height="800" alt="Ribeye van de plaat" loading="lazy"></div><h3>Ribeye van de plaat</h3><p class="meta">35 min · Vlees</p></a>
+    <div class="wrap recipe-cta reveal">
+      <h2 class="display">Meer recepten van Maarten</h2>
+      <p class="lead">Elk nieuw gerecht met de wijn die erbij past. Bekijk alle recepten of laat je mailadres achter voor het volgende.</p>
+      <div class="recipe-cta-row">
+        <a class="btn btn-primary" href="{{ recipes_url }}">Alle recepten<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn-glass" href="{{ routes.root_url }}#landing-signup">Houd me op de hoogte</a>
       </div>
     </div>
   </section>
 </article>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Recipe",
+  "name": {{ section.settings.title | json }},
+  "description": {{ section.settings.intro | json }},
+  "image": [{{ 'recept-tomyum-bord.jpg' | asset_url | prepend: 'https:' | json }}],
+  "author": { "@type": "Person", "name": "Maarten Kievit" },
+  "recipeYield": {{ section.settings.servings | json }},
+  "recipeCuisine": "Thais",
+  "recipeCategory": {{ section.settings.course | json }},
+  "totalTime": "PT30M",
+  "recipeIngredient": [
+    {% for block in section.blocks %}{% if block.type == 'ingredient' %}{{ block.settings.amount | append: ' ' | append: block.settings.name | json }}{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}
+  ],
+  "recipeInstructions": [
+    {% for block in section.blocks %}{% if block.type == 'step' %}{ "@type": "HowToStep", "text": {{ block.settings.text | json }} }{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}
+  ]{% if section.settings.show_video %},
+  "video": {
+    "@type": "VideoObject",
+    "name": {{ section.settings.title | prepend: 'Kookvideo: ' | json }},
+    "description": {{ section.settings.intro | json }},
+    "thumbnailUrl": {{ 'recept-tomyum-poster.jpg' | asset_url | prepend: 'https:' | json }},
+    "contentUrl": {{ 'recept-tomyum-video.mp4' | asset_url | prepend: 'https:' | json }},
+    "uploadDate": "2026-07-19"
+  }{% endif %}
+}
+</script>
+
 {% schema %}
 {
   "name": "Recept",
   "settings": [
-    { "type": "text", "id": "title", "label": "Titel", "default": "Zalm met beurre blanc" },
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "kicker", "label": "Kleine tekst boven de titel", "default": "Recept" },
+    { "type": "text", "id": "title", "label": "Naam van het gerecht", "default": "Romige tom yum met kokkels" },
+    { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Een Thaise klassieker met een romige twist van kokosmelk. Verse kokkels en hun kookvocht geven de soep zilte diepgang, limoen en koriander maken hem fris." },
     { "type": "text", "id": "time", "label": "Bereidingstijd", "default": "30 min" },
     { "type": "text", "id": "servings", "label": "Aantal personen", "default": "4 personen" },
-    { "type": "text", "id": "course", "label": "Gang", "default": "Hoofdgerecht" },
-    { "type": "image_picker", "id": "hero_image", "label": "Gerechtfoto" },
-    { "type": "text", "id": "video_note", "label": "Videomelding", "default": "Kookvideo volgt bij lancering" },
-    { "type": "image_picker", "id": "wine_image", "label": "Wijnafbeelding" },
-    { "type": "text", "id": "wine_title", "label": "Wijntitel", "default": "Een strakke witte bourgogne" },
-    { "type": "textarea", "id": "wine_text", "label": "Wijntip", "default": "Beurre blanc vraagt om frisheid met een beetje vet. Een chardonnay zonder zware houtlagering snijdt door de botersaus heen en tilt de zalm op. Welke fles ik nu op tafel zet, deel ik in de groepsapp." }
+    { "type": "text", "id": "course", "label": "Soort gerecht", "default": "Vis" },
+    { "type": "header", "content": "Video en foto's" },
+    { "type": "checkbox", "id": "show_video", "label": "Kookvideo tonen", "default": true },
+    { "type": "text", "id": "video_note", "label": "Bijschrift bij de video", "default": "Kijk mee hoe Maarten hem maakt" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hoofdfoto (als video uit staat)" },
+    { "type": "image_picker", "id": "photo_1", "label": "Foto 2" },
+    { "type": "image_picker", "id": "photo_2", "label": "Foto 3" },
+    { "type": "image_picker", "id": "photo_ingredients", "label": "Foto bij de ingrediënten" },
+    { "type": "header", "content": "Tip van Maarten" },
+    { "type": "text", "id": "tip_title", "label": "Titel", "default": "Tip van Maarten" },
+    { "type": "textarea", "id": "tip_text", "label": "Tekst", "default": "Het kookvocht van de kokkels is de geheime smaakmaker van dit gerecht. Voeg het beetje bij beetje toe en proef steeds tussendoor; zo blijft de soep perfect in balans." },
+    { "type": "header", "content": "Wijntip" },
+    { "type": "image_picker", "id": "wine_image", "label": "Foto" },
+    { "type": "text", "id": "wine_title", "label": "Titel", "default": "De wijn die erbij hoort" },
+    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. Wil je bij elk nieuw recept ook de wijntip? Schrijf je in, dan hoor je het als eerste." }
   ],
   "blocks": [
     { "type": "ingredient", "name": "Ingrediënt", "settings": [{ "type": "text", "id": "name", "label": "Naam" }, { "type": "text", "id": "amount", "label": "Hoeveelheid" }] },
     { "type": "step", "name": "Bereidingsstap", "settings": [{ "type": "textarea", "id": "text", "label": "Uitleg" }] }
   ],
-  "max_blocks": 30,
+  "max_blocks": 40,
   "presets": [{ "name": "Recept" }]
 }
 {% endschema %}
