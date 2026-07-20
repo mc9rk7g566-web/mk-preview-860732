@@ -839,7 +839,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
 
 /* Header: verbergt bij scrollen omlaag, komt terug bij omhoog */
-.nav { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s, border-color 0.35s; will-change: transform; }
+.nav { transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.35s, border-color 0.35s; will-change: transform; }
 .nav--hidden { transform: translateY(-100%); }
 .nav.menu-open.nav--hidden { transform: none; }
 
@@ -971,3 +971,13 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
   .community-card { grid-template-columns: 1fr; }
   .community-media { min-height: 0; aspect-ratio: 16 / 10; order: -1; }
 }
+
+/* --------------------------------------------------------------------------
+   Lenis smooth-scroll (self-hosted). Actief op desktop/wheel; op touch = native.
+   Bij reduced-motion wordt Lenis niet geïnitieerd (JS), dan geldt gewoon native scroll.
+   -------------------------------------------------------------------------- */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }

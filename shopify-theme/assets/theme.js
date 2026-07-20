@@ -8,6 +8,21 @@
   var hasGsap = typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined";
   var nav = document.querySelector(".nav");
 
+  /* ---- Smooth scroll (Lenis): buttery wheel-scroll op desktop; op touch blijft
+         native (dat is daar al soepel). Niet bij reduced-motion. ---- */
+  var lenis = null;
+  if (!reduceMotion && typeof Lenis !== "undefined") {
+    lenis = new Lenis({
+      duration: 1.1,
+      easing: function (t) { return 1 - Math.pow(1 - t, 3); }, /* rustige ease-out */
+      smoothWheel: true
+    });
+    if (!hasGsap) {
+      var lenisRaf = function (t) { lenis.raf(t); requestAnimationFrame(lenisRaf); };
+      requestAnimationFrame(lenisRaf);
+    }
+  }
+
   /* ---- Fullscreen menu-overlay (burger draait naar X, links staggeren in) ---- */
   var toggle = document.querySelector(".nav-toggle");
   var overlay = document.querySelector(".menu-overlay");
@@ -19,7 +34,7 @@
       overlay.classList.add("is-open");
       toggle.setAttribute("aria-expanded", "true");
       if (nav) nav.classList.add("menu-open");
-      document.body.style.overflow = "hidden";
+      if (lenis) lenis.stop(); else document.body.style.overflow = "hidden";
       if (hasGsap && !reduceMotion) {
         gsap.fromTo(overlayItems,
           { y: 34, opacity: 0 },
@@ -30,7 +45,7 @@
       overlay.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
       if (nav) nav.classList.remove("menu-open");
-      document.body.style.overflow = "";
+      if (lenis) lenis.start(); else document.body.style.overflow = "";
     };
 
     toggle.addEventListener("click", function () {
@@ -44,14 +59,35 @@
     });
   }
 
+  /* ---- In-page ankers soepel scrollen via Lenis (offset voor de vaste nav).
+         Werkt voor '#over' én '/#over'; cross-page links (doel niet op deze
+         pagina) laten we met rust. ---- */
+  if (lenis) {
+    document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        var href = a.getAttribute("href") || "";
+        var i = href.indexOf("#");
+        if (i === -1) return;
+        var id = href.slice(i);
+        if (id.length < 2 || id === "#MainContent") return;
+        var target;
+        try { target = document.querySelector(id); } catch (err) { return; }
+        if (!target) return; /* doel staat niet op deze pagina → laat de browser navigeren */
+        e.preventDefault();
+        if (overlay && overlay.classList.contains("is-open") && typeof closeMenu === "function") closeMenu();
+        lenis.scrollTo(target, { offset: -70, duration: 1.1 });
+      });
+    });
+  }
+
   /* ---- Header verbergt bij scrollen omlaag, komt terug bij omhoog (soepel, geen getril) ---- */
   if (nav) {
     var lastNavY = window.pageYOffset || 0;
     var navTicking = false;
     var updateNav = function () {
       var y = window.pageYOffset || 0;
-      if (Math.abs(y - lastNavY) > 6) {
-        if (y > lastNavY && y > 160) nav.classList.add("nav--hidden");
+      if (Math.abs(y - lastNavY) > 8) {
+        if (y > lastNavY && y > 200) nav.classList.add("nav--hidden");
         else if (y < lastNavY) nav.classList.remove("nav--hidden");
         lastNavY = y;
       }
@@ -157,6 +193,13 @@
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // Lenis aan de GSAP-ticker koppelen zodat scroll-animaties synchroon en soepel blijven
+  if (lenis) {
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
   // GSAP stuurt de reveals zelf aan; CSS-fallback-transition uit zodat die niet meevecht
   gsap.set(".reveal", { transition: "none" });
 
@@ -198,7 +241,7 @@
     gsap.to(heroImg, {
       yPercent: 10,
       ease: "none",
-      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 0.5 }
     });
   }
 
