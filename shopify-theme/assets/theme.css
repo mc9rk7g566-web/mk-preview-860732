@@ -532,7 +532,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 
 @media (max-width: 860px) {
   .about { grid-template-columns: 1fr; }
-  .about-media { aspect-ratio: 4 / 3; }
+  .about-media { aspect-ratio: 4 / 5; max-height: 70vh; }
 }
 
 /* --------------------------------------------------------------------------

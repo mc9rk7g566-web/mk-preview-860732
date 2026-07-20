@@ -8,6 +8,8 @@
         "i3": { "type": "ingredient", "settings": { "name": "Rode chilipeper, fijngehakt", "amount": "1" } },
         "i4": { "type": "ingredient", "settings": { "name": "Sjalotten, fijngesnipperd", "amount": "2" } },
         "i5": { "type": "ingredient", "settings": { "name": "Knoflook, fijngehakt", "amount": "1 teen" } },
+        "i12": { "type": "ingredient", "settings": { "name": "Verse gember, geraspt", "amount": "50 g" } },
+        "i13": { "type": "ingredient", "settings": { "name": "Citroengras, fijngesneden", "amount": "50 g" } },
         "i6": { "type": "ingredient", "settings": { "name": "Verse kokkels, schoongespoeld", "amount": "1 kg" } },
         "i7": { "type": "ingredient", "settings": { "name": "Droge witte wijn", "amount": "100 ml" } },
         "i8": { "type": "ingredient", "settings": { "name": "Kookvocht van de kokkels", "amount": "2-4 el" } },
@@ -16,12 +18,12 @@
         "i11": { "type": "ingredient", "settings": { "name": "Verse koriander", "amount": "royaal" } },
         "s1": { "type": "step", "settings": { "text": "Verhit een pan en fruit een van de gesnipperde sjalotten kort aan. Blus af met de witte wijn en breng aan de kook. Voeg de kokkels toe, doe de deksel erop en kook 3 tot 4 minuten, tot alle schelpen open staan." } },
         "s2": { "type": "step", "settings": { "text": "Zeef het kookvocht door een fijne zeef en bewaar het. Haal de kokkels uit de schelpen en houd een paar kokkels in de schelp apart voor de presentatie." } },
-        "s3": { "type": "step", "settings": { "text": "Fruit de andere sjalot zachtjes aan met de knoflook en de rode chili. Voeg de tom yum pasta toe en bak die ongeveer een minuut mee, zodat de aroma's goed vrijkomen." } },
+        "s3": { "type": "step", "settings": { "text": "Fruit de andere sjalot zachtjes aan met de knoflook, de gember, het citroengras en de rode chili. Voeg de tom yum pasta toe en bak die ongeveer een minuut mee, zodat de aroma's goed vrijkomen." } },
         "s4": { "type": "step", "settings": { "text": "Schenk de kokosmelk erbij en laat de soep vijf minuten zachtjes trekken." } },
         "s5": { "type": "step", "settings": { "text": "Breng de soep op smaak met het kookvocht van de kokkels, de vissaus en het limoensap. Proef tussendoor en voeg zoveel kookvocht toe als nodig is voor een mooie zilte umami-smaak." } },
         "s6": { "type": "step", "settings": { "text": "Voeg de kokkels toe en verwarm ze nog kort mee. Verdeel de kokkels over warme diepe borden, schenk de romige tom yum erover en garneer royaal met verse koriander. Direct serveren." } }
       },
-      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6"],
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i12", "i13", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6"],
       "settings": {
         "kicker": "Recept van de week",
         "title": "Romige tom yum met kokkels",
