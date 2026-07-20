@@ -10,7 +10,7 @@
         "f1": { "type": "faq", "settings": { "q": "Is het gratis?", "a": "Ja. Lid worden is helemaal gratis. Je betaalt alleen als je zelf een fles bestelt." } },
         "f2": { "type": "faq", "settings": { "q": "Moet ik iets kopen?", "a": "Nee, je zit nergens aan vast. Bestel alleen de wijnen die je echt aanspreken." } },
         "f3": { "type": "faq", "settings": { "q": "Hoe vaak krijg ik berichten?", "a": "Alleen als er iets moois is. Geen spam, en je kunt altijd uit de groep stappen." } },
-        "f4": { "type": "faq", "settings": { "q": "Hoe werkt bestellen?", "a": "Je reageert in de app op de fles die je wilt. Maarten regelt de rest en de wijn wordt thuisbezorgd." } }
+        "f4": { "type": "faq", "settings": { "q": "Hoe werkt bestellen?", "a": "Je reageert in de app op de fles die je wilt, en Maarten regelt de rest." } }
       },
       "block_order": ["b1", "b2", "b3", "b4", "f1", "f2", "f3", "f4"],
       "settings": {
@@ -23,7 +23,7 @@
         "steps_title": "Zo werkt het",
         "step1": "Join gratis via WhatsApp",
         "step2": "Maarten deelt zijn wijnvondsten met foto, verhaal en prijs",
-        "step3": "Bevalt een fles? Bestel hem rechtstreeks, thuisbezorgd",
+        "step3": "Bevalt een fles? Bestel hem rechtstreeks bij Maarten",
         "faq_title": "Veelgestelde vragen",
         "final_title": "Klaar om beter te drinken?",
         "final_text": "Join The Cellar Club en ontvang de eerstvolgende wijnvondst van Maarten."

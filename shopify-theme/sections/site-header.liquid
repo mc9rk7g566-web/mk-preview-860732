@@ -1,6 +1,12 @@
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
-  if settings.community_url != blank
+  assign cellar_page = pages['the-cellar-club']
+  if cellar_page != blank
+    assign cta_url = cellar_page.url
+    assign cta_label = 'The Cellar Club'
+    assign cta_icon = 'ph-wine'
+    assign cta_blank = false
+  elsif settings.community_url != blank
     assign cta_url = settings.community_url
     assign cta_label = 'The Cellar Club'
     assign cta_icon = 'ph-wine'

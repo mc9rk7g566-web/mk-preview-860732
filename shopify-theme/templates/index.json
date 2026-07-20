@@ -33,9 +33,10 @@
         "text": "Een gratis, besloten WhatsApp-club voor wijnliefhebbers. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt bestellen: vaak in kleine oplages en altijd met een verhaal.",
         "step1": "Join gratis via WhatsApp",
         "step2": "Maarten deelt zijn wijnvondsten",
-        "step3": "Bestel wat je aanspreekt, thuisbezorgd",
+        "step3": "Bestel wat je aanspreekt",
         "button_label": "Join The Cellar Club",
         "note": "Gratis lid. Geen verplichting om te kopen.",
+        "more_url": "/pages/the-cellar-club",
         "more_label": "Zo werkt het"
       }
     }

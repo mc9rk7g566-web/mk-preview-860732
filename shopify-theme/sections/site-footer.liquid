@@ -6,7 +6,7 @@
     <ul class="footer-links">
       <li><a href="{{ pages['recepten'].url | default: '/pages/recepten' }}">recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over maarten</a></li>
-      {% if settings.community_url != blank %}<li><a href="{{ settings.community_url }}" target="_blank" rel="noopener">the cellar club</a></li>{% endif %}
+      {% if pages['the-cellar-club'] != blank %}<li><a href="{{ pages['the-cellar-club'].url }}">the cellar club</a></li>{% elsif settings.community_url != blank %}<li><a href="{{ settings.community_url }}" target="_blank" rel="noopener">the cellar club</a></li>{% endif %}
       <li><a href="mailto:{{ settings.contact_email }}">contact</a></li>
     </ul>
     {% endunless %}
