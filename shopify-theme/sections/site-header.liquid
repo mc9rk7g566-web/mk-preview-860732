@@ -1,15 +1,13 @@
 {% liquid
-  assign recipes_page = pages['recepten']
-  assign cookbook = settings.cookbook_product
-  if cookbook != blank
-    assign cookbook_url = cookbook.url
-  else
-    assign cookbook_url = routes.all_products_collection_url
-  endif
+  assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
-    assign community_url = settings.community_url
+    assign cta_url = settings.community_url
+    assign cta_label = 'Proef mee'
+    assign cta_icon = 'ph-whatsapp-logo'
   else
-    assign community_url = routes.root_url | append: '#community'
+    assign cta_url = routes.root_url | append: '#landing-signup'
+    assign cta_label = 'Ik wil erbij zijn'
+    assign cta_icon = 'ph-envelope-simple'
   endif
 %}
 <a class="skip-link" href="#MainContent">Ga naar inhoud</a>
@@ -20,12 +18,9 @@
     </a>
     {% unless settings.landing_mode %}
     <ul class="nav-links">
-      <li><a href="{{ recipes_page.url | default: '/pages/recepten' }}"{% if page.handle == 'recepten' or page.handle == 'recept' %} aria-current="page"{% endif %}>recepten</a></li>
+      <li><a href="{{ recipes_url }}"{% if page.handle == 'recepten' or template.name == 'page' and page.templates contains 'recept' %} aria-current="page"{% endif %}>recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over</a></li>
-      <li><a href="{{ routes.root_url }}#tips">tips</a></li>
-      <li><a href="{{ cookbook_url }}"{% if template.name == 'product' %} aria-current="page"{% endif %}>kookboek</a></li>
-      <li><a class="cart-link" href="{{ routes.cart_url }}" aria-label="Winkelwagen, {{ cart.item_count }} artikelen"><i class="ph ph-shopping-bag" aria-hidden="true"></i>{% if cart.item_count > 0 %}<span>{{ cart.item_count }}</span>{% endif %}</a></li>
-      <li><a class="btn btn-primary" href="{{ community_url }}"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a></li>
+      <li><a class="btn btn-primary" href="{{ cta_url }}"{% if settings.community_url != blank %} rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a></li>
     </ul>
     <button class="nav-toggle" aria-expanded="false" aria-controls="MobileMenu" aria-label="Menu openen"><span></span><span></span></button>
     {% endunless %}
@@ -34,12 +29,9 @@
 {% unless settings.landing_mode %}
 <nav class="menu-overlay" id="MobileMenu" aria-label="Menu">
   <a href="{{ routes.root_url }}"{% if template.name == 'index' %} aria-current="page"{% endif %}>home</a>
-  <a href="{{ recipes_page.url | default: '/pages/recepten' }}"{% if page.handle == 'recepten' or page.handle == 'recept' %} aria-current="page"{% endif %}>recepten</a>
+  <a href="{{ recipes_url }}"{% if page.handle == 'recepten' %} aria-current="page"{% endif %}>recepten</a>
   <a href="{{ routes.root_url }}#over">over</a>
-  <a href="{{ routes.root_url }}#tips">tips</a>
-  <a href="{{ cookbook_url }}"{% if template.name == 'product' %} aria-current="page"{% endif %}>kookboek</a>
-  <a href="{{ routes.cart_url }}">winkelwagen ({{ cart.item_count }})</a>
-  <a class="btn" href="{{ community_url }}"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Proef mee</a>
+  <a class="btn" href="{{ cta_url }}"{% if settings.community_url != blank %} rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a>
   <span class="menu-tagline">Passie. Smaak. Vakmanschap.</span>
 </nav>
 {% endunless %}

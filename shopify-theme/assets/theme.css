@@ -891,6 +891,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 .recipe-feature .recipe-hero .recipe-meta { margin-top: 22px; display: inline-flex; gap: 26px; }
 .recipe-feature .recipe-hero .recipe-meta span { margin: 0; display: inline-flex; align-items: center; }
 .recipe-feature .insta-row { margin-top: 30px; display: flex; justify-content: center; }
+.feature-cta { margin-top: clamp(32px, 4vw, 44px); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .recipe-hero .recipe-kicker { letter-spacing: 0.14em; text-transform: uppercase; }
 .recipe-hero .recipe-title { max-width: 16ch; margin-top: 14px; }

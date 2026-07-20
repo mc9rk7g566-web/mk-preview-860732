@@ -1,26 +1,12 @@
-{% liquid
-  assign cookbook = settings.cookbook_product
-  assign cookbook_url = routes.all_products_collection_url
-  if cookbook != blank
-    assign cookbook_url = cookbook.url
-  endif
-  if settings.community_url != blank
-    assign community_url = settings.community_url
-  else
-    assign community_url = routes.root_url | append: '#community'
-  endif
-%}
 <footer class="footer">
   <div class="footer-inner">
     <img class="m-icon" src="{{ 'mk-icoon-bordeaux.svg' | asset_url }}" alt="Maarten kookt" width="64" height="64">
     <a class="wordmark" href="{{ routes.root_url }}"><span class="wm-name">Maarten</span><span class="wm-sub">Kookt</span></a>
     {% unless settings.landing_mode %}
     <ul class="footer-links">
-      <li><a href="/pages/recepten">recepten</a></li>
-      <li><a href="{{ routes.root_url }}#tips">tips &amp; technieken</a></li>
+      <li><a href="{{ pages['recepten'].url | default: '/pages/recepten' }}">recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over maarten</a></li>
-      <li><a href="{{ cookbook_url }}">kookboek</a></li>
-      <li><a href="{{ community_url }}" rel="noopener">de groepsapp</a></li>
+      {% if settings.community_url != blank %}<li><a href="{{ settings.community_url }}" rel="noopener">de groepsapp</a></li>{% endif %}
       <li><a href="mailto:{{ settings.contact_email }}">contact</a></li>
     </ul>
     {% endunless %}

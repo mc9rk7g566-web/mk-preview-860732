@@ -3,7 +3,7 @@
     "main": {
       "type": "main-recipes",
       "blocks": {
-        "tomyum": { "type": "recipe", "settings": { "title": "Romige tom yum met kokkels", "meta": "30 min · Vis", "category": "vis warm", "link": "/pages/tom-yum-met-kokkels", "fallback_image": "recept-tomyum-bord.jpg" } }
+        "tomyum": { "type": "recipe", "settings": { "title": "Romige tom yum met kokkels", "meta": "30 min · Vis", "category": "vis warm", "link": "/pages/romige-tom-yum-met-kokkels", "fallback_image": "recept-tomyum-bord.jpg" } }
       },
       "block_order": ["tomyum"],
       "settings": {
