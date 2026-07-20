@@ -34,6 +34,15 @@ let rows = ICONS.map((i) => {
   </div>`;
 }).join("");
 
+const GLASSES = [
+  { n: "wijnglas-slank-3-dik20", cap: "SVG +20 · exact jouw glas", tag: "mijn methode" },
+  { n: "wijnglas-hf-dik-3", cap: "Higgsfield 3 · schone lijn", tag: "aanrader" },
+  { n: "wijnglas-hf-dik-1", cap: "Higgsfield 1", tag: "" },
+  { n: "wijnglas-hf-dik-2", cap: "Higgsfield 2", tag: "" },
+  { n: "wijnglas-hf-dik-4", cap: "Higgsfield 4", tag: "" },
+];
+const glassRow = GLASSES.map((g) => `<div class="cell"><div class="disc">${disc(g.n)}</div><div class="cap">${g.cap}${g.tag ? `<br><span style="color:#CDB998;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase">${g.tag}</span>` : ""}</div></div>`).join("");
+
 const html = `<style>
   @font-face{font-family:"Lilita One";font-weight:400;font-display:swap;
     src:url(data:font/ttf;base64,${lilita}) format("truetype")}
@@ -46,7 +55,8 @@ const html = `<style>
   h2{font-size:1.15rem;color:#CDB998;letter-spacing:.06em;margin:52px 0 4px}
   .subline{color:#9c8f7d;font-size:.85rem;margin:0 0 22px}
   .recrow{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-  @media(max-width:720px){.recrow{grid-template-columns:repeat(3,1fr)}}
+  .glassrow{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  @media(max-width:720px){.recrow,.glassrow{grid-template-columns:repeat(3,1fr)}}
   .cell{text-align:center}
   .disc{aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4)}
   .disc img{width:100%;height:100%;display:block}
@@ -67,6 +77,10 @@ const html = `<style>
   <p class="kick">Maarten kookt · Instagram</p>
   <h1>Story-highlight iconen</h1>
   <p class="lead">Zes iconen in crème op bordeaux, gemaakt met Higgsfield (Recraft-vector) — haarscherp en in je exacte huisstijlkleuren. Hieronder de aanbevolen set, en per icoon de varianten om uit te kiezen.</p>
+
+  <h2>Wijnglas — welke dikte?</h2>
+  <p class="subline">Je vroeg dit glas iets dikker. Eerste = exact jouw glas met een dikkere lijn (mijn methode). De rest is vers met Higgsfield gemaakt. Zeg welke je wilt.</p>
+  <div class="glassrow">${glassRow}</div>
 
   <h2>Aanbevolen set</h2>
   <p class="subline">De sterkste variant per icoon — als één rij highlight-covers.</p>
