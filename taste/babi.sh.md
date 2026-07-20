@@ -1,6 +1,12 @@
 # Design Map — babi.sh (The Babish Culinary Universe)
 
 > Geanalyseerd 12-07-2026 over 3 pagina's: `/`, `/recipes`, `/recipes/10-levels-of-cheesesteak`.
+> **Herbekeken 20-07-2026 (taste-skill):** de homepage is nu nóg minimaler = **alleen een
+> schermvullende hero-foto + één reuze-titel (futura-pt 100.8px/800 UPPERCASE, wit) + één
+> "JOIN"-pill + mini-nav + zwarte footer met social-icons.** Verder bijna GEEN tekst.
+> Kernles voor Maarten: **weinig tekst, één grote titel, één duidelijke actie per sectie,
+> foto's dragen alles.** Toegepast 20-07: values-tekstblok van de home verwijderd, hero + about
+> ingekort, alle secties foto-geleid.
 > Referentie voor het Maarten Kievit-concept. Structuur overnemen, look restylen naar
 > bordeaux/beige dark — nooit 1-op-1 kopiëren.
 

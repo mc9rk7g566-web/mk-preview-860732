@@ -1,7 +1,6 @@
 {% comment %}
-  Home-hero. Eén hoofddoel: mensen in de WhatsApp-groepsapp krijgen.
-  De groepsapp-link staat in Thema-instellingen (community_url). Hero-foto en teksten
-  zijn aanpasbaar via Online Store → Themes → Customize. Merknaam "Maarten Kookt" = het merk.
+  Home-hero. babi.sh-minimalisme: één grote titel, één duidelijke actie, weinig tekst.
+  Hoofddoel = de WhatsApp-groepsapp (community_url in Thema-instellingen).
 {% endcomment %}
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
@@ -21,44 +20,16 @@
     {% endif %}
   </div>
   <div class="hero-content">
-    {% if section.settings.kicker != blank %}<p class="meta hero-kicker">{{ section.settings.kicker }}</p>{% endif %}
     <h1 class="display">
       <span class="line"><span>Maarten</span></span>
       <span class="line"><span class="lockup-sub">Kookt</span></span>
     </h1>
-    <p class="lead hero-sub">{{ section.settings.subtekst }}</p>
+    {% if section.settings.subtekst != blank %}<p class="lead hero-sub">{{ section.settings.subtekst }}</p>{% endif %}
     <div class="hero-cta">
       {% if settings.community_url != blank %}
         <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_primary_label }}</a>
       {% endif %}
       <a class="btn btn-glass" href="{{ recipes_url }}">{{ section.settings.cta_secondary_label }}<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
-    </div>
-  </div>
-</section>
-
-<section class="section values-section">
-  <div class="wrap">
-    <div class="band-head reveal">
-      <span class="lockup-sub">Maarten kookt</span>
-      <h2 class="display">{{ section.settings.band_heading }}</h2>
-      <p>{{ section.settings.band_subtext }}</p>
-    </div>
-    <div class="coming-grid">
-      <div class="coming-item reveal">
-        <i class="ph ph-fork-knife" aria-hidden="true"></i>
-        <h3>{{ section.settings.item1_title }}</h3>
-        <p>{{ section.settings.item1_text }}</p>
-      </div>
-      <div class="coming-item reveal">
-        <i class="ph ph-video-camera" aria-hidden="true"></i>
-        <h3>{{ section.settings.item2_title }}</h3>
-        <p>{{ section.settings.item2_text }}</p>
-      </div>
-      <div class="coming-item reveal">
-        <i class="ph ph-wine" aria-hidden="true"></i>
-        <h3>{{ section.settings.item3_title }}</h3>
-        <p>{{ section.settings.item3_text }}</p>
-      </div>
     </div>
   </div>
 </section>
@@ -70,22 +41,9 @@
     { "type": "header", "content": "Achtergrondfoto" },
     { "type": "image_picker", "id": "hero_image", "label": "Hero-foto (grote achtergrond)", "info": "Laat leeg voor de standaardfoto." },
     { "type": "header", "content": "Hero" },
-    { "type": "text", "id": "kicker", "label": "Kleine tekst bovenaan", "default": "Passie · Smaak · Vakmanschap" },
-    { "type": "textarea", "id": "subtekst", "label": "Subtitel", "default": "Elke week een nieuw gerecht, de techniek erachter en de wijn die erbij past. Het eerst en het dichtstbij deel ik in de groepsapp. Kom erbij en kook mee." },
+    { "type": "textarea", "id": "subtekst", "label": "Eén korte regel (mag leeg)", "default": "Elke week een nieuw recept. Als eerste in de groepsapp." },
     { "type": "text", "id": "cta_primary_label", "label": "Groene knop (groepsapp)", "default": "Kom in de groepsapp" },
-    { "type": "text", "id": "cta_secondary_label", "label": "Tweede knop", "default": "Bekijk de recepten" },
-    { "type": "header", "content": "Blok 'Wat je hier krijgt'" },
-    { "type": "text", "id": "band_heading", "label": "Kop", "default": "Wat je hier vindt" },
-    { "type": "textarea", "id": "band_subtext", "label": "Ondertekst", "default": "Geen nieuwsbrief vol reclame, maar de dingen waar je in de keuken echt iets aan hebt." },
-    { "type": "header", "content": "Item 1" },
-    { "type": "text", "id": "item1_title", "label": "Titel", "default": "Recepten" },
-    { "type": "textarea", "id": "item1_text", "label": "Tekst", "default": "Van voorgerecht tot toetje, geschreven zoals Maarten kookt." },
-    { "type": "header", "content": "Item 2" },
-    { "type": "text", "id": "item2_title", "label": "Titel", "default": "Kookvideo's" },
-    { "type": "textarea", "id": "item2_text", "label": "Tekst", "default": "Rechtstreeks uit de keuken, van begin tot bord." },
-    { "type": "header", "content": "Item 3" },
-    { "type": "text", "id": "item3_title", "label": "Titel", "default": "Wijntips" },
-    { "type": "textarea", "id": "item3_text", "label": "Tekst", "default": "Bij elk gerecht een wijn die erbij past." }
+    { "type": "text", "id": "cta_secondary_label", "label": "Tweede knop", "default": "Bekijk de recepten" }
   ],
   "presets": [{ "name": "Home-hero" }]
 }

@@ -3,18 +3,9 @@
     "main": {
       "type": "main-landing",
       "settings": {
-        "kicker": "Passie · Smaak · Vakmanschap",
-        "subtekst": "Elke week een nieuw recept, met de wijn die erbij past. Als eerste in de groepsapp.",
+        "subtekst": "Elke week een nieuw recept. Als eerste in de groepsapp.",
         "cta_primary_label": "Kom in de groepsapp",
-        "cta_secondary_label": "Bekijk de recepten",
-        "band_heading": "Wat je hier vindt",
-        "band_subtext": "Recepten, kookvideo's en de wijn die erbij past.",
-        "item1_title": "Recepten",
-        "item1_text": "Van voorgerecht tot toetje, zoals Maarten ze maakt.",
-        "item2_title": "Kookvideo's",
-        "item2_text": "Stap voor stap uit de keuken, van begin tot bord.",
-        "item3_title": "Wijntips",
-        "item3_text": "Bij elk gerecht een wijn die erbij past."
+        "cta_secondary_label": "Bekijk de recepten"
       }
     },
     "recept": {
@@ -29,9 +20,9 @@
         "recipe_url": "/pages/romige-tom-yum-met-kokkels",
         "video_note": "Kijk mee hoe Maarten hem maakt",
         "insta_label": "Volg @maarten.kievit op Instagram",
-        "about_title": "In de keuken draait alles om balans",
-        "about_text_1": "Eerlijk product, pure smaken en creatieve gerechten met karakter. Ik deel wat in mijn keuken werkt, van techniek tot de wijn die het gerecht af maakt.",
-        "about_text_2": "Geen sterrenkeuken-taal. Wel de kleine dingen die het verschil maken tussen goed en onvergetelijk."
+        "about_title": "Over Maarten",
+        "about_text_1": "Eerlijk product, pure smaken en gerechten met karakter. Ik deel wat in mijn keuken werkt.",
+        "about_text_2": ""
       }
     },
     "community": {

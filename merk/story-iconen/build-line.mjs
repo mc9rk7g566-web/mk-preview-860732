@@ -22,8 +22,8 @@ const ICONS = {
     <path d="M36 64 L64 64"/>`,
 
   mesje: `
-    <path d="M17 52 L58 44 Q62 43.5 62 47.5 L62 56.5 Q62 60.5 58 60 Q38 58 17 52 Z"/>
-    <path d="M62 47 L84 47 Q88 47 88 51 L88 53 Q88 57 84 57 L62 57"/>`,
+    <path d="M17 54 L57 47 L57 57 Q37 59 17 54 Z"/>
+    <path d="M59 49 L83 49 Q87 49 87 53 L87 55 Q87 59 83 59 L59 59 Z"/>`,
 
   wijnglas: `
     <path d="M35 22 C31 35 38 53 50 53 C62 53 69 35 65 22"/>
@@ -40,10 +40,8 @@ const ICONS = {
     <path d="M57 33 C64 27 74 29 74 29 C74 29 70 40 59 37"/>`,
 
   vlees: `
-    <path d="M40 42 C34 30 50 27 60 30 C74 33 78 47 72 57 C67 68 47 70 40 61 C35 54 45 50 40 42 Z"/>
-    <path d="M40 42 L30 34"/>
-    <circle cx="26" cy="31" r="4.5"/>
-    <circle cx="32" cy="27" r="4.5"/>`,
+    <path d="M45 33 C57 27 70 34 68 47 C67 56 58 60 51 56 L38 67 C34 70 29 66 32 62 L47 50 C44 45 42 38 45 33 Z"/>
+    <circle cx="30" cy="64" r="3.6"/>`,
 
   vis: `
     <path d="M22 50 C30 36 50 34 66 46 C50 66 30 64 22 50 Z"/>
@@ -84,4 +82,45 @@ for (const k of keys) shoot(coverSVG(k), join(OUT, `${k}.png`), S, S);
 let cells = "";
 for (const k of keys) cells += `<div style="text-align:center"><div style="width:210px;height:210px;border-radius:50%;overflow:hidden"><img src="out-line/${k}.png"></div><div style="font:500 13px system-ui;color:#E5D9C6;margin-top:7px">${LABELS[k]}</div></div>`;
 shoot(`<div style="background:#0f0708;padding:26px;display:flex;gap:16px">${cells}</div>`, join(DIR, "contact-line.png"), 1420, 300);
-console.log("line-set + contact-line.png klaar");
+
+// ---- Artifact-galerij (inline SVG, taste-onderbouwd) ----
+const lilita = readFileSync(join(DIR, "../fonts/LilitaOne.ttf")).toString("base64");
+const disc = (k) => `<svg viewBox="0 0 100 100" width="100%" height="100%" style="display:block;background:${BORDEAUX}">
+  <g transform="translate(19 19) scale(0.62)" fill="none" stroke="${CREME}" stroke-width="${SW}" stroke-linecap="round" stroke-linejoin="round">${ICONS[k]}${EYE[k] || ""}</g></svg>`;
+const recRow = keys.map((k) => `<div class="cell"><div class="d">${disc(k)}</div><div class="cap">${LABELS[k]}</div></div>`).join("");
+const g = `<style>
+  @font-face{font-family:"Lilita One";font-weight:400;font-display:swap;src:url(data:font/ttf;base64,${lilita}) format("truetype")}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 22px 72px;color:#F4EDE4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+  h1,h2{font-family:"Lilita One",system-ui,sans-serif;text-transform:uppercase;font-weight:400;letter-spacing:.02em}
+  .kick{font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:#CDB998;margin:0 0 10px}
+  h1{font-size:clamp(2.2rem,5.5vw,3.4rem);line-height:1.02;margin:0 0 14px}
+  .lead{color:#E5D9C6;max-width:62ch;line-height:1.6;margin:0}
+  h2{font-size:1.15rem;color:#CDB998;letter-spacing:.06em;margin:48px 0 6px}
+  .subline{color:#9c8f7d;font-size:.85rem;margin:0 0 22px;max-width:60ch;line-height:1.5}
+  .row{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  @media(max-width:720px){.row{grid-template-columns:repeat(3,1fr)}}
+  .cell{text-align:center}
+  .d{aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4)}
+  .cap{font-size:.82rem;color:#E5D9C6;margin-top:9px}
+  .why{margin:30px 0 0;padding:20px 22px;background:rgba(244,237,228,.04);border:1px solid rgba(244,237,228,.12);border-radius:20px;color:#E5D9C6;font-size:.9rem;line-height:1.65}
+  .why b{color:#F4EDE4}
+  .footer{margin-top:34px;color:#CDB998;font-size:.9rem;line-height:1.65;border-top:1px solid rgba(244,237,228,.12);padding-top:22px}
+  .footer b{color:#F4EDE4}
+</style>
+<div class="wrap">
+  <p class="kick">Maarten kookt · Instagram</p>
+  <h1>Story-iconen — één lijnsysteem</h1>
+  <p class="lead">Opnieuw opgezet na een taste-analyse van je eigen site. Zes iconen met exact dezelfde lijndikte en ronde uiteinden, crème op een bordeaux cirkel — hetzelfde format als je MK-merkicoon.</p>
+  <div class="why">
+    <b>Waarom deze en niet de vorige:</b> je merk gebruikt overal één icoontaal — nette Phosphor-lijniconen (design.md: "Iconen: Phosphor regular. Nooit emoji"), plus de MK in een gevulde cirkel. De eerdere AI-iconen waren massieve plaatjes met elk nét een andere stijl; die braken dat systeem. Deze set is één familie, past bij Lilita One en bij het logo.
+  </div>
+  <h2>De set</h2>
+  <p class="subline">Bewaar ze in deze volgorde als highlight-covers; ze lezen als één rij.</p>
+  <div class="row">${recRow}</div>
+  <p class="footer">
+    <b>Plaatsen:</b> Instagram → je profiel → highlight vasthouden → Omslag bewerken → de PNG kiezen. Klaar op 1080×1080; ook als schaalbare SVG geleverd.<br><br>
+    <b>Laat weten:</b> is dit de goede richting? Dan lever ik de losse bestanden. Fijn­afstelling kan nog per icoon (bv. wijnglas-kelk iets ronder, mes iets voller). Extra icoon (brood, kaas, koffie, vuur, peper) in exact deze stijl is zo bijgemaakt.
+  </p>
+</div>`;
+writeFileSync(join(DIR, "gallery-artifact.html"), g);
+console.log("line-set + contact-line.png + gallery-artifact.html klaar");
