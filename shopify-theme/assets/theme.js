@@ -257,6 +257,34 @@
     });
   }
 
+  // Cellar Club (v2): storytelling onder de hero
+  if (document.querySelector(".cellar-body")) {
+    // Haarlijnen onder de nummers tekenen zich van links naar rechts
+    gsap.utils.toArray(".value-rule").forEach(function (r) {
+      gsap.fromTo(r, { scaleX: 0 }, {
+        scaleX: 1, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: r, start: "top 88%", once: true }
+      });
+    });
+    // Tijdlijn-lijn vult zich mee met de scroll
+    var stepsEl = document.querySelector(".cellar-steps");
+    var prog = document.querySelector(".steps-progress");
+    if (stepsEl && prog) {
+      gsap.fromTo(prog, { scaleY: 0 }, {
+        scaleY: 1, ease: "none",
+        scrollTrigger: { trigger: stepsEl, start: "top 72%", end: "bottom 78%", scrub: 0.5 }
+      });
+    }
+    // Filmische kelderfoto: trage parallax
+    var cine = document.querySelector(".cellar-cinema-media img");
+    if (cine) {
+      gsap.to(cine, {
+        yPercent: 10, ease: "none",
+        scrollTrigger: { trigger: ".cellar-cinema", start: "top bottom", end: "bottom top", scrub: 0.5 }
+      });
+    }
+  }
+
   // Secties: rustige fade-up zodra ze in beeld komen (hiërarchie: één ding tegelijk)
   ScrollTrigger.batch(".reveal", {
     start: "top 88%",

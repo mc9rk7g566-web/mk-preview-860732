@@ -27,79 +27,96 @@
     </div>
   </section>
 
-  <section class="section cellar-photo">
-    <div class="wrap">
-      <div class="cellar-hero-media reveal">
+  <div class="cellar-body">
+
+    {% comment %} A. Filmische kelderfoto — full-bleed, trage parallax, boven+onder vervloeid (geen harde rand) {% endcomment %}
+    <section class="cellar-cinema">
+      <div class="cellar-cinema-media" data-parallax-img>
         {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 2000 | image_tag: widths: '800, 1200, 1600, 2000', sizes: 'calc(100vw - 48px)', loading: 'lazy', alt: 'Wijnkelder met exclusieve flessen' }}
+          {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '1000, 1600, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: 'Wijnkelder met exclusieve flessen' }}
         {% else %}
           <img src="{{ 'community.jpg' | asset_url }}" width="2000" height="1333" alt="Wijnkelder met exclusieve flessen" loading="lazy">
         {% endif %}
       </div>
-    </div>
-  </section>
+      {% if section.settings.photo_caption != blank %}<p class="cellar-cinema-cap">{{ section.settings.photo_caption }}</p>{% endif %}
+    </section>
 
-  <section class="section section-band">
-    <div class="wrap">
-      <div class="band-head reveal"><h2 class="display">{{ section.settings.benefits_title }}</h2></div>
-      <div class="coming-grid">
-        {% for block in section.blocks %}{% if block.type == 'benefit' %}
-        <div class="coming-item reveal" {{ block.shopify_attributes }}>
-          <i class="ph {{ block.settings.icon | default: 'ph-wine' }}" aria-hidden="true"></i>
-          <h3>{{ block.settings.title }}</h3>
-          <p>{{ block.settings.text }}</p>
-        </div>
-        {% endif %}{% endfor %}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap cellar-steps-wrap">
-      <div class="band-head reveal"><h2 class="display">{{ section.settings.steps_title }}</h2></div>
-      <ol class="cellar-steps reveal">
-        {% if section.settings.step1 != blank %}<li><span>{{ section.settings.step1 }}</span></li>{% endif %}
-        {% if section.settings.step2 != blank %}<li><span>{{ section.settings.step2 }}</span></li>{% endif %}
-        {% if section.settings.step3 != blank %}<li><span>{{ section.settings.step3 }}</span></li>{% endif %}
-      </ol>
-    </div>
-  </section>
-
-  {% assign faqs = section.blocks | where: 'type', 'faq' %}
-  {% if faqs.size > 0 %}
-  <section class="section section-band">
-    <div class="wrap cellar-faq-wrap">
-      <div class="band-head reveal"><h2 class="display">{{ section.settings.faq_title }}</h2></div>
-      <div class="cellar-faq reveal">
-        {% for block in faqs %}
-        <details {{ block.shopify_attributes }}>
-          <summary>{{ block.settings.q }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <p>{{ block.settings.a }}</p>
-        </details>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-  {% endif %}
-
-  <section class="section community">
-    <div class="wrap">
-      <div class="community-card cellar-final reveal">
-        <div class="community-body cellar-final-body">
-          <h2 class="display">{{ section.settings.final_title }}</h2>
-          <p>{{ section.settings.final_text }}</p>
-          {% if community_url != '#' %}
-          <div class="community-cta-row">
-            <a class="btn btn-light community-cta" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
+    {% comment %} B. Wat je krijgt — editorial 01..04, geen iconen {% endcomment %}
+    <section class="section cellar-values">
+      <div class="wrap">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.benefits_title }}</h2></div>
+        <div class="value-grid">
+          {% assign vnum = 0 %}
+          {% for block in section.blocks %}{% if block.type == 'benefit' %}
+          {% assign vnum = vnum | plus: 1 %}
+          <div class="value-item reveal" {{ block.shopify_attributes }}>
+            <span class="value-num">{% if vnum < 10 %}0{% endif %}{{ vnum }}</span>
+            <span class="value-rule" aria-hidden="true"></span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
           </div>
-          {% if section.settings.reassure != blank %}<p class="community-note">{{ section.settings.reassure }}</p>{% endif %}
-          {% endif %}
+          {% endif %}{% endfor %}
         </div>
       </div>
-      {% comment %} Verplichte naamsvermelding CC BY-SA-flesfoto's {% endcomment %}
-      <p class="meta cellar-credits">Flesfoto's: Jamain &middot; Craig Drollett (CC BY-SA) &middot; via Wikimedia Commons</p>
-    </div>
-  </section>
+    </section>
+
+    {% comment %} C. Pull-quote — autoriteit van Maarten i.p.v. verzonnen cijfers {% endcomment %}
+    {% if section.settings.quote != blank %}
+    <section class="section cellar-quote">
+      <div class="wrap reveal">
+        <blockquote class="cellar-quote-text">{{ section.settings.quote }}</blockquote>
+        {% if section.settings.quote_author != blank %}<p class="cellar-quote-by">{{ section.settings.quote_author }}</p>{% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% comment %} D. Zo werkt het — verticale tijdlijn; de lijn tekent zich mee met de scroll {% endcomment %}
+    <section class="section cellar-steps-sec">
+      <div class="wrap cellar-steps-wrap">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.steps_title }}</h2></div>
+        <ol class="cellar-steps reveal">
+          <span class="step-rail" aria-hidden="true"></span>
+          <span class="steps-progress" aria-hidden="true"></span>
+          {% if section.settings.step1 != blank %}<li><span class="step-node">1</span><div class="step-body"><p>{{ section.settings.step1 }}</p></div></li>{% endif %}
+          {% if section.settings.step2 != blank %}<li><span class="step-node">2</span><div class="step-body"><p>{{ section.settings.step2 }}</p></div></li>{% endif %}
+          {% if section.settings.step3 != blank %}<li><span class="step-node">3</span><div class="step-body"><p>{{ section.settings.step3 }}</p></div></li>{% endif %}
+        </ol>
+      </div>
+    </section>
+
+    {% comment %} E. FAQ — verfijnde accordion, zachte hoogte-overgang {% endcomment %}
+    {% assign faqs = section.blocks | where: 'type', 'faq' %}
+    {% if faqs.size > 0 %}
+    <section class="section cellar-faq-sec">
+      <div class="wrap cellar-faq-wrap">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.faq_title }}</h2></div>
+        <div class="cellar-faq reveal">
+          {% for block in faqs %}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.q }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>{{ block.settings.a }}</p></div>
+          </details>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% comment %} F. Slot-CTA — filmisch, diepste bordeaux-gloed als slotakkoord {% endcomment %}
+    <section class="section cellar-final-sec">
+      <div class="cellar-final-glow" aria-hidden="true"></div>
+      <div class="wrap reveal">
+        <h2 class="display">{{ section.settings.final_title }}</h2>
+        <p>{{ section.settings.final_text }}</p>
+        {% if community_url != '#' %}
+        <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
+        {% if section.settings.reassure != blank %}<p class="cellar-reassure">{{ section.settings.reassure }}</p>{% endif %}
+        {% endif %}
+        <p class="meta cellar-credits">Flesfoto's: Jamain &middot; Craig Drollett (CC BY-SA) &middot; via Wikimedia Commons</p>
+      </div>
+    </section>
+
+  </div>
 </article>
 
 {% schema %}
@@ -112,9 +129,14 @@
     { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Als kok proef ik veel wijnen. De mooiste, met een verhaal, deel ik in een gratis besloten WhatsApp-club. Je kunt ze rechtstreeks bij mij bestellen, vaak in kleine oplages. Kom erbij en drink beter." },
     { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Join The Cellar Club" },
     { "type": "text", "id": "reassure", "label": "Geruststelling onder de knop", "default": "Gratis lid. Geen verplichting om te kopen. Uitschrijven wanneer je wilt." },
-    { "type": "image_picker", "id": "image", "label": "Hoofdfoto" },
+    { "type": "header", "content": "Filmische foto" },
+    { "type": "image_picker", "id": "image", "label": "Hoofdfoto (wijnkelder/sfeer)" },
+    { "type": "text", "id": "photo_caption", "label": "Bijschrift over de foto", "default": "Elke fles met een verhaal" },
     { "type": "header", "content": "Wat je krijgt" },
     { "type": "text", "id": "benefits_title", "label": "Kop", "default": "Wat je krijgt" },
+    { "type": "header", "content": "Quote van Maarten" },
+    { "type": "textarea", "id": "quote", "label": "Quote (laat leeg = verbergen)", "default": "Ik deel alleen flessen die ik zelf zou opentrekken. Geen massaproductie, wel wijn met een verhaal." },
+    { "type": "text", "id": "quote_author", "label": "Naam onder de quote", "default": "Maarten" },
     { "type": "header", "content": "Zo werkt het" },
     { "type": "text", "id": "steps_title", "label": "Kop", "default": "Zo werkt het" },
     { "type": "text", "id": "step1", "label": "Stap 1", "default": "Join gratis via WhatsApp" },
@@ -128,7 +150,6 @@
   ],
   "blocks": [
     { "type": "benefit", "name": "Voordeel", "settings": [
-      { "type": "text", "id": "icon", "label": "Icoon (Phosphor-naam)", "default": "ph-wine" },
       { "type": "text", "id": "title", "label": "Titel" },
       { "type": "textarea", "id": "text", "label": "Tekst" }
     ]},

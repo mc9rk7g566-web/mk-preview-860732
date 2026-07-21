@@ -4,12 +4,12 @@
   if cellar_page != blank
     assign cta_url = cellar_page.url
     assign cta_label = 'The Cellar Club'
-    assign cta_icon = 'ph-wine'
+    assign cta_icon = ''
     assign cta_blank = false
   elsif settings.community_url != blank
     assign cta_url = pages['join'].url | default: settings.community_url
     assign cta_label = 'The Cellar Club'
-    assign cta_icon = 'ph-wine'
+    assign cta_icon = ''
     assign cta_blank = true
   else
     assign cta_url = routes.root_url | append: '#recept'
@@ -28,7 +28,7 @@
     <ul class="nav-links">
       <li><a href="{{ recipes_url }}"{% if page.handle == 'recepten' or template.name == 'page' and page.templates contains 'recept' %} aria-current="page"{% endif %}>recepten</a></li>
       <li><a href="{{ routes.root_url }}#over">over</a></li>
-      <li><a class="btn btn-primary" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a></li>
+      <li><a class="btn btn-primary" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}>{% if cta_icon != blank %}<i class="ph {{ cta_icon }}" aria-hidden="true"></i>{% endif %}{{ cta_label }}</a></li>
     </ul>
     <button class="nav-toggle" aria-expanded="false" aria-controls="MobileMenu" aria-label="Menu openen"><span></span><span></span></button>
     {% endunless %}
@@ -39,7 +39,7 @@
   <a href="{{ routes.root_url }}"{% if template.name == 'index' %} aria-current="page"{% endif %}>home</a>
   <a href="{{ recipes_url }}"{% if page.handle == 'recepten' %} aria-current="page"{% endif %}>recepten</a>
   <a href="{{ routes.root_url }}#over">over</a>
-  <a class="btn" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}><i class="ph {{ cta_icon }}" aria-hidden="true"></i>{{ cta_label }}</a>
+  <a class="btn" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}>{% if cta_icon != blank %}<i class="ph {{ cta_icon }}" aria-hidden="true"></i>{% endif %}{{ cta_label }}</a>
   <span class="menu-tagline">Passie. Smaak. Vakmanschap.</span>
 </nav>
 {% endunless %}

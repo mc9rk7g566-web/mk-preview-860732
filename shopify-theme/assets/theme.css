@@ -1121,3 +1121,105 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Fotocredits (CC BY-SA-naamsvermelding, verplicht) — bewust klein en rustig */
 .cellar-credits { margin-top: 26px; text-align: center; font-size: 0.7rem; opacity: 0.45; letter-spacing: 0.06em; }
+
+/* ==========================================================================
+   THE CELLAR CLUB v2 — alles ONDER de hero (cinematisch wijnhuis).
+   Eén doorlopend verticaal gradient = zachte kleurovergangen, nul harde seams.
+   Secties zijn transparant; de kleur wordt door .cellar-body gedragen.
+   ========================================================================== */
+.cellar-body {
+  position: relative;
+  background: linear-gradient(180deg,
+    #170a0c 0%,
+    #1b0d11 14%,
+    #241016 40%,
+    #1a0c10 62%,
+    #170a0c 82%,
+    #280e18 100%);
+}
+.cellar-body .section { background: transparent; }
+
+/* A. Filmische kelderfoto */
+.cellar-cinema { position: relative; height: clamp(340px, 62vh, 640px); overflow: hidden; }
+.cellar-cinema-media { position: absolute; inset: -10% 0; }
+.cellar-cinema-media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92) contrast(1.03); }
+.cellar-cinema::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(180deg, #170a0c 0%, transparent 24%, transparent 66%, #1b0d11 100%),
+    radial-gradient(130% 80% at 50% 50%, transparent 42%, rgba(123, 13, 30, 0.30));
+}
+.cellar-cinema-cap {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(22px, 4vw, 44px);
+  text-align: center; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--cream); font-size: 0.72rem; opacity: 0.85;
+}
+
+/* B. Wat je krijgt — editorial 01..04 (geen iconen) */
+.cellar-values .band-head { text-align: center; margin-bottom: clamp(42px, 6vw, 74px); }
+.value-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: clamp(30px, 4vw, 60px) clamp(40px, 7vw, 96px);
+  max-width: 900px; margin: 0 auto;
+}
+.value-num { display: block; font-family: var(--font-display); font-size: clamp(2.6rem, 5vw, 3.7rem); line-height: 1; color: var(--tan); }
+.value-rule { display: block; width: 54px; height: 2px; background: var(--tan); transform-origin: left center; margin: 16px 0 20px; opacity: 0.85; }
+.value-item h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.18rem; color: var(--cream); text-transform: none; letter-spacing: 0; }
+.value-item p { color: var(--cream-2); font-weight: 500; margin-top: 12px; line-height: 1.72; max-width: 36ch; }
+@media (max-width: 700px) { .value-grid { grid-template-columns: 1fr; gap: 38px; } }
+
+/* C. Pull-quote */
+.cellar-quote .wrap { max-width: 860px; text-align: center; }
+.cellar-quote-text { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.55rem, 3.7vw, 2.7rem); line-height: 1.2; color: var(--cream); }
+.cellar-quote-text::before { content: "\201C"; color: var(--bordeaux-bright); margin-right: 2px; }
+.cellar-quote-text::after { content: "\201D"; color: var(--bordeaux-bright); margin-left: 2px; }
+.cellar-quote-by { margin-top: 24px; letter-spacing: 0.26em; text-transform: uppercase; font-size: 0.78rem; color: var(--tan); }
+
+/* D. Zo werkt het — verticale tijdlijn */
+.cellar-steps-sec .band-head { text-align: center; margin-bottom: clamp(42px, 6vw, 68px); }
+.cellar-steps { list-style: none; position: relative; max-width: 600px; margin: 0 auto; padding: 0; }
+.cellar-steps .step-rail,
+.cellar-steps .steps-progress { position: absolute; left: 27px; top: 26px; bottom: 26px; width: 2px; }
+.cellar-steps .step-rail { background: rgba(244, 237, 228, 0.14); }
+.cellar-steps .steps-progress { background: linear-gradient(180deg, var(--bordeaux-bright), var(--bordeaux)); transform-origin: top center; }
+.cellar-steps li { position: relative; display: flex; align-items: flex-start; gap: 24px; padding: clamp(14px, 2.6vw, 24px) 0; }
+.step-node {
+  position: relative; z-index: 2; flex-shrink: 0;
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 1.45rem; color: var(--cream);
+  background: var(--bordeaux); box-shadow: 0 0 0 6px rgba(23, 10, 12, 0.9);
+}
+.step-body { padding-top: 13px; }
+.step-body p { color: var(--cream); font-weight: 500; font-size: 1.06rem; line-height: 1.6; }
+
+/* E. FAQ — verfijnd, zachte hoogte-overgang (grid-rows-truc, geen JS) */
+.cellar-faq-sec .band-head { text-align: center; margin-bottom: clamp(36px, 5vw, 56px); }
+.cellar-faq { max-width: 760px; margin: 0 auto; }
+.cellar-faq details { border-bottom: 1px solid var(--line); }
+.cellar-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px 0; font-weight: 600; font-size: 1.08rem; color: var(--cream); }
+.cellar-faq summary::-webkit-details-marker { display: none; }
+.cellar-faq summary i { color: var(--tan); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
+.cellar-faq details[open] summary i { transform: rotate(45deg); }
+.cellar-faq .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.cellar-faq details[open] .faq-a { grid-template-rows: 1fr; }
+.cellar-faq .faq-a > p { overflow: hidden; min-height: 0; color: var(--cream-2); font-weight: 500; max-width: 62ch; }
+.cellar-faq details[open] .faq-a > p { padding-bottom: 24px; }
+
+/* F. Slot-CTA — filmisch, diepste bordeaux-gloed */
+.cellar-final-sec { position: relative; text-align: center; overflow: hidden; }
+.cellar-final-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(72% 62% at 50% 58%, rgba(123, 13, 30, 0.6), transparent 72%); }
+.cellar-final-sec .wrap { position: relative; z-index: 2; max-width: 640px; }
+.cellar-final-sec h2 { font-size: clamp(2.2rem, 5.5vw, 3.5rem); }
+.cellar-final-sec > .wrap > p { color: var(--cream-2); margin: 18px auto 0; max-width: 44ch; font-weight: 500; }
+.cellar-final-sec .btn { margin-top: 32px; }
+.cellar-final-sec .cellar-reassure { margin-top: 16px; opacity: 0.72; font-size: 0.8rem; }
+.cellar-final-sec .cellar-credits { margin-top: 44px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cellar-faq .faq-a { transition: none; }
+}
+
+/* Fix: oude counter-::before op de stappen uitzetten (nieuwe .step-node vervangt 'm),
+   en de flex-gap neutraliseren zodat de tijdlijn-padding het ritme bepaalt. */
+.cellar-steps li::before { content: none; display: none; }
+.cellar-steps { gap: 0; }
