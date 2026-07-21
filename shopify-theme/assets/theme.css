@@ -1118,3 +1118,6 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   .cellar-bottle img { animation: none; }
 }
+
+/* Fotocredits (CC BY-SA-naamsvermelding, verplicht) — bewust klein en rustig */
+.cellar-credits { margin-top: 26px; text-align: center; font-size: 0.7rem; opacity: 0.45; letter-spacing: 0.06em; }

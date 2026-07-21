@@ -7,11 +7,13 @@
 <article class="recipe-feature cellar">
   <section class="cellar-hero">
     <div class="cellar-glow" aria-hidden="true"></div>
-    {% comment %} Zwevende prestige-flessen (generiek, geen echte merken). Wrapper = positie +
+    {% comment %} Zwevende echte prestige-flessen: Pétrus 1973 (Jamain, CC BY-SA 3.0),
+      Bâtard-Montrachet Faiveley (Craig Drollett, CC BY-SA 2.0), Dom Pérignon 1999 (publiek domein);
+      via Wikimedia Commons, credits staan onderaan de pagina. Wrapper = positie +
       GSAP-parallax; de img erin = CSS-float. Zo vechten de transforms niet met elkaar. {% endcomment %}
-    <span class="cellar-bottle cellar-bottle--bourgogne" data-parallax="60" aria-hidden="true"><img src="{{ 'cellar-fles-bourgogne.webp' | asset_url }}" alt="" width="246" height="900" loading="eager"></span>
-    <span class="cellar-bottle cellar-bottle--bordeaux" data-parallax="-50" aria-hidden="true"><img src="{{ 'cellar-fles-bordeaux.webp' | asset_url }}" alt="" width="223" height="900" loading="eager"></span>
-    <span class="cellar-bottle cellar-bottle--champagne" data-parallax="-90" aria-hidden="true"><img src="{{ 'cellar-fles-champagne.webp' | asset_url }}" alt="" width="244" height="900" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--bourgogne" data-parallax="60" aria-hidden="true"><img src="{{ 'cellar-fles-bourgogne.webp' | asset_url }}" alt="" width="318" height="1100" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--bordeaux" data-parallax="-50" aria-hidden="true"><img src="{{ 'cellar-fles-bordeaux.webp' | asset_url }}" alt="" width="292" height="1100" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--champagne" data-parallax="-90" aria-hidden="true"><img src="{{ 'cellar-fles-champagne.webp' | asset_url }}" alt="" width="386" height="1100" loading="eager"></span>
     <div class="wrap cellar-hero-inner">
       <p class="meta cellar-kicker reveal">{{ section.settings.kicker }}</p>
       <h1 class="display cellar-title reveal">{{ section.settings.title }}</h1>
@@ -94,6 +96,8 @@
           {% endif %}
         </div>
       </div>
+      {% comment %} Verplichte naamsvermelding CC BY-SA-flesfoto's {% endcomment %}
+      <p class="meta cellar-credits">Flesfoto's: Jamain &middot; Craig Drollett (CC BY-SA) &middot; via Wikimedia Commons</p>
     </div>
   </section>
 </article>
