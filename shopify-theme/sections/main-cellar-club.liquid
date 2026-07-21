@@ -3,19 +3,30 @@
   Volledige uitleg: wat het is, wat je krijgt, hoe het werkt, FAQ, sterke CTA.
   Link = community_url in Thema-instellingen. Alle teksten via Customize.
 {% endcomment %}
-{% assign community_url = settings.community_url | default: '#' %}
+{% assign community_url = pages['join'].url | default: settings.community_url | default: '#' %}
 <article class="recipe-feature cellar">
-  <section class="recipe-hero">
-    <div class="wrap">
-      <p class="meta recipe-kicker reveal">{{ section.settings.kicker }}</p>
-      <h1 class="display recipe-title reveal">{{ section.settings.title }}</h1>
-      <p class="lead recipe-intro reveal">{{ section.settings.intro }}</p>
+  <section class="cellar-hero">
+    <div class="cellar-glow" aria-hidden="true"></div>
+    {% comment %} Zwevende prestige-flessen (generiek, geen echte merken). Wrapper = positie +
+      GSAP-parallax; de img erin = CSS-float. Zo vechten de transforms niet met elkaar. {% endcomment %}
+    <span class="cellar-bottle cellar-bottle--bourgogne" data-parallax="60" aria-hidden="true"><img src="{{ 'cellar-fles-bourgogne.webp' | asset_url }}" alt="" width="246" height="900" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--bordeaux" data-parallax="-50" aria-hidden="true"><img src="{{ 'cellar-fles-bordeaux.webp' | asset_url }}" alt="" width="223" height="900" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--champagne" data-parallax="-90" aria-hidden="true"><img src="{{ 'cellar-fles-champagne.webp' | asset_url }}" alt="" width="244" height="900" loading="eager"></span>
+    <div class="wrap cellar-hero-inner">
+      <p class="meta cellar-kicker reveal">{{ section.settings.kicker }}</p>
+      <h1 class="display cellar-title reveal">{{ section.settings.title }}</h1>
+      <p class="lead cellar-intro reveal">{{ section.settings.intro }}</p>
       {% if community_url != '#' %}
       <div class="feature-cta reveal">
         <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
       </div>
       <p class="meta cellar-reassure reveal">{{ section.settings.reassure }}</p>
       {% endif %}
+    </div>
+  </section>
+
+  <section class="section cellar-photo">
+    <div class="wrap">
       <div class="cellar-hero-media reveal">
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 2000 | image_tag: widths: '800, 1200, 1600, 2000', sizes: 'calc(100vw - 48px)', loading: 'lazy', alt: 'Wijnkelder met exclusieve flessen' }}

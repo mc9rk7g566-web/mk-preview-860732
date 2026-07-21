@@ -8,7 +8,7 @@
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
-    assign wine_url = settings.community_url
+    assign wine_url = pages['join'].url | default: settings.community_url
     assign wine_label = 'Join The Cellar Club'
     assign wine_icon = 'ph-wine'
     assign wine_blank = true

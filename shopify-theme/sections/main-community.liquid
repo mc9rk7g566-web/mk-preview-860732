@@ -3,7 +3,7 @@
   Conversiegericht: waardepropositie + 'zo werkt het' (3 stappen) + geruststelling.
   Link = community_url in Thema-instellingen. Optionele 'meer weten'-link = settings.more_url.
 {% endcomment %}
-{% assign community_url = settings.community_url | default: '#' %}
+{% assign community_url = pages['join'].url | default: settings.community_url | default: '#' %}
 <section class="section community">
   <div class="wrap">
     <div class="community-card reveal">

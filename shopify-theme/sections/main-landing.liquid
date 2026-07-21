@@ -4,7 +4,7 @@
 {% endcomment %}
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
-  assign community_url = settings.community_url | default: recipes_url
+  assign community_url = pages['join'].url | default: settings.community_url | default: recipes_url
 %}
 <section class="hero">
   <div class="hero-media">

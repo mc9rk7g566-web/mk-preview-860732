@@ -245,6 +245,18 @@
     });
   }
 
+  // Cellar Club: flessen zweven in verschillende snelheden mee met de scroll (diepte)
+  var cellarBottles = document.querySelectorAll(".cellar-bottle[data-parallax]");
+  if (cellarBottles.length) {
+    cellarBottles.forEach(function (el) {
+      gsap.to(el, {
+        y: parseFloat(el.dataset.parallax) || 0,
+        ease: "none",
+        scrollTrigger: { trigger: ".cellar-hero", start: "top top", end: "bottom top", scrub: 0.5 }
+      });
+    });
+  }
+
   // Secties: rustige fade-up zodra ze in beeld komen (hiërarchie: één ding tegelijk)
   ScrollTrigger.batch(".reveal", {
     start: "top 88%",

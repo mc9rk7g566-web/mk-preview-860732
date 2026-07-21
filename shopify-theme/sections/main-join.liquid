@@ -1,0 +1,44 @@
+{% comment %}
+  Doorstuurpagina naar The Cellar Club (WhatsApp). Bestaat puur zodat elke join-klik
+  als paginaweergave in Shopify Analytics telt (Online Store > Analytics > /pages/join).
+  Redirect na ~1s via JS zodat Shopify's eigen tracking (content_for_header) de view
+  eerst kan registreren. Fallback-knop voor als JS uit staat of de redirect hapert.
+{% endcomment %}
+{% assign club_url = settings.community_url %}
+<section class="join-redirect" data-join-redirect data-club-url="{{ club_url | escape }}">
+  <div class="join-card">
+    <img class="join-logo" src="{{ 'mk-icoon-bordeaux.svg' | asset_url }}" alt="" width="88" height="88">
+    <p class="meta join-kicker">{{ section.settings.kicker }}</p>
+    <h1 class="display join-title">{{ section.settings.title }}</h1>
+    <p class="join-text">{{ section.settings.text }}</p>
+    <div class="join-spinner" aria-hidden="true"></div>
+    {% if club_url != blank %}
+      <a class="btn btn-primary join-manual" href="{{ club_url }}" rel="noopener">{{ section.settings.manual_label }}</a>
+    {% else %}
+      <a class="btn btn-primary join-manual" href="{{ routes.root_url }}">Terug naar home</a>
+    {% endif %}
+  </div>
+</section>
+<script>
+  (function () {
+    var root = document.querySelector('[data-join-redirect]');
+    if (!root) return;
+    var url = root.getAttribute('data-club-url');
+    if (!url) return;
+    // ponytail: 1s vertraging = tijd voor Shopify's pageview-beacon; daarna door naar WhatsApp
+    setTimeout(function () { window.location.replace(url); }, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Join-doorstuurpagina",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kleine tekst", "default": "The Cellar Club" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Je wordt doorgestuurd" },
+    { "type": "text", "id": "text", "label": "Tekst", "default": "We openen WhatsApp zodat je The Cellar Club kunt joinen." },
+    { "type": "text", "id": "manual_label", "label": "Knoptekst (handmatig)", "default": "Open WhatsApp" }
+  ],
+  "presets": [{ "name": "Join-doorstuurpagina" }]
+}
+{% endschema %}

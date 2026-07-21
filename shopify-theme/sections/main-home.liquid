@@ -1,7 +1,7 @@
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   assign recipe_url = pages['recept'].url | default: '/pages/recept'
-  assign community_url = settings.community_url | default: '#community'
+  assign community_url = pages['join'].url | default: settings.community_url | default: '#community'
 %}
 <section class="hero">
   <div class="hero-media">{% render 'responsive-image', image: section.settings.hero_image, fallback: 'hero.jpg', alt: 'Donker gedekte tafel met borden bij kaarslicht', sizes: '100vw', fetchpriority: 'high' %}</div>

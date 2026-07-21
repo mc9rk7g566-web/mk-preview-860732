@@ -7,7 +7,7 @@
     assign cta_icon = 'ph-wine'
     assign cta_blank = false
   elsif settings.community_url != blank
-    assign cta_url = settings.community_url
+    assign cta_url = pages['join'].url | default: settings.community_url
     assign cta_label = 'The Cellar Club'
     assign cta_icon = 'ph-wine'
     assign cta_blank = true
