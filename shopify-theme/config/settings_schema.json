@@ -16,5 +16,15 @@
       { "type": "text", "id": "contact_email", "label": "Contact e-mail", "default": "info@maartenkookt.nl" },
       { "type": "url", "id": "instagram_url", "label": "Instagram", "info": "Bijv. https://www.instagram.com/maarten.kievit" }
     ]
+  },
+  {
+    "name": "Juridisch en bedrijfsgegevens",
+    "settings": [
+      { "type": "paragraph", "content": "Deze gegevens verschijnen in de footer en horen in de privacyverklaring en algemene voorwaarden. Vul ze in zoals ze bij de KvK staan." },
+      { "type": "text", "id": "legal_name", "label": "Handelsnaam / bedrijfsnaam" },
+      { "type": "text", "id": "kvk", "label": "KvK-nummer" },
+      { "type": "text", "id": "btw", "label": "Btw-id (optioneel)" },
+      { "type": "text", "id": "address", "label": "Vestigingsadres (optioneel)" }
+    ]
   }
 ]

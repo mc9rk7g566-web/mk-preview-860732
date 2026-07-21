@@ -16,10 +16,23 @@
     </div>
     {% endif %}
     <p class="footer-note"><a href="mailto:{{ settings.contact_email }}">{{ settings.contact_email }}</a></p>
+
+    {%- comment -%} Juridische links — verschijnen zodra Maarten de pagina's heeft aangemaakt {%- endcomment -%}
+    {%- if pages['privacyverklaring'] != blank or pages['cookiebeleid'] != blank or pages['algemene-voorwaarden'] != blank -%}
+    <ul class="footer-legal">
+      {% if pages['privacyverklaring'] != blank %}<li><a href="{{ pages['privacyverklaring'].url }}">Privacyverklaring</a></li>{% endif %}
+      {% if pages['cookiebeleid'] != blank %}<li><a href="{{ pages['cookiebeleid'].url }}">Cookiebeleid</a></li>{% endif %}
+      {% if pages['algemene-voorwaarden'] != blank %}<li><a href="{{ pages['algemene-voorwaarden'].url }}">Algemene voorwaarden</a></li>{% endif %}
+    </ul>
+    {%- endif -%}
+
+    {%- if settings.legal_name != blank -%}
+    <p class="footer-legal-info">{{ settings.legal_name }}{% if settings.kvk != blank %} &middot; KvK {{ settings.kvk }}{% endif %}{% if settings.btw != blank %} &middot; btw {{ settings.btw }}{% endif %}{% if settings.address != blank %} &middot; {{ settings.address }}{% endif %} &middot; Wijn: uitsluitend verkoop 18+</p>
+    {%- endif -%}
+
     <div class="footer-bottom">
       <span>&copy; {{ 'now' | date: '%Y' }} Maarten kookt</span>
       <span class="tagline">Passie. Smaak. Vakmanschap.</span>
-      <span>Concept door JS - Crest</span>
     </div>
   </div>
 </footer>

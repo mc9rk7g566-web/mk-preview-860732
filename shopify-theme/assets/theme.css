@@ -1223,3 +1223,28 @@ html.lenis, html.lenis body { height: auto; }
    en de flex-gap neutraliseren zodat de tijdlijn-padding het ritme bepaalt. */
 .cellar-steps li::before { content: none; display: none; }
 .cellar-steps { gap: 0; }
+
+/* ==========================================================================
+   Juridische / tekstpagina's (privacy, cookies, voorwaarden) — leesbare prose
+   ========================================================================== */
+.generic-page { padding: clamp(120px, 15vw, 165px) 0 clamp(70px, 10vw, 120px); }
+.generic-page .wrap { max-width: 760px; }
+.generic-page .page-title { margin-bottom: clamp(22px, 4vw, 40px); }
+.rte { color: var(--cream-2); font-weight: 500; line-height: 1.8; }
+.rte > :first-child { margin-top: 0; }
+.rte h2 { font-family: var(--font-display); text-transform: uppercase; color: var(--cream); font-size: clamp(1.25rem, 2.6vw, 1.65rem); margin: 1.9em 0 0.55em; line-height: 1.15; }
+.rte h3 { color: var(--cream); font-weight: 600; font-size: 1.05rem; margin: 1.5em 0 0.4em; }
+.rte p { margin: 0 0 1.1em; }
+.rte ul, .rte ol { margin: 0 0 1.2em; padding-left: 1.3em; }
+.rte li { margin-bottom: 0.5em; }
+.rte li::marker { color: var(--tan); }
+.rte a { color: var(--tan); text-decoration: underline; text-underline-offset: 3px; }
+.rte a:hover { color: var(--cream); }
+.rte strong { color: var(--cream); font-weight: 600; }
+.rte hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+
+/* Juridische links + bedrijfsgegevens in de footer */
+.footer-legal { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 24px 0 0; padding: 0; }
+.footer-legal a { color: rgba(244, 237, 228, 0.7); font-size: 0.82rem; }
+.footer-legal a:hover { color: var(--cream); }
+.footer-legal-info { margin-top: 14px; font-size: 0.76rem; color: rgba(244, 237, 228, 0.5); text-align: center; max-width: 640px; }
