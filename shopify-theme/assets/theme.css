@@ -1141,20 +1141,27 @@ html.lenis, html.lenis body { height: auto; }
 .cellar-body .section { background: transparent; }
 
 /* A. Filmische kelderfoto */
-.cellar-cinema { position: relative; height: clamp(340px, 62vh, 640px); overflow: hidden; }
-.cellar-cinema-media { position: absolute; inset: -10% 0; }
-.cellar-cinema-media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.92) contrast(1.03); }
+/* A. "Stap de kelder binnen": full-bleed beeld dat inzoomt (dolly-in) + join-CTA erover */
+.cellar-cinema {
+  position: relative; height: clamp(460px, 86vh, 820px); overflow: hidden;
+  display: grid; place-items: center; text-align: center;
+}
+.cellar-cinema-media { position: absolute; inset: -8% 0; z-index: 0; transform-origin: center; will-change: transform; }
+.cellar-cinema-media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.95) contrast(1.04); }
 .cellar-cinema::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(180deg, #170a0c 0%, transparent 24%, transparent 66%, #1b0d11 100%),
-    radial-gradient(130% 80% at 50% 50%, transparent 42%, rgba(123, 13, 30, 0.30));
+    linear-gradient(180deg, #170a0c 0%, rgba(23, 10, 12, 0.35) 20%, rgba(23, 10, 12, 0.4) 55%, #1b0d11 100%),
+    radial-gradient(120% 100% at 50% 48%, rgba(23, 10, 12, 0.34), rgba(23, 10, 12, 0.8));
 }
-.cellar-cinema-cap {
-  position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(22px, 4vw, 44px);
-  text-align: center; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--cream); font-size: 0.72rem; opacity: 0.85;
+.cellar-cinema-inner {
+  position: relative; z-index: 2; max-width: 620px; padding: 0 24px;
+  display: flex; flex-direction: column; align-items: center;
 }
+.cellar-cinema-cap { letter-spacing: 0.32em; text-transform: uppercase; color: var(--tan); font-size: 0.72rem; }
+.cellar-cinema-title { font-size: clamp(2rem, 5.5vw, 3.4rem); line-height: 1.05; margin-top: 14px; text-shadow: 0 6px 34px rgba(0, 0, 0, 0.65); }
+.cellar-cinema-cta { margin-top: 30px; }
+.cellar-cinema-note { margin-top: 14px; color: var(--cream-2); opacity: 0.85; }
 
 /* B. Wat je krijgt — editorial 01..04 (geen iconen) */
 .cellar-values .band-head { text-align: center; margin-bottom: clamp(42px, 6vw, 74px); }

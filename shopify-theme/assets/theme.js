@@ -275,12 +275,12 @@
         scrollTrigger: { trigger: stepsEl, start: "top 72%", end: "bottom 78%", scrub: 0.5 }
       });
     }
-    // Filmische kelderfoto: trage parallax
-    var cine = document.querySelector(".cellar-cinema-media img");
+    // "Stap de kelder in": het beeld zoomt langzaam in tijdens het scrollen (dolly-in)
+    var cine = document.querySelector(".cellar-cinema-media");
     if (cine) {
-      gsap.to(cine, {
-        yPercent: 10, ease: "none",
-        scrollTrigger: { trigger: ".cellar-cinema", start: "top bottom", end: "bottom top", scrub: 0.5 }
+      gsap.fromTo(cine, { scale: 1 }, {
+        scale: 1.18, ease: "none",
+        scrollTrigger: { trigger: ".cellar-cinema", start: "top bottom", end: "bottom top", scrub: 0.6 }
       });
     }
   }

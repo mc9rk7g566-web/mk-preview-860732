@@ -29,16 +29,23 @@
 
   <div class="cellar-body">
 
-    {% comment %} A. Filmische kelderfoto — full-bleed, trage parallax, boven+onder vervloeid (geen harde rand) {% endcomment %}
-    <section class="cellar-cinema">
-      <div class="cellar-cinema-media" data-parallax-img>
+    {% comment %} A. "Stap de kelder binnen" — beeld zoomt in bij het scrollen (alsof je naar binnen loopt) + join-CTA erover. Hoofddoel = joinen. {% endcomment %}
+    <section class="cellar-cinema" data-cellar-enter>
+      <div class="cellar-cinema-media" data-cinema-zoom>
         {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '1000, 1600, 2000, 2400', sizes: '100vw', loading: 'lazy', alt: 'Wijnkelder met exclusieve flessen' }}
+          {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '1200, 1800, 2400', sizes: '100vw', loading: 'lazy', alt: 'De besloten wijnkelder van Maarten' }}
         {% else %}
-          <img src="{{ 'community.jpg' | asset_url }}" width="2000" height="1333" alt="Wijnkelder met exclusieve flessen" loading="lazy">
+          <img src="{{ 'community.jpg' | asset_url }}" width="2400" height="1350" alt="De besloten wijnkelder van Maarten" loading="lazy">
         {% endif %}
       </div>
-      {% if section.settings.photo_caption != blank %}<p class="cellar-cinema-cap">{{ section.settings.photo_caption }}</p>{% endif %}
+      <div class="cellar-cinema-inner">
+        {% if section.settings.photo_caption != blank %}<p class="cellar-cinema-cap reveal">{{ section.settings.photo_caption }}</p>{% endif %}
+        <h2 class="display cellar-cinema-title reveal">{{ section.settings.enter_title | default: 'Stap binnen in de kelder' }}</h2>
+        {% if community_url != '#' %}
+        <a class="btn btn-primary cellar-cinema-cta reveal" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
+        <p class="meta cellar-cinema-note reveal">{{ section.settings.enter_note | default: 'Gratis en vrijblijvend, via WhatsApp' }}</p>
+        {% endif %}
+      </div>
     </section>
 
     {% comment %} B. Wat je krijgt — editorial 01..04, geen iconen {% endcomment %}
@@ -131,7 +138,9 @@
     { "type": "text", "id": "reassure", "label": "Geruststelling onder de knop", "default": "Gratis lid. Geen verplichting om te kopen. Uitschrijven wanneer je wilt." },
     { "type": "header", "content": "Filmische foto" },
     { "type": "image_picker", "id": "image", "label": "Hoofdfoto (wijnkelder/sfeer)" },
-    { "type": "text", "id": "photo_caption", "label": "Bijschrift over de foto", "default": "Elke fles met een verhaal" },
+    { "type": "text", "id": "photo_caption", "label": "Kleine tekst boven de titel (kelderfoto)", "default": "De besloten kelder van Maarten" },
+    { "type": "text", "id": "enter_title", "label": "Titel op de kelderfoto", "default": "Stap binnen in de kelder" },
+    { "type": "text", "id": "enter_note", "label": "Tekst onder de knop (kelderfoto)", "default": "Gratis en vrijblijvend, via WhatsApp" },
     { "type": "header", "content": "Wat je krijgt" },
     { "type": "text", "id": "benefits_title", "label": "Kop", "default": "Wat je krijgt" },
     { "type": "header", "content": "Quote van Maarten" },
