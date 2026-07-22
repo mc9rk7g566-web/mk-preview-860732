@@ -299,7 +299,8 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
    Secties
    -------------------------------------------------------------------------- */
 .section { padding: clamp(84px, 11vw, 150px) 0; }
-.section-band { background: var(--ink-2); }
+/* Banden delen dezelfde toon als de body -> geen zichtbare naden tussen secties */
+.section-band { background: transparent; }
 
 .section-head {
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -320,8 +321,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
    diepte via band-wissel ink -> ink-2, geen lichte balk in de dark site)
    -------------------------------------------------------------------------- */
 .values-section {
-  background: var(--ink-2);
-  border-top: 1px solid var(--line);
+  background: transparent;
 }
 .values-section .band-head {
   text-align: center;
@@ -334,7 +334,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
   margin-top: 16px;
 }
 /* legacy cream-band (oude main-home): laten bestaan maar nooit meer als lichte balk */
-.cream-band { background: var(--ink-2); color: var(--cream); }
+.cream-band { background: transparent; color: var(--cream); }
 .cream-band .band-head { text-align: center; max-width: 700px; margin: 0 auto clamp(40px, 6vw, 64px); }
 .cream-band .band-head p { color: var(--cream-2); font-weight: 500; margin-top: 14px; }
 
@@ -755,48 +755,49 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 /* --------------------------------------------------------------------------
    Footer: gecentreerd met M-icoon en social-pills (babi.sh-DNA, merk-uitvoering)
    -------------------------------------------------------------------------- */
-.footer { background: var(--ink-2); border-top: 1px solid var(--line); }
+/* Crème footer met bordeaux letters: bewuste lichte 'basis' onder de donkere site
+   -> geen naad-lijn meer (de kleurwissel is duidelijk gewild, niet per ongeluk). */
+.footer { background: var(--cream); color: var(--bordeaux); }
+.footer ::selection { background: var(--bordeaux); color: var(--cream); }
 .footer-inner {
-  padding: clamp(64px, 8vw, 100px) 24px 40px;
+  padding: clamp(64px, 8vw, 100px) 24px 44px;
   max-width: var(--w-content); margin: 0 auto;
   display: flex; flex-direction: column; align-items: center; text-align: center;
 }
 .footer .m-icon {
   width: 64px; height: 64px; border-radius: 999px;
-  background: var(--bordeaux);
   display: inline-flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 1.7rem; color: var(--cream);
-  text-transform: uppercase;
 }
 .footer .wordmark { margin-top: 20px; align-items: center; }
-.footer .wordmark .wm-name { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-.footer .wordmark .wm-sub { font-size: 0.62rem; }
+.footer .wordmark .wm-name { font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--bordeaux); }
+.footer .wordmark .wm-sub { font-size: 0.62rem; color: var(--bordeaux); opacity: 0.72; }
 .footer-links {
   margin-top: 30px;
   display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 34px;
   list-style: none;
 }
 .footer-links a {
-  color: var(--cream-2); font-size: 0.9rem; font-weight: 600; text-transform: lowercase;
+  color: var(--bordeaux); font-size: 0.9rem; font-weight: 600; text-transform: lowercase;
   transition: color 0.2s;
 }
-.footer-links a:hover { color: var(--cream); }
+.footer-links a:hover { color: var(--bordeaux-bright); }
 .footer .socials { display: flex; gap: 12px; margin-top: 30px; }
 .footer .socials a {
   display: inline-flex; align-items: center; justify-content: center;
   width: 46px; height: 46px; border-radius: 999px;
-  border: 1px solid var(--line); font-size: 1.25rem;
-  transition: border-color 0.2s, background-color 0.2s;
+  border: 1px solid rgba(123, 13, 30, 0.3); color: var(--bordeaux); font-size: 1.25rem;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
-.footer .socials a:hover { border-color: var(--tan); }
-.footer-note { margin-top: 26px; color: var(--cream-2); font-size: 0.9rem; font-weight: 500; max-width: 44ch; }
+.footer .socials a:hover { border-color: var(--bordeaux); background: var(--bordeaux); color: var(--cream); }
+.footer-note { margin-top: 26px; color: var(--bordeaux); font-size: 0.9rem; font-weight: 500; max-width: 44ch; }
+.footer-note a { color: var(--bordeaux); text-decoration: underline; text-underline-offset: 2px; }
 .footer-bottom {
-  margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
+  margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(123, 13, 30, 0.18);
   width: 100%;
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  color: var(--tan); font-size: 0.8rem; font-weight: 500;
+  color: var(--bordeaux); font-size: 0.8rem; font-weight: 500;
 }
-.footer-bottom .tagline { letter-spacing: 0.22em; text-transform: uppercase; }
+.footer-bottom .tagline { letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.82; }
 
 /* --------------------------------------------------------------------------
    Reveal-basis (GSAP zet eindwaarden; zonder JS blijft alles zichtbaar)
@@ -948,7 +949,7 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 /* --------------------------------------------------------------------------
    Groepsapp-sectie (hoofddoel: naar WhatsApp) — bordeaux band
    -------------------------------------------------------------------------- */
-.community { background: var(--ink-2); }
+.community { background: transparent; }
 .community-card {
   display: grid; grid-template-columns: 1fr 1fr; align-items: stretch;
   border-radius: var(--radius-card); overflow: hidden;
@@ -1245,6 +1246,6 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Juridische links + bedrijfsgegevens in de footer */
 .footer-legal { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin: 24px 0 0; padding: 0; }
-.footer-legal a { color: rgba(244, 237, 228, 0.7); font-size: 0.82rem; }
-.footer-legal a:hover { color: var(--cream); }
-.footer-legal-info { margin-top: 14px; font-size: 0.76rem; color: rgba(244, 237, 228, 0.5); text-align: center; max-width: 640px; }
+.footer-legal a { color: rgba(123, 13, 30, 0.78); font-size: 0.82rem; }
+.footer-legal a:hover { color: var(--bordeaux); }
+.footer-legal-info { margin-top: 14px; font-size: 0.76rem; color: rgba(123, 13, 30, 0.6); text-align: center; max-width: 640px; }
