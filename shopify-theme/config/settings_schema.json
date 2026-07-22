@@ -18,6 +18,13 @@
     ]
   },
   {
+    "name": "SEO en Google",
+    "settings": [
+      { "type": "paragraph", "content": "Voor Google Search Console: plak hier alleen de 'content'-waarde uit de google-site-verification meta-tag. Daarmee verifieer je de site en kun je de sitemap (maartenkookt.nl/sitemap.xml) indienen." },
+      { "type": "text", "id": "gsc_verification", "label": "Google Search Console verificatiecode" }
+    ]
+  },
+  {
     "name": "Juridisch en bedrijfsgegevens",
     "settings": [
       { "type": "paragraph", "content": "Deze gegevens verschijnen in de footer en horen in de privacyverklaring en algemene voorwaarden. Vul ze in zoals ze bij de KvK staan." },

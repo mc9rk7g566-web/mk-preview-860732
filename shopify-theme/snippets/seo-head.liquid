@@ -1,7 +1,8 @@
 {%- comment -%}
-  SEO-head: meta description (met fallback), Open Graph/Twitter-tags en JSON-LD.
-  Gerenderd vanuit layout/theme.liquid. Homepage-titel/-description die Job in
-  Shopify-admin zet (Online Store → Voorkeuren) blijft altijd leidend.
+  SEO-head: Google-verificatie, meta description (met fallback), Open Graph/Twitter
+  en JSON-LD (WebSite + Person op de home, BreadcrumbList op onderliggende pagina's).
+  Gerenderd vanuit layout/theme.liquid. Titel/description die in Shopify-admin
+  (Online Store > Voorkeuren of per pagina) worden gezet, blijven leidend.
 {%- endcomment -%}
 {%- liquid
   assign fallback_description = 'Maarten Kookt: recepten, keukentechnieken en de wijn die erbij hoort. Elke week nieuw, rechtstreeks uit de keuken van Maarten Kievit.'
@@ -20,15 +21,23 @@
     assign og_title = 'Maarten kookt – Recepten, technieken en wijntips'
   endif
 -%}
+{%- if settings.gsc_verification != blank -%}
+<meta name="google-site-verification" content="{{ settings.gsc_verification | escape }}">
+{%- endif -%}
 <meta name="description" content="{{ meta_description | escape }}">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <meta property="og:site_name" content="Maarten kookt">
 <meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:description" content="{{ meta_description | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:image" content="{{ og_image }}">
+<meta property="og:image:alt" content="{{ og_title | escape }}">
 <meta property="og:locale" content="nl_NL">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ meta_description | escape }}">
+<meta name="twitter:image" content="{{ og_image }}">
 {%- if template.name == 'index' -%}
 {%- liquid
   assign portret = 'portret.jpg' | asset_url
@@ -43,10 +52,11 @@
       {
         "@type": "WebSite",
         "@id": "{{ shop.url }}/#website",
-        "url": "{{ shop.url }}",
+        "url": "{{ shop.url }}/",
         "name": "Maarten Kookt",
         "alternateName": "Maarten kookt",
-        "inLanguage": "nl",
+        "description": {{ fallback_description | json }},
+        "inLanguage": "nl-NL",
         "publisher": { "@id": "{{ shop.url }}/#maarten" }
       },
       {
@@ -54,8 +64,10 @@
         "@id": "{{ shop.url }}/#maarten",
         "name": "Maarten Kievit",
         "alternateName": "Maarten Kookt",
+        "jobTitle": "Kok",
         "description": "Kok. Deelt recepten, keukentechnieken en wijntips die erbij passen.",
-        "url": "{{ shop.url }}",
+        "knowsAbout": ["koken", "recepten", "keukentechnieken", "wijn"],
+        "url": "{{ shop.url }}/",
         "image": "{{ portret }}"{% if settings.instagram_url != blank %},
         "sameAs": ["{{ settings.instagram_url }}"]{% endif %}
       }
@@ -63,3 +75,27 @@
   }
 </script>
 {%- endif -%}
+{%- comment -%} Breadcrumbs op onderliggende pagina's (niet op home of de noindex-join-pagina) {%- endcomment -%}
+{%- unless template.name == 'index' or template.suffix == 'join' -%}
+{%- liquid
+  assign recepten_url = pages['recepten'].url | default: '/pages/recepten' | prepend: shop.url
+  assign crumb_title = page_title | default: shop.name
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ shop.url }}/" }
+    {%- if template.suffix == 'recept' -%},
+    { "@type": "ListItem", "position": 2, "name": "Recepten", "item": "{{ recepten_url }}" },
+    { "@type": "ListItem", "position": 3, "name": {{ crumb_title | json }}, "item": "{{ canonical_url }}" }
+    {%- elsif template.suffix == 'recepten' -%},
+    { "@type": "ListItem", "position": 2, "name": "Recepten", "item": "{{ canonical_url }}" }
+    {%- else -%},
+    { "@type": "ListItem", "position": 2, "name": {{ crumb_title | json }}, "item": "{{ canonical_url }}" }
+    {%- endif -%}
+  ]
+}
+</script>
+{%- endunless -%}
