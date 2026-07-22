@@ -1,8 +1,8 @@
 {% comment %}
-  Uitgelicht recept op de homepage — teaser die naar de eigen receptpagina linkt
-  (het volledige recept + ingrediënten/bereiding staat op /pages/... zodat Google
-  één duidelijke recept-URL ziet, geen dubbele content). Kop + kookvideo + foto's,
-  wijntip en 'over Maarten'. Alles aanpasbaar via Customize.
+  Uitgelicht recept op de homepage. Opzet (feedback Maarten): één media + een
+  scrollbaar recept-vak ernaast, zodat je het recept al op de home kunt lezen.
+  De aparte receptpagina (/pages/...) blijft de SEO-bron met Recipe-structured-data.
+  Ingrediënten/bereiding + media aanpasbaar via Customize.
 {% endcomment %}
 {% assign recipe_url = section.settings.recipe_url | default: '/pages/recepten' %}
 <article id="recept" class="recipe-feature">
@@ -13,17 +13,34 @@
       <p class="lead recipe-intro reveal">{{ section.settings.intro }}</p>
       <p class="meta recipe-meta reveal"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span></p>
 
-      <div class="recipe-showcase reveal">
-        <figure class="showcase-card showcase-card--video">
-          <video src="{{ 'recept-tomyum-video.mp4' | asset_url }}" poster="{{ 'recept-tomyum-poster.jpg' | asset_url }}" controls playsinline preload="metadata" width="464" height="832" aria-label="Kookvideo: {{ section.settings.title | escape }}"></video>
-          {% if section.settings.video_note != blank %}<figcaption class="video-note"><i class="ph ph-video-camera" aria-hidden="true"></i>{{ section.settings.video_note }}</figcaption>{% endif %}
+      {%- assign ing_lines = section.settings.ingredients | strip | newline_to_br | split: '<br />' -%}
+      {%- assign step_lines = section.settings.steps | strip | newline_to_br | split: '<br />' -%}
+      <div class="recipe-card reveal">
+        <figure class="recipe-card-media">
+          {% if section.settings.photo_1 != blank %}
+            {% render 'responsive-image', image: section.settings.photo_1, fallback: 'recept-tomyum-bord.jpg', alt: section.settings.title, sizes: '(max-width: 767px) 100vw, 48vw', loading: 'lazy' %}
+          {% else %}
+            <video src="{{ 'recept-tomyum-video.mp4' | asset_url }}" poster="{{ 'recept-tomyum-poster.jpg' | asset_url }}" controls playsinline preload="metadata" width="464" height="832" aria-label="Kookvideo: {{ section.settings.title | escape }}"></video>
+            {% if section.settings.video_note != blank %}<figcaption><i class="ph ph-video-camera" aria-hidden="true"></i>{{ section.settings.video_note }}</figcaption>{% endif %}
+          {% endif %}
         </figure>
-        <figure class="showcase-card">
-          {% render 'responsive-image', image: section.settings.photo_1, fallback: 'recept-tomyum-saus.jpg', alt: 'De romige tom yum wordt over de kokkels geschept', sizes: '(max-width: 767px) 86vw, 33vw', loading: 'lazy' %}
-        </figure>
-        <figure class="showcase-card">
-          {% render 'responsive-image', image: section.settings.photo_2, fallback: 'recept-tomyum-pan.jpg', alt: 'Pan met romige tom yum en kokkels', sizes: '(max-width: 767px) 86vw, 33vw', loading: 'lazy' %}
-        </figure>
+        <div class="recipe-card-scroll" tabindex="0" aria-label="Recept">
+          {%- if section.settings.ingredients != blank -%}
+          <h3 class="rc-head">Ingrediënten</h3>
+          <ul class="rc-ingredients">
+            {%- for line in ing_lines -%}{%- assign l = line | strip -%}{%- if l != blank -%}
+            {%- assign parts = l | split: '—' -%}
+            <li><span class="rc-name">{{ parts[0] | strip }}</span>{% if parts.size > 1 %}<span class="rc-amt">{{ parts[1] | strip }}</span>{% endif %}</li>
+            {%- endif -%}{%- endfor -%}
+          </ul>
+          {%- endif -%}
+          {%- if section.settings.steps != blank -%}
+          <h3 class="rc-head">Bereiding</h3>
+          <ol class="rc-steps">
+            {%- for line in step_lines -%}{%- assign l = line | strip -%}{%- if l != blank -%}<li>{{ l }}</li>{%- endif -%}{%- endfor -%}
+          </ol>
+          {%- endif -%}
+        </div>
       </div>
 
       <div class="feature-cta reveal">
@@ -59,11 +76,12 @@
     { "type": "text", "id": "servings", "label": "Aantal personen", "default": "4 personen" },
     { "type": "text", "id": "course", "label": "Soort gerecht", "default": "Vis" },
     { "type": "text", "id": "recipe_url", "label": "Link naar het volledige recept", "info": "De receptpagina, bijv. /pages/romige-tom-yum-met-kokkels" },
-    { "type": "header", "content": "Video en foto's" },
+    { "type": "header", "content": "Media" },
     { "type": "text", "id": "video_note", "label": "Bijschrift bij de video", "default": "Kijk mee hoe Maarten hem maakt" },
-    { "type": "image_picker", "id": "photo_1", "label": "Foto 2 (naast de video)", "info": "Laat leeg voor de still uit de kookvideo." },
-    { "type": "image_picker", "id": "photo_2", "label": "Foto 3", "info": "Laat leeg voor de still uit de kookvideo." },
-    { "type": "text", "id": "insta_label", "label": "Instagram-knoptekst", "default": "Volg @maarten.kievit op Instagram" },
+    { "type": "image_picker", "id": "photo_1", "label": "Eén foto i.p.v. de video (optioneel)", "info": "Zet hier één eigen foto neer om de kookvideo te vervangen. Leeg = de video blijft staan." },
+    { "type": "header", "content": "Recept (scrollbaar op de home)" },
+    { "type": "textarea", "id": "ingredients", "label": "Ingrediënten — één per regel, formaat: naam — hoeveelheid", "default": "Tom yum pasta — 30 g\nKokosmelk — 500 ml\nRode chilipeper, fijngehakt — 1\nSjalotten, fijngesnipperd — 2\nKnoflook, fijngehakt — 1 teen\nVerse gember, geraspt — 50 g\nCitroengras, fijngesneden — 50 g\nVerse kokkels, schoongespoeld — 1 kg\nDroge witte wijn — 100 ml\nKookvocht van de kokkels — 2-4 el\nVissaus — 1 el\nLimoen, het sap — 1\nVerse koriander — royaal" },
+    { "type": "textarea", "id": "steps", "label": "Bereiding — één stap per regel", "default": "Verhit een pan en fruit een van de gesnipperde sjalotten kort aan. Blus af met de witte wijn en breng aan de kook. Voeg de kokkels toe, doe de deksel erop en kook 3 tot 4 minuten, tot alle schelpen open staan.\nZeef het kookvocht door een fijne zeef en bewaar het. Haal de kokkels uit de schelpen en houd een paar kokkels in de schelp apart voor de presentatie.\nFruit de andere sjalot zachtjes aan met de knoflook, de gember, het citroengras en de rode chili. Voeg de tom yum pasta toe en bak die ongeveer een minuut mee, zodat de aroma's goed vrijkomen.\nSchenk de kokosmelk erbij en laat de soep vijf minuten zachtjes trekken.\nBreng de soep op smaak met het kookvocht van de kokkels, de vissaus en het limoensap. Proef tussendoor en voeg zoveel kookvocht toe als nodig is voor een mooie zilte umami-smaak.\nVoeg de kokkels toe en verwarm ze nog kort mee. Verdeel de kokkels over warme diepe borden, schenk de romige tom yum erover en garneer royaal met verse koriander. Direct serveren." },
     { "type": "header", "content": "Over Maarten" },
     { "type": "image_picker", "id": "about_image", "label": "Foto", "info": "Laat leeg voor de still uit de kookvideo." },
     { "type": "text", "id": "about_title", "label": "Titel", "default": "Over Maarten" },
