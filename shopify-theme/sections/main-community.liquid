@@ -9,9 +9,9 @@
     <div class="community-card reveal">
       <div class="community-media">
         {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '560, 840, 1120, 1400', sizes: '(max-width: 900px) 100vw, 46vw', loading: 'lazy', alt: 'Wijnkelder met exclusieve flessen' }}
+          {{ section.settings.image | image_url: width: 1400 | image_tag: widths: '560, 840, 1120, 1400', sizes: '(max-width: 900px) 100vw, 46vw', loading: 'lazy', alt: 'The Cellar Club — exclusieve wijn van Maarten' }}
         {% else %}
-          <img src="{{ 'community.jpg' | asset_url }}" width="1400" height="933" alt="Wijnkelder met exclusieve flessen" loading="lazy">
+          <img src="{{ 'cellar-club.jpg' | asset_url }}" width="1800" height="1200" alt="Een glas rode wijn in warm, filmisch licht" loading="lazy">
         {% endif %}
       </div>
       <div class="community-body">
