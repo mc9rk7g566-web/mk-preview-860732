@@ -30,14 +30,33 @@
           <h3>{{ block.settings.title }}</h3><p class="meta">{{ block.settings.meta }}</p>
         </a>
       {% endfor %}
+      {%- comment -%} Zolang er weinig recepten zijn: 'binnenkort'-tegels vullen de rij en wekken verwachting op.
+        data-cat 'binnenkort' -> tonen in 'Alles', verdwijnen zodra er op een categorie/zoekterm wordt gefilterd. {%- endcomment -%}
+      {%- if section.blocks.size < 3 -%}
+        {%- assign fillers = 3 | minus: section.blocks.size -%}
+        {%- for i in (1..fillers) -%}
+        <div class="recipe-card recipe-soon reveal" data-cat="binnenkort">
+          <div class="thumb"><span class="soon-badge"><i class="ph ph-clock" aria-hidden="true"></i>Binnenkort</span></div>
+          <h3>Volgende week nieuw</h3><p class="meta">Elke week een nieuw recept</p>
+        </div>
+        {%- endfor -%}
+      {%- endif -%}
     </div>
     <p class="no-results">Geen recepten gevonden. Probeer een andere zoekterm of filter.</p>
   </div>
 </section>
-<section class="section wine-band">
-  <div class="wrap wine-grid">
-    <div class="reveal"><h2 class="display">Hou je van wijn?</h2><p>In The Cellar Club kiest Maarten exclusieve flessen uit die je rechtstreeks kunt kopen.</p><a class="btn btn-light" href="{{ community_url }}" target="_blank" rel="noopener">Join The Cellar Club</a></div>
-    <div class="wine-media reveal"><img src="{{ 'wijn-glas.jpg' | asset_url }}" width="1200" height="1783" alt="Glas rode wijn met druiven" loading="lazy"></div>
+<section class="section community">
+  <div class="wrap">
+    <div class="community-card reveal">
+      <div class="community-media"><img src="{{ 'wijn-glas.jpg' | asset_url }}" width="1200" height="1783" alt="Glas rode wijn met druiven" loading="lazy"></div>
+      <div class="community-body">
+        <span class="wt-label">De wijnclub van Maarten</span>
+        <h2 class="display">Hou je van wijn?</h2>
+        <p>In The Cellar Club kiest Maarten exclusieve flessen uit die je rechtstreeks kunt kopen.</p>
+        <div class="community-cta-row"><a class="btn btn-light community-cta" href="{{ community_url }}" target="_blank" rel="noopener">Join The Cellar Club</a></div>
+        <p class="community-note">Word vrijblijvend lid. Geen verplichting om te kopen.</p>
+      </div>
+    </div>
   </div>
 </section>
 

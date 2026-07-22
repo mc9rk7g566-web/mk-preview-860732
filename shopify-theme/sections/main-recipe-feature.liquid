@@ -15,7 +15,7 @@
 
       {%- assign ing_lines = section.settings.ingredients | strip | newline_to_br | split: '<br />' -%}
       {%- assign step_lines = section.settings.steps | strip | newline_to_br | split: '<br />' -%}
-      <div class="recipe-card reveal">
+      <div class="recipe-feature-card reveal">
         <figure class="recipe-card-media">
           {% if section.settings.photo_1 != blank %}
             {% render 'responsive-image', image: section.settings.photo_1, fallback: 'recept-tomyum-bord.jpg', alt: section.settings.title, sizes: '(max-width: 767px) 100vw, 48vw', loading: 'lazy' %}
