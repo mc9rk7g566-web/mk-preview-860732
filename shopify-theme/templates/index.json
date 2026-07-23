@@ -21,8 +21,8 @@
         "video_note": "Kijk mee hoe Maarten hem maakt",
         "insta_label": "Volg @maarten.kievit op Instagram",
         "about_title": "Over Maarten",
-        "about_text_1": "Ik ben Maarten. Koken is waar ik blij van word: pure smaken, gerechten met lef en altijd een goede wijn erbij. Elke week deel ik een nieuw recept dat ik zelf maak, precies zoals ik het thuis op tafel zet.",
-        "about_text_2": ""
+        "about_text_1": "Ik ben Maarten, 24 jaar en dolverliefd op koken. Ik leerde het vak aan Ter Duinen in Koksijde, scherpte het aan in de Antwerpse keukens van Zilte en Het Gebaar, en werd op mijn 21e sous-chef bij Restaurant de Krommewatergang. Maar het mooiste dat ik daar leerde? Dat lekker koken helemaal niet ingewikkeld hoeft te zijn. Een handvol verse producten, één techniek die je beheerst en je zet iets op tafel waar iedereen stil van wordt.",
+        "about_text_2": "Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt. En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken."
       }
     },
     "community": {
@@ -41,5 +41,9 @@
       }
     }
   },
-  "order": ["main", "recept", "community"]
+  "order": [
+    "main",
+    "recept",
+    "community"
+  ]
 }
