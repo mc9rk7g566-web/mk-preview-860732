@@ -655,30 +655,42 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
   .ingredients { position: static; }
 }
 
-/* Wijntip: het handelsmerk van Maarten */
+/* Wijntip: het handelsmerk van Maarten — strak, exclusief, gebalanceerd.
+   Media krijgt een vaste verhouding zodat de portret-video het rode paneel
+   niet enorm hoog en leeg maakt; tekst staat verticaal gecentreerd. */
+.recipe-wine-section { margin-top: clamp(60px, 8vw, 110px); }
 .wine-tip {
-  display: grid; grid-template-columns: 5fr 7fr;
+  display: grid; grid-template-columns: 5fr 7fr; align-items: stretch;
   border-radius: var(--radius-card); overflow: hidden;
-  background: var(--bordeaux); color: var(--on-bordeaux);
+  background: linear-gradient(145deg, #891021 0%, var(--bordeaux) 46%, #620b17 100%);
+  color: var(--on-bordeaux);
 }
 .wine-tip ::selection { background: var(--cream); color: var(--bordeaux); }
-.wine-tip .wt-media { min-height: 300px; }
-.wine-tip .wt-media img { width: 100%; height: 100%; object-fit: cover; }
-.wine-tip .wt-body { padding: clamp(30px, 4vw, 54px); align-self: center; }
-.wine-tip .wt-label {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(244, 237, 228, 0.75); margin-bottom: 16px;
+.wine-tip .wt-media { aspect-ratio: 4 / 5; min-height: 0; }
+.wine-tip .wt-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.wine-tip .wt-body {
+  align-self: center; padding: clamp(36px, 4.6vw, 66px);
+  display: flex; flex-direction: column; align-items: flex-start;
 }
-.wine-tip h2 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.5rem, 2.8vw, 2.2rem); line-height: 1.08; }
-.wine-tip p { color: rgba(244, 237, 228, 0.88); margin-top: 14px; max-width: 46ch; font-weight: 500; }
-.wine-tip .btn-light { margin-top: 26px; background: var(--cream); color: var(--bordeaux); }
+.wine-tip .wt-label {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(244, 237, 228, 0.72);
+}
+.wine-tip .wt-label::before { content: ""; width: 28px; height: 1px; background: rgba(244, 237, 228, 0.45); }
+.wine-tip h2 { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.7rem, 3vw, 2.55rem); line-height: 1.05; margin-top: 20px; }
+.wine-tip p { color: rgba(244, 237, 228, 0.86); margin-top: 16px; max-width: 42ch; font-weight: 500; line-height: 1.6; }
+.wine-tip .btn-light { margin-top: clamp(28px, 3.2vw, 38px); background: var(--cream); color: var(--bordeaux); }
 .wine-tip .btn-light:hover { background: #fff; }
 
 @media (max-width: 767px) {
   .wine-tip { grid-template-columns: 1fr; }
-  .wine-tip .wt-media { min-height: 220px; }
+  /* houdt de 4/5-verhouding (portret) zodat Maarten + het inschenken heel in beeld blijven */
 }
+
+/* FAQ op de receptpagina: titel in het display-font + royale ademruimte */
+.recipe-faq { margin-top: clamp(60px, 8vw, 110px); }
+.recipe-faq-title { text-transform: uppercase; font-size: clamp(1.7rem, 4vw, 2.5rem); text-align: center; margin-bottom: clamp(34px, 4.5vw, 54px); }
 
 /* --------------------------------------------------------------------------
    Kookboek/shop
