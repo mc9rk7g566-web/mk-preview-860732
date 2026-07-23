@@ -1058,8 +1058,11 @@ html.lenis, html.lenis body { height: auto; }
   min-height: 100svh;
   display: grid; place-items: center; text-align: center;
   padding: clamp(120px, 16vh, 170px) 24px 90px;
+  /* Onderrand vloeit naar exact var(--ink) uit = zelfde kleur als .cellar-body-top
+     → geen zichtbare naad tussen hero en de rest. Gloed blijft in het midden. */
   background:
-    radial-gradient(95% 75% at 50% 118%, rgba(123, 13, 30, 0.52), transparent 62%),
+    linear-gradient(180deg, transparent 78%, var(--ink) 99%),
+    radial-gradient(95% 68% at 50% 116%, rgba(123, 13, 30, 0.5), transparent 60%),
     radial-gradient(70% 45% at 50% -12%, rgba(42, 19, 23, 0.9), transparent 72%),
     var(--ink);
 }
