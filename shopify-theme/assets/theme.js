@@ -10,8 +10,12 @@
 
   /* ---- Smooth scroll (Lenis): buttery wheel-scroll op desktop; op touch blijft
          native (dat is daar al soepel). Niet bij reduced-motion. ---- */
+  // Alleen op een echte muis/touchpad (desktop). Op touch NOOIT Lenis: die vecht
+  // met de native momentum-scroll van iOS/Android → scroll blijft af en toe hangen
+  // ("stopt op sommige plekken"). Native touch-scroll is daar al soepel.
+  var isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
   var lenis = null;
-  if (!reduceMotion && typeof Lenis !== "undefined") {
+  if (!reduceMotion && !isTouch && typeof Lenis !== "undefined") {
     lenis = new Lenis({
       lerp: 0.1,            /* continu interpoleren = geen stop-start, geen 'random stops' */
       wheelMultiplier: 1,
@@ -180,6 +184,44 @@
       }
     });
   }
+
+  /* ---- FAQ-accordion: vloeiend open/dicht via de Web Animations API op de
+         <details>-hoogte. Native <details> klapt bij het sluiten altijd hard
+         dicht (geen animatie) → dat is de glitch. Hier animeren we beide kanten.
+         Bij reduced-motion valt het terug op de standaard directe toggle. ---- */
+  document.querySelectorAll(".cellar-faq details").forEach(function (el) {
+    var summary = el.querySelector("summary");
+    var content = el.querySelector(".faq-a");
+    if (!summary || !content) return;
+    var anim = null, closing = false, expanding = false;
+
+    var settle = function (open) {
+      el.open = open; anim = null; closing = false; expanding = false;
+      el.style.height = ""; el.style.overflow = "";
+    };
+    var run = function (from, to, open) {
+      el.style.overflow = "hidden";
+      if (anim) anim.cancel();
+      anim = el.animate({ height: [from, to] }, { duration: 340, easing: "cubic-bezier(0.4, 0, 0.2, 1)" });
+      anim.onfinish = function () { settle(open); };
+      anim.oncancel = function () { closing = false; expanding = false; };
+    };
+    summary.addEventListener("click", function (e) {
+      if (reduceMotion) return; /* native toggle = direct, geen animatie */
+      e.preventDefault();
+      if (closing || !el.open) {
+        el.style.height = el.offsetHeight + "px";
+        el.open = true;
+        window.requestAnimationFrame(function () {
+          expanding = true;
+          run(el.offsetHeight + "px", (summary.offsetHeight + content.offsetHeight) + "px", true);
+        });
+      } else if (expanding || el.open) {
+        closing = true;
+        run(el.offsetHeight + "px", summary.offsetHeight + "px", false);
+      }
+    });
+  });
 
   /* ---- Motion (alleen zonder reduced-motion en mét GSAP) ---- */
   if (reduceMotion || !hasGsap) {

@@ -1012,14 +1012,6 @@ html.lenis, html.lenis body { height: auto; }
   font-family: var(--font-display); font-size: 1.2rem;
 }
 
-.cellar-faq { max-width: 760px; margin: 0 auto; }
-.cellar-faq details { border-bottom: 1px solid var(--line); }
-.cellar-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-weight: 600; font-size: 1.05rem; color: var(--cream); }
-.cellar-faq summary::-webkit-details-marker { display: none; }
-.cellar-faq summary i { color: var(--tan); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
-.cellar-faq details[open] summary i { transform: rotate(45deg); }
-.cellar-faq details p { color: var(--cream-2); font-weight: 500; padding: 0 0 22px; max-width: 62ch; }
-
 .cellar-final { grid-template-columns: 1fr; text-align: center; }
 .cellar-final-body { align-items: center; max-width: 620px; margin: 0 auto; }
 .cellar-final-body p { margin-left: auto; margin-right: auto; }
@@ -1165,18 +1157,32 @@ html.lenis, html.lenis body { height: auto; }
 .step-body { padding-top: 13px; }
 .step-body p { color: var(--cream); font-weight: 500; font-size: 1.06rem; line-height: 1.6; }
 
-/* E. FAQ — verfijnd, zachte hoogte-overgang (grid-rows-truc, geen JS) */
+/* E. FAQ — verfijnde accordion (kaarten). JS animeert de details-hoogte (WAAPI)
+   voor vloeiend open én dicht; CSS doet het uiterlijk + de +/×-toggle. */
 .cellar-faq-sec .band-head { text-align: center; margin-bottom: clamp(36px, 5vw, 56px); }
-.cellar-faq { max-width: 760px; margin: 0 auto; }
-.cellar-faq details { border-bottom: 1px solid var(--line); }
-.cellar-faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px 0; font-weight: 600; font-size: 1.08rem; color: var(--cream); }
+.cellar-faq { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.cellar-faq details {
+  border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  background: rgba(244, 237, 228, 0.025);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+.cellar-faq details[open] { background: rgba(123, 13, 30, 0.14); border-color: rgba(123, 13, 30, 0.55); }
+.cellar-faq summary {
+  list-style: none; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 18px;
+  padding: 22px clamp(20px, 3vw, 28px); font-weight: 600; font-size: 1.08rem; color: var(--cream);
+  transition: color 0.25s ease;
+}
 .cellar-faq summary::-webkit-details-marker { display: none; }
-.cellar-faq summary i { color: var(--tan); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
-.cellar-faq details[open] summary i { transform: rotate(45deg); }
-.cellar-faq .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-.cellar-faq details[open] .faq-a { grid-template-rows: 1fr; }
-.cellar-faq .faq-a > p { overflow: hidden; min-height: 0; color: var(--cream-2); font-weight: 500; max-width: 62ch; }
-.cellar-faq details[open] .faq-a > p { padding-bottom: 24px; }
+.cellar-faq summary:hover { color: #fff; }
+.cellar-faq summary i {
+  flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px;
+  border: 1px solid rgba(205, 185, 152, 0.45); color: var(--tan);
+  display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem;
+  transition: transform 0.4s cubic-bezier(0.34, 1.35, 0.4, 1), background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.cellar-faq details[open] summary i { transform: rotate(45deg); background: var(--tan); color: var(--ink); border-color: var(--tan); }
+.cellar-faq .faq-a > p { color: var(--cream-2); font-weight: 500; max-width: 62ch; margin: 0; padding: 0 clamp(20px, 3vw, 28px) 24px; line-height: 1.6; }
 
 /* F. Slot-CTA — filmisch, diepste bordeaux-gloed */
 .cellar-final-sec { position: relative; text-align: center; overflow: hidden; }
@@ -1186,10 +1192,6 @@ html.lenis, html.lenis body { height: auto; }
 .cellar-final-sec > .wrap > p { color: var(--cream-2); margin: 18px auto 0; max-width: 44ch; font-weight: 500; }
 .cellar-final-sec .btn { margin-top: 32px; }
 .cellar-final-sec .cellar-reassure { margin-top: 16px; opacity: 0.72; font-size: 0.8rem; }
-
-@media (prefers-reduced-motion: reduce) {
-  .cellar-faq .faq-a { transition: none; }
-}
 
 /* Fix: oude counter-::before op de stappen uitzetten (nieuwe .step-node vervangt 'm),
    en de flex-gap neutraliseren zodat de tijdlijn-padding het ritme bepaalt. */
