@@ -8,6 +8,7 @@
 {% liquid
   assign ld_ings = section.blocks | where: 'type', 'ingredient'
   assign ld_steps = section.blocks | where: 'type', 'step'
+  assign ld_faqs = section.blocks | where: 'type', 'faq'
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
     assign wine_url = pages['join'].url | default: settings.community_url
@@ -86,6 +87,20 @@
     </div>
   </section>
 
+  {% if ld_faqs.size > 0 %}
+  <section class="wrap recipe-faq">
+    <h2>Veelgestelde vragen</h2>
+    <div class="cellar-faq">
+      {% for block in ld_faqs %}
+      <details {{ block.shopify_attributes }}>
+        <summary>{{ block.settings.q }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>{{ block.settings.a }}</p></div>
+      </details>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   <section class="section section-band">
     <div class="wrap recipe-cta reveal">
       <h2 class="display">Meer recepten van Maarten</h2>
@@ -109,7 +124,8 @@
   "name": {{ section.settings.title | json }},
   "description": {{ section.settings.intro | json }},
   "image": [{{ 'recept-tomyum-bord.jpg' | asset_url | prepend: 'https:' | json }}],
-  "author": { "@type": "Person", "name": "Maarten Kievit" },
+  "author": { "@type": "Person", "@id": {{ shop.url | append: '/#maarten' | json }}, "name": "Maarten Kievit", "url": {{ shop.url | append: '/' | json }} },
+  "datePublished": "2026-07-20",
   "recipeYield": {{ section.settings.servings | json }},
   "recipeCuisine": "Thais",
   "recipeCategory": {{ section.settings.course | json }},
@@ -137,6 +153,21 @@
   }{% endif %}
 }
 </script>
+{% if ld_faqs.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for block in ld_faqs %}{
+      "@type": "Question",
+      "name": {{ block.settings.q | json }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.a | json }} }
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
 
 {% schema %}
 {
@@ -166,7 +197,8 @@
   ],
   "blocks": [
     { "type": "ingredient", "name": "Ingrediënt", "settings": [{ "type": "text", "id": "name", "label": "Naam" }, { "type": "text", "id": "amount", "label": "Hoeveelheid" }] },
-    { "type": "step", "name": "Bereidingsstap", "settings": [{ "type": "textarea", "id": "text", "label": "Uitleg" }] }
+    { "type": "step", "name": "Bereidingsstap", "settings": [{ "type": "textarea", "id": "text", "label": "Uitleg" }] },
+    { "type": "faq", "name": "Vraag", "settings": [{ "type": "text", "id": "q", "label": "Vraag" }, { "type": "textarea", "id": "a", "label": "Antwoord" }] }
   ],
   "max_blocks": 40,
   "presets": [{ "name": "Recept" }]

@@ -21,9 +21,13 @@
         "s3": { "type": "step", "settings": { "text": "Fruit de andere sjalot zachtjes aan met de knoflook, de gember, het citroengras en de rode chili. Voeg de tom yum pasta toe en bak die ongeveer een minuut mee, zodat de aroma's goed vrijkomen." } },
         "s4": { "type": "step", "settings": { "text": "Schenk de kokosmelk erbij en laat de soep vijf minuten zachtjes trekken." } },
         "s5": { "type": "step", "settings": { "text": "Breng de soep op smaak met het kookvocht van de kokkels, de vissaus en het limoensap. Proef tussendoor en voeg zoveel kookvocht toe als nodig is voor een mooie zilte umami-smaak." } },
-        "s6": { "type": "step", "settings": { "text": "Voeg de kokkels toe en verwarm ze nog kort mee. Verdeel de kokkels over warme diepe borden, schenk de romige tom yum erover en garneer royaal met verse koriander. Direct serveren." } }
+        "s6": { "type": "step", "settings": { "text": "Voeg de kokkels toe en verwarm ze nog kort mee. Verdeel de kokkels over warme diepe borden, schenk de romige tom yum erover en garneer royaal met verse koriander. Direct serveren." } },
+        "f1": { "type": "faq", "settings": { "q": "Wat is tom yum precies?", "a": "Tom yum is een pittig-zure Thaise soep, van oorsprong gemaakt met citroengras, limoenblad, chili en vissaus. In deze romige versie voegt Maarten kokosmelk en verse kokkels toe voor een vollere, romige smaak." } },
+        "f2": { "type": "faq", "settings": { "q": "Kan ik de kokkels vervangen door mosselen?", "a": "Ja, mosselen werken net zo goed. Gebruik dezelfde hoeveelheid en kook ze op precies dezelfde manier, tot de schelpen open staan." } },
+        "f3": { "type": "faq", "settings": { "q": "Hoe pittig is dit recept en kan ik dat aanpassen?", "a": "Met 1 rode chilipeper is de soep aangenaam pittig, niet extreem heet. Voor milder haal je de zaadjes eruit of gebruik je een halve peper; voor extra pit voeg je een tweede peper toe." } },
+        "f4": { "type": "faq", "settings": { "q": "Kan ik tom yum met kokkels bewaren?", "a": "Het lekkerst vers en direct geserveerd. Heb je restjes, bewaar ze dan afgedekt maximaal 1 dag in de koelkast en verwarm ze goed door voor het serveren." } }
       },
-      "block_order": ["i1", "i2", "i3", "i4", "i5", "i12", "i13", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6"],
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i12", "i13", "i6", "i7", "i8", "i9", "i10", "i11", "s1", "s2", "s3", "s4", "s5", "s6", "f1", "f2", "f3", "f4"],
       "settings": {
         "kicker": "Recept van de week",
         "title": "Romige tom yum met kokkels",
