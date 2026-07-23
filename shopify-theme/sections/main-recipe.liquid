@@ -6,6 +6,8 @@
   via Customize. Recipe- + VideoObject-structured-data staat onderaan.
 {% endcomment %}
 {% liquid
+  assign ld_ings = section.blocks | where: 'type', 'ingredient'
+  assign ld_steps = section.blocks | where: 'type', 'step'
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
   if settings.community_url != blank
     assign wine_url = pages['join'].url | default: settings.community_url
@@ -49,7 +51,7 @@
     <aside class="ingredients reveal">
       <h2>Ingrediënten</h2>
       <ul>
-        {% for block in section.blocks %}{% if block.type == 'ingredient' %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{% endif %}{% endfor %}
+        {% for block in ld_ings %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{% endfor %}
       </ul>
       <figure class="ingredients-photo">
         {% render 'responsive-image', image: section.settings.photo_ingredients, fallback: 'recept-tomyum-mise.jpg', alt: 'Verse ingrediënten voor de tom yum op het aanrecht', sizes: '(max-width: 860px) 100vw, 33vw', loading: 'lazy' %}
@@ -58,7 +60,7 @@
     <div class="method reveal">
       <h2>Bereiding</h2>
       <ol>
-        {% for block in section.blocks %}{% if block.type == 'step' %}<li {{ block.shopify_attributes }}><p>{{ block.settings.text }}</p></li>{% endif %}{% endfor %}
+        {% for block in ld_steps %}<li id="stap-{{ forloop.index }}" {{ block.shopify_attributes }}><p>{{ block.settings.text }}</p></li>{% endfor %}
       </ol>
       {% if section.settings.tip_text != blank %}
       <div class="tip-card method-tip">
@@ -96,8 +98,10 @@
   </section>
 </article>
 
-{% assign ld_ings = section.blocks | where: 'type', 'ingredient' %}
-{% assign ld_steps = section.blocks | where: 'type', 'step' %}
+{% liquid
+  assign step_images = 'recept-tomyum-pan.jpg|recept-tomyum-pan.jpg|recept-tomyum-mise.jpg|recept-tomyum-mise.jpg|recept-tomyum-bord.jpg|recept-tomyum-saus.jpg' | split: '|'
+  assign keywords = section.settings.course | append: ', ' | append: 'Thais, ' | append: section.settings.title | downcase
+%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -109,12 +113,19 @@
   "recipeYield": {{ section.settings.servings | json }},
   "recipeCuisine": "Thais",
   "recipeCategory": {{ section.settings.course | json }},
+  "keywords": {{ keywords | json }},
   "totalTime": "PT30M",
   "recipeIngredient": [
     {% for block in ld_ings %}{{ block.settings.amount | append: ' ' | append: block.settings.name | json }}{% unless forloop.last %},{% endunless %}{% endfor %}
   ],
   "recipeInstructions": [
-    {% for block in ld_steps %}{ "@type": "HowToStep", "text": {{ block.settings.text | json }} }{% unless forloop.last %},{% endunless %}{% endfor %}
+    {% for block in ld_steps %}{
+      "@type": "HowToStep",
+      "name": {{ block.settings.text | split: '.' | first | truncate: 60 | json }},
+      "url": {{ canonical_url | append: '#stap-' | append: forloop.index | json }},
+      "image": {{ step_images[forloop.index0] | default: 'recept-tomyum-bord.jpg' | asset_url | prepend: 'https:' | json }},
+      "text": {{ block.settings.text | json }}
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
   ]{% if section.settings.show_video %},
   "video": {
     "@type": "VideoObject",
@@ -122,7 +133,7 @@
     "description": {{ section.settings.intro | json }},
     "thumbnailUrl": {{ 'recept-tomyum-poster.jpg' | asset_url | prepend: 'https:' | json }},
     "contentUrl": {{ 'recept-tomyum-video.mp4' | asset_url | prepend: 'https:' | json }},
-    "uploadDate": "2026-07-19"
+    "uploadDate": "2026-07-20T10:00:00+02:00"
   }{% endif %}
 }
 </script>
