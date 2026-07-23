@@ -1049,7 +1049,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) { .join-spinner { animation: none; } }
 
 /* --------------------------------------------------------------------------
-   Cellar Club-hero: zwevende prestige-flessen (bordeaux/bourgogne/champagne).
+   Cellar Club-hero: twee zwevende prestige-flessen (Rouget links, Krug rechts).
    Wrapper (.cellar-bottle) = positie + rotatie + GSAP-scroll-parallax;
    de img erin = trage CSS-float. Transforms gescheiden = geen conflict.
    -------------------------------------------------------------------------- */
@@ -1081,47 +1081,32 @@ html.lenis, html.lenis body { height: auto; }
   animation: bottle-float 8s ease-in-out infinite alternate;
   will-change: transform;
 }
-.cellar-bottle--bordeaux {
+.cellar-bottle--rouget {
   height: clamp(300px, 52vh, 540px);
   left: clamp(-30px, 7vw, 160px); bottom: 6%;
   transform: rotate(-9deg);
 }
-.cellar-bottle--champagne {
+.cellar-bottle--krug {
   height: clamp(310px, 55vh, 570px);
   right: clamp(-30px, 7vw, 160px); bottom: 10%;
   transform: rotate(8deg);
 }
-.cellar-bottle--champagne img { animation-duration: 10s; animation-delay: -3.5s; }
-.cellar-bottle--bourgogne {
-  height: clamp(170px, 26vh, 280px);
-  left: 20%; top: 7%; z-index: 0;
-  transform: rotate(13deg); opacity: 0.4;
-}
-.cellar-bottle--bourgogne img {
-  filter: blur(2.5px) drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5));
-  animation-duration: 12s; animation-delay: -6s;
-}
+.cellar-bottle--krug img { animation-duration: 10s; animation-delay: -3.5s; }
 @keyframes bottle-float {
   from { transform: translateY(-11px); }
   to { transform: translateY(13px); }
 }
 
-.cellar-photo { padding-top: 0; }
-
 @media (max-width: 860px) {
   .cellar-hero { padding-bottom: clamp(230px, 38vh, 320px); }
   /* Flessen zakken naar de onderste hoeken, half buiten beeld — tekst blijft vrij */
-  .cellar-bottle--bordeaux { height: clamp(230px, 32vh, 300px); left: -34px; bottom: -3%; }
-  .cellar-bottle--champagne { height: clamp(240px, 34vh, 315px); right: -34px; bottom: -2%; }
-  .cellar-bottle--bourgogne { left: 8%; top: 5%; height: clamp(130px, 18vh, 170px); opacity: 0.3; }
+  .cellar-bottle--rouget { height: clamp(230px, 32vh, 300px); left: -34px; bottom: -3%; }
+  .cellar-bottle--krug { height: clamp(240px, 34vh, 315px); right: -34px; bottom: -2%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .cellar-bottle img { animation: none; }
 }
-
-/* Fotocredits (CC BY-SA-naamsvermelding, verplicht) — bewust klein en rustig */
-.cellar-credits { margin-top: 26px; text-align: center; font-size: 0.7rem; opacity: 0.45; letter-spacing: 0.06em; }
 
 /* ==========================================================================
    THE CELLAR CLUB v2 — alles ONDER de hero (cinematisch wijnhuis).
@@ -1139,29 +1124,6 @@ html.lenis, html.lenis body { height: auto; }
     #280e18 100%);
 }
 .cellar-body .section { background: transparent; }
-
-/* A. Filmische kelderfoto */
-/* A. "Stap de kelder binnen": full-bleed beeld dat inzoomt (dolly-in) + join-CTA erover */
-.cellar-cinema {
-  position: relative; height: clamp(460px, 86vh, 820px); overflow: hidden;
-  display: grid; place-items: center; text-align: center;
-}
-.cellar-cinema-media { position: absolute; inset: -8% 0; z-index: 0; transform-origin: center; will-change: transform; }
-.cellar-cinema-media img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.95) contrast(1.04); }
-.cellar-cinema::before {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background:
-    linear-gradient(180deg, #170a0c 0%, rgba(23, 10, 12, 0.35) 20%, rgba(23, 10, 12, 0.4) 55%, #1b0d11 100%),
-    radial-gradient(120% 100% at 50% 48%, rgba(23, 10, 12, 0.34), rgba(23, 10, 12, 0.8));
-}
-.cellar-cinema-inner {
-  position: relative; z-index: 2; max-width: 620px; padding: 0 24px;
-  display: flex; flex-direction: column; align-items: center;
-}
-.cellar-cinema-cap { letter-spacing: 0.32em; text-transform: uppercase; color: var(--tan); font-size: 0.72rem; }
-.cellar-cinema-title { font-size: clamp(2rem, 5.5vw, 3.4rem); line-height: 1.05; margin-top: 14px; text-shadow: 0 6px 34px rgba(0, 0, 0, 0.65); }
-.cellar-cinema-cta { margin-top: 30px; }
-.cellar-cinema-note { margin-top: 14px; color: var(--cream-2); opacity: 0.85; }
 
 /* B. Wat je krijgt — editorial 01..04 (geen iconen) */
 .cellar-values .band-head { text-align: center; margin-bottom: clamp(42px, 6vw, 74px); }
@@ -1221,7 +1183,6 @@ html.lenis, html.lenis body { height: auto; }
 .cellar-final-sec > .wrap > p { color: var(--cream-2); margin: 18px auto 0; max-width: 44ch; font-weight: 500; }
 .cellar-final-sec .btn { margin-top: 32px; }
 .cellar-final-sec .cellar-reassure { margin-top: 16px; opacity: 0.72; font-size: 0.8rem; }
-.cellar-final-sec .cellar-credits { margin-top: 44px; }
 
 @media (prefers-reduced-motion: reduce) {
   .cellar-faq .faq-a { transition: none; }

@@ -7,13 +7,11 @@
 <article class="recipe-feature cellar">
   <section class="cellar-hero">
     <div class="cellar-glow" aria-hidden="true"></div>
-    {% comment %} Zwevende echte prestige-flessen: Pétrus 1973 (Jamain, CC BY-SA 3.0),
-      Bâtard-Montrachet Faiveley (Craig Drollett, CC BY-SA 2.0), Dom Pérignon 1999 (publiek domein);
-      via Wikimedia Commons, credits staan onderaan de pagina. Wrapper = positie +
+    {% comment %} Twee zwevende prestige-flessen (Maartens keuze): Vosne-Romanée Cros Parantoux
+      van Emmanuel Rouget links, Krug Clos du Mesnil rechts. Wrapper = positie +
       GSAP-parallax; de img erin = CSS-float. Zo vechten de transforms niet met elkaar. {% endcomment %}
-    <span class="cellar-bottle cellar-bottle--bourgogne" data-parallax="60" aria-hidden="true"><img src="{{ 'cellar-fles-bourgogne.webp' | asset_url }}" alt="" width="318" height="1100" loading="eager"></span>
-    <span class="cellar-bottle cellar-bottle--bordeaux" data-parallax="-50" aria-hidden="true"><img src="{{ 'cellar-fles-bordeaux.webp' | asset_url }}" alt="" width="292" height="1100" loading="eager"></span>
-    <span class="cellar-bottle cellar-bottle--champagne" data-parallax="-90" aria-hidden="true"><img src="{{ 'cellar-fles-champagne.webp' | asset_url }}" alt="" width="386" height="1100" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--rouget" data-parallax="-50" aria-hidden="true"><img src="{{ 'cellar-fles-rouget.webp' | asset_url }}" alt="" width="292" height="1100" loading="eager"></span>
+    <span class="cellar-bottle cellar-bottle--krug" data-parallax="-90" aria-hidden="true"><img src="{{ 'cellar-fles-krug.webp' | asset_url }}" alt="" width="345" height="1100" loading="eager"></span>
     <div class="wrap cellar-hero-inner">
       <p class="meta cellar-kicker reveal">{{ section.settings.kicker }}</p>
       <h1 class="display cellar-title reveal">{{ section.settings.title }}</h1>
@@ -28,25 +26,6 @@
   </section>
 
   <div class="cellar-body">
-
-    {% comment %} A. "Stap de kelder binnen" — beeld zoomt in bij het scrollen (alsof je naar binnen loopt) + join-CTA erover. Hoofddoel = joinen. {% endcomment %}
-    <section class="cellar-cinema" data-cellar-enter>
-      <div class="cellar-cinema-media" data-cinema-zoom>
-        {% if section.settings.image != blank %}
-          {{ section.settings.image | image_url: width: 2400 | image_tag: widths: '1200, 1800, 2400', sizes: '100vw', loading: 'lazy', alt: 'De besloten wijnkelder van Maarten' }}
-        {% else %}
-          <img src="{{ 'community.jpg' | asset_url }}" width="2400" height="1350" alt="De besloten wijnkelder van Maarten" loading="lazy">
-        {% endif %}
-      </div>
-      <div class="cellar-cinema-inner">
-        {% if section.settings.photo_caption != blank %}<p class="cellar-cinema-cap reveal">{{ section.settings.photo_caption }}</p>{% endif %}
-        <h2 class="display cellar-cinema-title reveal">{{ section.settings.enter_title | default: 'Stap binnen in de kelder' }}</h2>
-        {% if community_url != '#' %}
-        <a class="btn btn-primary cellar-cinema-cta reveal" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
-        <p class="meta cellar-cinema-note reveal">{{ section.settings.enter_note | default: 'Gratis en vrijblijvend, via WhatsApp' }}</p>
-        {% endif %}
-      </div>
-    </section>
 
     {% comment %} B. Wat je krijgt — editorial 01..04, geen iconen {% endcomment %}
     <section class="section cellar-values">
@@ -119,7 +98,6 @@
         <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
         {% if section.settings.reassure != blank %}<p class="cellar-reassure">{{ section.settings.reassure }}</p>{% endif %}
         {% endif %}
-        <p class="meta cellar-credits">Flesfoto's: Jamain &middot; Craig Drollett (CC BY-SA) &middot; via Wikimedia Commons</p>
       </div>
     </section>
 
@@ -136,11 +114,6 @@
     { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Als kok proef ik veel wijnen. De mooiste, met een verhaal, deel ik in een gratis besloten WhatsApp-club. Je kunt ze rechtstreeks bij mij bestellen, vaak in kleine oplages. Kom erbij en drink beter." },
     { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Join The Cellar Club" },
     { "type": "text", "id": "reassure", "label": "Geruststelling onder de knop", "default": "Gratis lid. Geen verplichting om te kopen. Uitschrijven wanneer je wilt." },
-    { "type": "header", "content": "Filmische foto" },
-    { "type": "image_picker", "id": "image", "label": "Hoofdfoto (wijnkelder/sfeer)" },
-    { "type": "text", "id": "photo_caption", "label": "Kleine tekst boven de titel (kelderfoto)", "default": "De besloten kelder van Maarten" },
-    { "type": "text", "id": "enter_title", "label": "Titel op de kelderfoto", "default": "Stap binnen in de kelder" },
-    { "type": "text", "id": "enter_note", "label": "Tekst onder de knop (kelderfoto)", "default": "Gratis en vrijblijvend, via WhatsApp" },
     { "type": "header", "content": "Wat je krijgt" },
     { "type": "text", "id": "benefits_title", "label": "Kop", "default": "Wat je krijgt" },
     { "type": "header", "content": "Quote van Maarten" },
