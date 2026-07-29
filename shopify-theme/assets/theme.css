@@ -639,6 +639,15 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 }
 .ingredients li strong { color: var(--cream); font-weight: 600; }
 
+/* Tussenkop in de ingrediëntenlijst (recepten met meerdere onderdelen) */
+.ingredients li.ing-group, .rc-ingredients li.ing-group {
+  display: block; border-bottom: 0; padding-bottom: 2px;
+  font-family: var(--font-display); text-transform: uppercase;
+  letter-spacing: 0.05em; font-size: 0.78rem; color: var(--tan);
+}
+.ingredients li.ing-group + li, .rc-ingredients li.ing-group + li { padding-top: 4px; }
+.ingredients li.ing-group ~ li.ing-group, .rc-ingredients li.ing-group ~ li.ing-group { margin-top: 20px; }
+
 .method ol { list-style: none; counter-reset: stap; }
 .method li { counter-increment: stap; display: flex; gap: 22px; }
 .method li + li { margin-top: 30px; }
@@ -909,6 +918,12 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 .recipe-hero .recipe-kicker { letter-spacing: 0.14em; text-transform: uppercase; }
 .recipe-hero .recipe-title { max-width: 16ch; margin-top: 14px; }
 .recipe-hero .recipe-intro { margin-top: 18px; }
+/* Lange gerechtnamen (bv. WENTELTEEFJES) passen op smalle schermen niet in de
+   h1-minimum van 3.4rem en duwden de pagina horizontaal open. Alleen de
+   receptkop schaalt mee met de schermbreedte; desktop blijft ongewijzigd. */
+@media (max-width: 520px) {
+  .recipe-hero .recipe-title { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+}
 
 .recipe-showcase {
   margin-top: clamp(40px, 5vw, 56px);

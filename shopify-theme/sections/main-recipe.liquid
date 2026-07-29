@@ -10,6 +10,9 @@
   assign ld_steps = section.blocks | where: 'type', 'step'
   assign ld_faqs = section.blocks | where: 'type', 'faq'
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  assign alt_step = section.settings.title | append: ' in de keuken van Maarten'
+  assign alt_ing = 'De ingrediënten voor ' | append: section.settings.title
+  assign alt_wine = 'De wijn die Maarten schenkt bij ' | append: section.settings.title
   if settings.community_url != blank
     assign wine_url = pages['join'].url | default: settings.community_url
     assign wine_label = 'Join The Cellar Club'
@@ -32,17 +35,17 @@
       <div class="recipe-showcase reveal">
         <figure class="showcase-card showcase-card--video">
           {% if section.settings.show_video %}
-            <video src="{{ 'recept-tomyum-video.mp4' | asset_url }}" poster="{{ 'recept-tomyum-poster.jpg' | asset_url }}" controls playsinline preload="metadata" width="464" height="832" aria-label="Kookvideo: {{ section.settings.title | escape }}"></video>
+            <video src="{{ section.settings.video_file | asset_url }}" poster="{{ section.settings.poster_file | asset_url }}" controls playsinline preload="metadata" width="464" height="832" aria-label="Kookvideo: {{ section.settings.title | escape }}"></video>
             {% if section.settings.video_note != blank %}<figcaption class="video-note"><i class="ph ph-video-camera" aria-hidden="true"></i>{{ section.settings.video_note }}</figcaption>{% endif %}
           {% else %}
-            {% render 'responsive-image', image: section.settings.hero_image, fallback: 'recept-tomyum-bord.jpg', alt: section.settings.title, sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+            {% render 'responsive-image', image: section.settings.hero_image, fallback: section.settings.img_hero, alt: section.settings.title, sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
           {% endif %}
         </figure>
         <figure class="showcase-card">
-          {% render 'responsive-image', image: section.settings.photo_1, fallback: 'recept-tomyum-saus.jpg', alt: 'De romige tom yum wordt over de kokkels geschept', sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+          {% render 'responsive-image', image: section.settings.photo_1, fallback: section.settings.img_2, alt: section.settings.title, sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
         </figure>
         <figure class="showcase-card">
-          {% render 'responsive-image', image: section.settings.photo_2, fallback: 'recept-tomyum-pan.jpg', alt: 'Pan met romige tom yum en kokkels', sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
+          {% render 'responsive-image', image: section.settings.photo_2, fallback: section.settings.img_3, alt: alt_step, sizes: '(max-width: 767px) 80vw, 33vw', loading: 'lazy' %}
         </figure>
       </div>
     </div>
@@ -52,10 +55,13 @@
     <aside class="ingredients reveal">
       <h2>Ingrediënten</h2>
       <ul>
-        {% for block in ld_ings %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{% endfor %}
+        {% for block in section.blocks %}
+          {%- if block.type == 'group' -%}<li class="ing-group" {{ block.shopify_attributes }}>{{ block.settings.title }}</li>
+          {%- elsif block.type == 'ingredient' -%}<li {{ block.shopify_attributes }}><strong>{{ block.settings.name }}</strong><span>{{ block.settings.amount }}</span></li>{%- endif -%}
+        {% endfor %}
       </ul>
       <figure class="ingredients-photo">
-        {% render 'responsive-image', image: section.settings.photo_ingredients, fallback: 'recept-tomyum-mise.jpg', alt: 'Verse ingrediënten voor de tom yum op het aanrecht', sizes: '(max-width: 860px) 100vw, 33vw', loading: 'lazy' %}
+        {% render 'responsive-image', image: section.settings.photo_ingredients, fallback: section.settings.img_ingredients, alt: alt_ing, sizes: '(max-width: 860px) 100vw, 33vw', loading: 'lazy' %}
       </figure>
     </aside>
     <div class="method reveal">
@@ -76,7 +82,7 @@
   <section class="wrap recipe-wine-section">
     <div class="wine-tip reveal">
       <div class="wt-media">
-        {% render 'responsive-image', image: section.settings.wine_image, fallback: 'recept-tomyum-wijn.jpg', alt: 'Maarten schenkt witte wijn bij de kokkels', sizes: '(max-width: 767px) 100vw, 42vw', loading: 'lazy' %}
+        {% render 'responsive-image', image: section.settings.wine_image, fallback: section.settings.img_wine, alt: alt_wine, sizes: '(max-width: 767px) 100vw, 42vw', loading: 'lazy' %}
       </div>
       <div class="wt-body">
         <span class="wt-label">De wijntip van Maarten</span>
@@ -114,8 +120,8 @@
 </article>
 
 {% liquid
-  assign step_images = 'recept-tomyum-pan.jpg|recept-tomyum-pan.jpg|recept-tomyum-mise.jpg|recept-tomyum-mise.jpg|recept-tomyum-bord.jpg|recept-tomyum-saus.jpg' | split: '|'
-  assign keywords = section.settings.course | append: ', ' | append: 'Thais, ' | append: section.settings.title | downcase
+  assign step_images = section.settings.img_3 | append: '|' | append: section.settings.img_ingredients | append: '|' | append: section.settings.img_2 | split: '|'
+  assign keywords = section.settings.course | append: ', ' | append: section.settings.cuisine | append: ', ' | append: section.settings.title | downcase
 %}
 <script type="application/ld+json">
 {
@@ -123,23 +129,23 @@
   "@type": "Recipe",
   "name": {{ section.settings.title | json }},
   "description": {{ section.settings.intro | json }},
-  "image": [{{ 'recept-tomyum-bord.jpg' | asset_url | prepend: 'https:' | json }}],
+  "image": [{{ section.settings.img_hero | asset_url | prepend: 'https:' | json }}],
   "author": { "@type": "Person", "@id": {{ shop.url | append: '/#maarten' | json }}, "name": "Maarten Kievit", "url": {{ shop.url | append: '/' | json }} },
-  "datePublished": "2026-07-20",
+  "datePublished": {{ section.settings.date_published | json }},
   "recipeYield": {{ section.settings.servings | json }},
-  "recipeCuisine": "Thais",
+  "recipeCuisine": {{ section.settings.cuisine | json }},
   "recipeCategory": {{ section.settings.course | json }},
   "keywords": {{ keywords | json }},
-  "totalTime": "PT30M",
+  "totalTime": {{ section.settings.total_time | json }},
   "recipeIngredient": [
     {% for block in ld_ings %}{{ block.settings.amount | append: ' ' | append: block.settings.name | json }}{% unless forloop.last %},{% endunless %}{% endfor %}
   ],
   "recipeInstructions": [
-    {% for block in ld_steps %}{
+    {% for block in ld_steps %}{%- assign pic_index = forloop.index0 | modulo: 3 -%}{
       "@type": "HowToStep",
       "name": {{ block.settings.text | split: '.' | first | truncate: 60 | json }},
       "url": {{ canonical_url | append: '#stap-' | append: forloop.index | json }},
-      "image": {{ step_images[forloop.index0] | default: 'recept-tomyum-bord.jpg' | asset_url | prepend: 'https:' | json }},
+      "image": {{ step_images[pic_index] | default: section.settings.img_hero | asset_url | prepend: 'https:' | json }},
       "text": {{ block.settings.text | json }}
     }{% unless forloop.last %},{% endunless %}{% endfor %}
   ]{% if section.settings.show_video %},
@@ -147,9 +153,9 @@
     "@type": "VideoObject",
     "name": {{ section.settings.title | prepend: 'Kookvideo: ' | json }},
     "description": {{ section.settings.intro | json }},
-    "thumbnailUrl": {{ 'recept-tomyum-poster.jpg' | asset_url | prepend: 'https:' | json }},
-    "contentUrl": {{ 'recept-tomyum-video.mp4' | asset_url | prepend: 'https:' | json }},
-    "uploadDate": "2026-07-20T10:00:00+02:00"
+    "thumbnailUrl": {{ section.settings.poster_file | asset_url | prepend: 'https:' | json }},
+    "contentUrl": {{ section.settings.video_file | asset_url | prepend: 'https:' | json }},
+    "uploadDate": {{ section.settings.date_published | append: 'T10:00:00+02:00' | json }}
   }{% endif %}
 }
 </script>
@@ -187,15 +193,28 @@
     { "type": "image_picker", "id": "photo_1", "label": "Foto 2" },
     { "type": "image_picker", "id": "photo_2", "label": "Foto 3" },
     { "type": "image_picker", "id": "photo_ingredients", "label": "Foto bij de ingrediënten" },
+    { "type": "header", "content": "Standaardbestanden per recept", "info": "De video en foto's die in het thema zijn opgeslagen. Alleen aanpassen als er nieuwe bestanden zijn geupload; zet je hierboven een eigen foto neer, dan wint die." },
+    { "type": "text", "id": "video_file", "label": "Videobestand", "default": "recept-tomyum-video.mp4" },
+    { "type": "text", "id": "poster_file", "label": "Videostill (poster)", "default": "recept-tomyum-poster.jpg" },
+    { "type": "text", "id": "img_hero", "label": "Hoofdfoto", "default": "recept-tomyum-bord.jpg" },
+    { "type": "text", "id": "img_2", "label": "Foto 2", "default": "recept-tomyum-saus.jpg" },
+    { "type": "text", "id": "img_3", "label": "Foto 3", "default": "recept-tomyum-pan.jpg" },
+    { "type": "text", "id": "img_ingredients", "label": "Foto bij de ingrediënten", "default": "recept-tomyum-mise.jpg" },
+    { "type": "text", "id": "img_wine", "label": "Foto bij de wijntip", "default": "recept-tomyum-wijn.jpg" },
     { "type": "header", "content": "Tip van Maarten" },
     { "type": "text", "id": "tip_title", "label": "Titel", "default": "Tip van Maarten" },
     { "type": "textarea", "id": "tip_text", "label": "Tekst", "default": "Het kookvocht van de kokkels is de geheime smaakmaker van dit gerecht. Voeg het beetje bij beetje toe en proef steeds tussendoor; zo blijft de soep perfect in balans." },
     { "type": "header", "content": "Wijntip" },
     { "type": "image_picker", "id": "wine_image", "label": "Foto" },
     { "type": "text", "id": "wine_title", "label": "Titel", "default": "De wijn die erbij past" },
-    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. Zulke mooie flessen koop je in The Cellar Club, zijn besloten wijnclub." }
+    { "type": "textarea", "id": "wine_text", "label": "Tekst", "default": "In de video schenkt Maarten er een droge witte wijn bij. Zulke mooie flessen koop je in The Cellar Club, zijn besloten wijnclub." },
+    { "type": "header", "content": "Google (structured data)" },
+    { "type": "text", "id": "cuisine", "label": "Keuken", "default": "Thais" },
+    { "type": "text", "id": "total_time", "label": "Totale tijd (ISO)", "info": "Bijvoorbeeld PT30M voor 30 minuten.", "default": "PT30M" },
+    { "type": "text", "id": "date_published", "label": "Publicatiedatum", "info": "Formaat JJJJ-MM-DD.", "default": "2026-07-20" }
   ],
   "blocks": [
+    { "type": "group", "name": "Tussenkop ingrediënten", "settings": [{ "type": "text", "id": "title", "label": "Tussenkop", "default": "Voor de saus" }] },
     { "type": "ingredient", "name": "Ingrediënt", "settings": [{ "type": "text", "id": "name", "label": "Naam" }, { "type": "text", "id": "amount", "label": "Hoeveelheid" }] },
     { "type": "step", "name": "Bereidingsstap", "settings": [{ "type": "textarea", "id": "text", "label": "Uitleg" }] },
     { "type": "faq", "name": "Vraag", "settings": [{ "type": "text", "id": "q", "label": "Vraag" }, { "type": "textarea", "id": "a", "label": "Antwoord" }] }
