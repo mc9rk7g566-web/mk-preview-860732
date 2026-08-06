@@ -60,6 +60,65 @@
   </div>
 </section>
 
+{%- comment -%}
+  Structured data voor het overzicht: welke recepten staan er, in welke volgorde, met
+  welke link. Hiermee ziet Google (en een AI-assistent die 'recepten van Maarten Kievit'
+  opzoekt) de receptenlijst als een lijst in plaats van als losse plaatjes.
+  Alleen kaarten met een echte receptpagina tellen mee; de 'binnenkort'-tegels niet.
+{%- endcomment -%}
+{%- liquid
+  assign echte_recepten = section.blocks | where: 'type', 'recipe'
+-%}
+{%- if echte_recepten.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ section.settings.heading | json }},
+  "description": {{ section.settings.intro | json }},
+  "url": {{ canonical_url | json }},
+  "inLanguage": "nl-NL",
+  "isPartOf": { "@id": {{ shop.url | append: '/#website' | json }} },
+  "about": { "@id": {{ shop.url | append: '/#maarten' | json }} },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListOrder": "https://schema.org/ItemListOrderDescending",
+    "numberOfItems": {{ echte_recepten.size }},
+    "itemListElement": [
+      {%- for block in echte_recepten -%}
+      {%- liquid
+        assign recept_url = block.settings.link | default: '/pages/recept'
+        unless recept_url contains 'http'
+          assign recept_url = recept_url | prepend: shop.url
+        endunless
+        if block.settings.image != blank
+          assign kaart_foto = block.settings.image | image_url: width: 1200
+        else
+          assign kaart_foto = block.settings.fallback_image | asset_url
+        endif
+        unless kaart_foto contains 'https:'
+          assign kaart_foto = kaart_foto | prepend: 'https:'
+        endunless
+      -%}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "url": {{ recept_url | json }},
+        "item": {
+          "@type": "Recipe",
+          "name": {{ block.settings.title | json }},
+          "url": {{ recept_url | json }},
+          "image": {{ kaart_foto | json }},
+          "author": { "@id": {{ shop.url | append: '/#maarten' | json }} }
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+}
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "Receptenoverzicht",

@@ -131,12 +131,32 @@
   "description": {{ section.settings.intro | json }},
   "image": [{{ section.settings.img_hero | asset_url | prepend: 'https:' | json }}],
   "author": { "@type": "Person", "@id": {{ shop.url | append: '/#maarten' | json }}, "name": "Maarten Kievit", "url": {{ shop.url | append: '/' | json }} },
+  {%- if section.settings.date_published != blank %}
   "datePublished": {{ section.settings.date_published | json }},
+  {%- endif %}
   "recipeYield": {{ section.settings.servings | json }},
   "recipeCuisine": {{ section.settings.cuisine | json }},
   "recipeCategory": {{ section.settings.course | json }},
   "keywords": {{ keywords | json }},
+  "inLanguage": "nl-NL",
+  "mainEntityOfPage": { "@type": "WebPage", "@id": {{ canonical_url | json }} },
   "totalTime": {{ section.settings.total_time | json }},
+  {%- if section.settings.prep_time != blank %}
+  "prepTime": {{ section.settings.prep_time | json }},
+  {%- endif %}
+  {%- if section.settings.cook_time != blank %}
+  "cookTime": {{ section.settings.cook_time | json }},
+  {%- endif %}
+  {%- if section.settings.date_modified != blank %}
+  "dateModified": {{ section.settings.date_modified | json }},
+  {%- endif %}
+  {%- if section.settings.calories != blank %}
+  "nutrition": {
+    "@type": "NutritionInformation",
+    "servingSize": {{ section.settings.serving_size | default: section.settings.servings | json }},
+    "calories": {{ section.settings.calories | append: ' kcal' | json }}
+  },
+  {%- endif %}
   "recipeIngredient": [
     {% for block in ld_ings %}{{ block.settings.amount | append: ' ' | append: block.settings.name | json }}{% unless forloop.last %},{% endunless %}{% endfor %}
   ],
@@ -148,13 +168,16 @@
       "image": {{ step_images[pic_index] | default: section.settings.img_hero | asset_url | prepend: 'https:' | json }},
       "text": {{ block.settings.text | json }}
     }{% unless forloop.last %},{% endunless %}{% endfor %}
-  ]{% if section.settings.show_video %},
+  ]{% comment %}uploadDate is verplicht voor VideoObject: zonder publicatiedatum liever geen video-schema dan een ongeldige datum{% endcomment %}{% if section.settings.show_video and section.settings.date_published != blank %},
   "video": {
     "@type": "VideoObject",
     "name": {{ section.settings.title | prepend: 'Kookvideo: ' | json }},
     "description": {{ section.settings.intro | json }},
     "thumbnailUrl": {{ section.settings.poster_file | asset_url | prepend: 'https:' | json }},
     "contentUrl": {{ section.settings.video_file | asset_url | prepend: 'https:' | json }},
+    {%- if section.settings.video_duration != blank %}
+    "duration": {{ section.settings.video_duration | json }},
+    {%- endif %}
     "uploadDate": {{ section.settings.date_published | append: 'T10:00:00+02:00' | json }}
   }{% endif %}
 }
@@ -211,7 +234,14 @@
     { "type": "header", "content": "Google (structured data)" },
     { "type": "text", "id": "cuisine", "label": "Keuken", "default": "Thais" },
     { "type": "text", "id": "total_time", "label": "Totale tijd (ISO)", "info": "Bijvoorbeeld PT30M voor 30 minuten.", "default": "PT30M" },
-    { "type": "text", "id": "date_published", "label": "Publicatiedatum", "info": "Formaat JJJJ-MM-DD.", "default": "2026-07-20" }
+    { "type": "text", "id": "prep_time", "label": "Voorbereidingstijd (ISO)", "info": "Snijden, kloppen, mise en place. Bijvoorbeeld PT10M. Samen met de kooktijd moet dit optellen tot de totale tijd." },
+    { "type": "text", "id": "cook_time", "label": "Kooktijd (ISO)", "info": "De tijd op het vuur of in de oven. Bijvoorbeeld PT20M." },
+    { "type": "text", "id": "date_published", "label": "Publicatiedatum", "info": "Formaat JJJJ-MM-DD. Zonder datum laat het thema de kookvideo uit de structured data (Google eist een uploaddatum).", "default": "2026-07-20" },
+    { "type": "text", "id": "date_modified", "label": "Laatst bijgewerkt", "info": "Formaat JJJJ-MM-DD. Vul dit in als je het recept later aanpast; Google en AI-assistenten geven voorrang aan verse pagina's." },
+    { "type": "text", "id": "video_duration", "label": "Videolengte (ISO)", "info": "Bijvoorbeeld PT1M30S voor anderhalve minuut." },
+    { "type": "header", "content": "Voedingswaarde", "info": "Optioneel, maar Google vraagt er expliciet om bij recepten. Alleen invullen als het klopt; laat leeg als je het niet weet." },
+    { "type": "text", "id": "calories", "label": "Calorieën per portie", "info": "Alleen het getal, bijvoorbeeld 420." },
+    { "type": "text", "id": "serving_size", "label": "Portiegrootte", "info": "Waar de calorieën op slaan, bijvoorbeeld '1 portie' of '1 bord'." }
   ],
   "blocks": [
     { "type": "group", "name": "Tussenkop ingrediënten", "settings": [{ "type": "text", "id": "title", "label": "Tussenkop", "default": "Voor de saus" }] },

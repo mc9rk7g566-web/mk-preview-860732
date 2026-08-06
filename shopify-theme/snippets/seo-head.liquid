@@ -6,7 +6,23 @@
 {%- endcomment -%}
 {%- liquid
   assign fallback_description = 'Maarten Kookt: recepten, keukentechnieken en de wijn die erbij hoort. Elke week nieuw, rechtstreeks uit de keuken van Maarten Kievit.'
-  assign meta_description = page_description | default: fallback_description
+
+  comment
+    Per pagina een eigen omschrijving. Google gebruikt deze tekst onder de zoekresultaten
+    (en onder eventuele sitelinks), dus overal dezelfde regel kost zichtbaarheid.
+    Een description die in de Shopify-admin is ingevuld wint altijd.
+  endcomment
+  assign template_description = fallback_description
+  case template.suffix
+    when 'recepten'
+      assign template_description = 'Alle recepten van Maarten Kievit: van koud voorgerecht tot toetje, met kookvideo, boodschappenlijst en de wijn die erbij past.'
+    when 'the-cellar-club'
+      assign template_description = 'The Cellar Club is de besloten wijnclub van Maarten Kievit. Hij kiest exclusieve flessen uit die je rechtstreeks kunt kopen.'
+  endcase
+  if template.suffix contains 'recept' and template.suffix != 'recepten' and page.title != blank
+    assign template_description = page.title | prepend: 'Zo maakt Maarten Kievit ' | append: '. Met kookvideo, de ingrediënten, stap voor stap uitleg en de wijn die erbij past.'
+  endif
+  assign meta_description = page_description | default: template_description
 
   assign og_image = 'hero.jpg' | asset_url
   if template.name == 'product' and product.featured_image
@@ -44,6 +60,23 @@
   unless portret contains 'https:'
     assign portret = portret | prepend: 'https:'
   endunless
+
+  comment
+    sameAs koppelt deze pagina aan de profielen die van dezelfde persoon zijn.
+    Google en AI-assistenten gebruiken dat om 'Maarten Kievit' als een en dezelfde
+    kok te herkennen in plaats van als losse naam op een website.
+  endcomment
+  assign profielen = ''
+  if settings.instagram_url != blank
+    assign profielen = profielen | append: settings.instagram_url | append: ','
+  endif
+  if settings.youtube_url != blank
+    assign profielen = profielen | append: settings.youtube_url | append: ','
+  endif
+  if settings.tiktok_url != blank
+    assign profielen = profielen | append: settings.tiktok_url | append: ','
+  endif
+  assign profielen = profielen | split: ','
 -%}
 <script type="application/ld+json">
   {
@@ -57,7 +90,12 @@
         "alternateName": "Maarten kookt",
         "description": {{ fallback_description | json }},
         "inLanguage": "nl-NL",
-        "publisher": { "@id": "{{ shop.url }}/#maarten" }
+        "publisher": { "@id": "{{ shop.url }}/#maarten" },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "{{ shop.url }}/search?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
       },
       {
         "@type": "Person",
@@ -68,8 +106,9 @@
         "description": "Kok. Deelt recepten, keukentechnieken en wijntips die erbij passen.",
         "knowsAbout": ["koken", "recepten", "keukentechnieken", "wijn"],
         "url": "{{ shop.url }}/",
-        "image": "{{ portret }}"{% if settings.instagram_url != blank %},
-        "sameAs": ["{{ settings.instagram_url }}"]{% endif %}
+        "image": "{{ portret }}",
+        "mainEntityOfPage": { "@id": "{{ shop.url }}/#website" }{% if profielen.size > 0 %},
+        "sameAs": [{% for p in profielen %}{{ p | json }}{% unless forloop.last %},{% endunless %}{% endfor %}]{% endif %}
       }
     ]
   }
