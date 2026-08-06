@@ -66,6 +66,9 @@
         "wine_text": "Bij dit toetje schenkt Maarten een zoete witte wijn uit Sauternes, in de video een Château d'Yquem 2019. Die honingzoete stijl met frisse zuren gaat mooi samen met het rode fruit en de romige mascarpone. Flessen als deze komen langs in The Cellar Club, zijn besloten wijnclub.",
         "cuisine": "Nederlands",
         "total_time": "PT25M",
+        "prep_time": "PT15M",
+        "cook_time": "PT10M",
+        "video_duration": "PT1M50S",
         "date_published": "2026-07-29"
       }
     }
