@@ -1359,3 +1359,15 @@ html.lenis, html.lenis body { height: auto; }
 /* "door Maarten Kievit" onder de recepttitel staat los onderaan de metaregel */
 .recipe-meta a { position: relative; }
 .recipe-meta a::after { content: ''; position: absolute; inset: -10px 0; }
+
+/* Met de auteursvermelding erbij staan er vier items in de metaregel; op een
+   telefoon liep die daardoor 8px buiten beeld. Laten afbreken in plaats van
+   uitsteken, met een kleinere tussenruimte zodat het meestal op een regel past. */
+.recipe-feature .recipe-hero .recipe-meta {
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 10px;
+}
+@media (max-width: 520px) {
+  .recipe-feature .recipe-hero .recipe-meta { gap: 10px 18px; }
+}
