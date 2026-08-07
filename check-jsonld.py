@@ -14,7 +14,8 @@ import json
 import re
 import sys
 
-SECTIES = "shopify-theme/sections/*.liquid"
+# snippets ook: de WebSite/Person/breadcrumb-data staat in snippets/seo-head.liquid
+BRONNEN = ["shopify-theme/sections/*.liquid", "shopify-theme/snippets/*.liquid"]
 
 
 def render(bron: str, if_aan: bool) -> str:
@@ -50,14 +51,23 @@ def render(bron: str, if_aan: bool) -> str:
     # resterende tags (assign, liquid, ...) schrijven zelf niets naar de uitvoer
     t = re.sub(r"\{%-?.*?-?%\}", "", t, flags=re.S)
 
-    # elke uitvoer is in het thema door | json gehaald -> altijd een JSON-string
-    return re.sub(r"\{\{.*?\}\}", '"testwaarde"', t, flags=re.S)
+    # Drie soorten uitvoer, elk met een eigen invulling:
+    #   {{ x | json }}  -> levert zelf de aanhalingstekens
+    #   "{{ x }}"       -> staat al binnen een string, dus zonder
+    #   {{ x.size }}    -> kale waarde, in dit thema altijd een getal
+    def waarde(m):
+        if "json" in m.group(0):
+            return '"testwaarde"'
+        binnen_string = m.start() > 0 and t[m.start() - 1] == '"'
+        return "testwaarde" if binnen_string else "1"
+
+    return re.sub(r"\{\{.*?\}\}", waarde, t, flags=re.S)
 
 
 def main() -> int:
     fouten = 0
     gecontroleerd = 0
-    for pad in sorted(glob.glob(SECTIES)):
+    for pad in sorted(p for patroon in BRONNEN for p in glob.glob(patroon)):
         bron = open(pad, encoding="utf-8").read()
         blokken = re.findall(r'<script type="application/ld\+json">(.*?)</script>', bron, re.S)
         for nr, blok in enumerate(blokken, 1):

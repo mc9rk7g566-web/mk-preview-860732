@@ -5,7 +5,7 @@
   (Online Store > Voorkeuren of per pagina) worden gezet, blijven leidend.
 {%- endcomment -%}
 {%- liquid
-  assign fallback_description = 'Maarten Kookt: recepten, keukentechnieken en de wijn die erbij hoort. Elke week nieuw, rechtstreeks uit de keuken van Maarten Kievit.'
+  assign fallback_description = 'Maarten Kievit deelt elke week een nieuw recept met kookvideo, de techniek erachter en de wijn die erbij past. Van koud voorgerecht tot toetje.'
 
   comment
     Per pagina een eigen omschrijving. Google gebruikt deze tekst onder de zoekresultaten
@@ -32,9 +32,9 @@
     assign og_image = og_image | prepend: 'https:'
   endunless
 
-  assign og_title = page_title | default: 'Maarten kookt'
+  assign og_title = page_title | default: 'Maarten Kookt'
   if template.name == 'index' and og_title == shop.name
-    assign og_title = 'Maarten kookt – Recepten, technieken en wijntips'
+    assign og_title = 'Maarten Kookt – recepten en wijntips van Maarten Kievit'
   endif
 -%}
 {%- if settings.gsc_verification != blank -%}
@@ -101,10 +101,22 @@
         "@type": "Person",
         "@id": "{{ shop.url }}/#maarten",
         "name": "Maarten Kievit",
+        "givenName": "Maarten",
+        "familyName": "Kievit",
         "alternateName": "Maarten Kookt",
         "jobTitle": "Kok",
-        "description": "Kok. Deelt recepten, keukentechnieken en wijntips die erbij passen.",
-        "knowsAbout": ["koken", "recepten", "keukentechnieken", "wijn"],
+        "nationality": { "@type": "Country", "name": "Nederland" },
+        "description": "Kok uit Nederland. Opgeleid aan Ter Duinen in Koksijde, werkte in de Antwerpse keukens van Zilte en Het Gebaar en werd op zijn 21e sous-chef bij Restaurant de Krommewatergang. Deelt recepten, keukentechnieken en de wijn die erbij past.",
+        {%- comment -%}
+          alumniOf koppelt Maarten aan een school die Google al kent. Dat maakt
+          hem een herkenbare persoon in plaats van de zoveelste 'Maarten' die
+          kookt -- precies het onderscheid dat we hier nodig hebben.
+          De restaurants staan bewust alleen in de description en niet in
+          worksFor: dat veld betekent huidige werkgever, en dat is niet zo.
+        {%- endcomment -%}
+        "alumniOf": { "@type": "EducationalOrganization", "name": "Hotelschool Ter Duinen", "address": { "@type": "PostalAddress", "addressLocality": "Koksijde", "addressCountry": "BE" } },
+        "hasOccupation": { "@type": "Occupation", "name": "Kok", "occupationalCategory": "Chef" },
+        "knowsAbout": ["koken", "recepten", "keukentechnieken", "wijn", "wijnspijscombinaties", "Nederlandse keuken"],
         "url": "{{ shop.url }}/",
         "image": "{{ portret }}",
         "mainEntityOfPage": { "@id": "{{ shop.url }}/#website" }{% if profielen.size > 0 %},

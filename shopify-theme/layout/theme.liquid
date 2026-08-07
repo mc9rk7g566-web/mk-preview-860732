@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#170a0c">
     <title>
+      {%- comment -%}
+        Achternaam bewust in de titel: er zijn meer kooksites met een Maarten
+        (kokenmetmaarten.nl, maartenkookt.blogspot.com) en dit domein was zelf
+        jaren een maaltijdservice van een andere Maarten. "Maarten Kievit" is
+        het enige woord dat ons daarvan onderscheidt in de zoekresultaten.
+      {%- endcomment -%}
       {%- if template.name == 'index' and page_title == shop.name -%}
-        Maarten kookt &ndash; Recepten, technieken en wijntips
+        Maarten Kookt &ndash; recepten en wijntips van Maarten Kievit
       {%- else -%}
         {{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} &ndash; Pagina {{ current_page }}{% endif %}{% unless page_title contains shop.name or page_title contains 'Maarten' %} | Maarten kookt{% endunless %}
       {%- endif -%}
