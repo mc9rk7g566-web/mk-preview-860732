@@ -10,6 +10,7 @@
   assign ld_steps = section.blocks | where: 'type', 'step'
   assign ld_faqs = section.blocks | where: 'type', 'faq'
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  assign over_url = pages['over-maarten'].url | default: '/#over'
   assign alt_step = section.settings.title | append: ' in de keuken van Maarten'
   assign alt_ing = 'De ingrediënten voor ' | append: section.settings.title
   assign alt_wine = 'De wijn die Maarten schenkt bij ' | append: section.settings.title
@@ -30,7 +31,7 @@
       <p class="meta recipe-kicker reveal">{{ section.settings.kicker }}</p>
       <h1 class="display recipe-title reveal">{{ section.settings.title }}</h1>
       <p class="lead recipe-intro reveal">{{ section.settings.intro }}</p>
-      <p class="meta recipe-meta reveal"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span></p>
+      <p class="meta recipe-meta reveal"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span>{%- comment -%}Zichtbare auteursvermelding met link naar zijn eigen pagina: Google en AI-assistenten wegen mee wie een recept geschreven heeft en of die persoon er verstand van heeft.{%- endcomment -%}<span><i class="ph ph-chef-hat" aria-hidden="true"></i>door <a href="{{ over_url }}">Maarten Kievit</a></span></p>
 
       <div class="recipe-showcase reveal">
         <figure class="showcase-card showcase-card--video">
