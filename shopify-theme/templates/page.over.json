@@ -1,0 +1,92 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-over",
+      "blocks": {
+        "w1": {
+          "type": "station",
+          "settings": {
+            "plek": "Hotelschool Ter Duinen",
+            "periode": "Koksijde, België — opleiding",
+            "wat": "Hier leerde Maarten het vak: de basistechnieken, het werken met verse producten en de discipline van een professionele keuken."
+          }
+        },
+        "w2": {
+          "type": "station",
+          "settings": {
+            "plek": "Zilte",
+            "periode": "Antwerpen — restaurant",
+            "wat": "In de Antwerpse keuken van Zilte scherpte hij zijn techniek aan en leerde hij hoe ver je een gerecht kunt verfijnen."
+          }
+        },
+        "w3": {
+          "type": "station",
+          "settings": {
+            "plek": "Het Gebaar",
+            "periode": "Antwerpen — restaurant",
+            "wat": "Ook bij Het Gebaar stond Maarten in de keuken. Twee Antwerpse adressen waar smaak en precisie voorop staan."
+          }
+        },
+        "w4": {
+          "type": "station",
+          "settings": {
+            "plek": "Restaurant de Krommewatergang",
+            "periode": "Sous-chef vanaf zijn 21e",
+            "wat": "Op zijn 21e werd Maarten hier sous-chef. Daar viel het kwartje: dat lekker koken helemaal niet ingewikkeld hoeft te zijn."
+          }
+        },
+        "f1": {
+          "type": "faq",
+          "settings": {
+            "q": "Wie is Maarten Kievit?",
+            "a": "Maarten Kievit is een Nederlandse kok. Hij leerde het vak aan Hotelschool Ter Duinen in Koksijde, werkte in de Antwerpse keukens van Zilte en Het Gebaar en werd op zijn 21e sous-chef bij Restaurant de Krommewatergang. Op Maarten Kookt deelt hij elke week een nieuw recept met kookvideo."
+          }
+        },
+        "f2": {
+          "type": "faq",
+          "settings": {
+            "q": "Wat voor recepten maakt Maarten Kievit?",
+            "a": "Gerechten die je op een doordeweekse avond echt maakt: van koud voorgerecht tot toetje. Bij elk recept hoort een kookvideo, de techniek die je nodig hebt en een wijntip. Denk aan romige tom yum met kokkels of wentelteefjes met mascarpone en rood fruit."
+          }
+        },
+        "f3": {
+          "type": "faq",
+          "settings": {
+            "q": "Waarom staat er bij elk recept een wijntip?",
+            "a": "Omdat Maarten van wijn net zo hard houdt als van eten. Bij elk gerecht vertelt hij welke wijn erbij past en waarom die combinatie werkt, zodat je niet alleen weet wát je moet inschenken maar ook waaróm."
+          }
+        },
+        "f4": {
+          "type": "faq",
+          "settings": {
+            "q": "Wat is The Cellar Club?",
+            "a": "The Cellar Club is de besloten wijnclub van Maarten Kievit: een WhatsApp-groep voor wijnliefhebbers. Leden delen wat ze drinken en Maarten biedt er regelmatig exclusieve flessen aan die je rechtstreeks kunt kopen. Lid worden is gratis en er is geen koopverplichting."
+          }
+        },
+        "f5": {
+          "type": "faq",
+          "settings": {
+            "q": "Hoe vaak komt er een nieuw recept?",
+            "a": "Elke week staat er een nieuw recept op maartenkookt.nl, met een kookvideo waarin Maarten het gerecht van begin tot eind maakt. Het nieuwste recept staat altijd op de homepage."
+          }
+        }
+      },
+      "block_order": ["w1", "w2", "w3", "w4", "f1", "f2", "f3", "f4", "f5"],
+      "settings": {
+        "kicker": "Over de kok",
+        "heading": "Maarten Kievit",
+        "intro": "Maarten Kievit is kok en deelt op Maarten Kookt elke week een nieuw recept met kookvideo, de techniek erachter en de wijn die erbij past.",
+        "portret_alt": "Maarten Kievit aan het werk in de keuken",
+        "verhaal_titel": "Van sterrenkeuken naar je eigen aanrecht",
+        "verhaal_1": "Ik ben Maarten, 24 jaar en dolverliefd op koken. Ik leerde het vak aan Ter Duinen in Koksijde, scherpte het aan in de Antwerpse keukens van Zilte en Het Gebaar, en werd op mijn 21e sous-chef bij Restaurant de Krommewatergang.",
+        "verhaal_2": "Maar het mooiste dat ik daar leerde? Dat lekker koken helemaal niet ingewikkeld hoeft te zijn. Een handvol verse producten, één techniek die je beheerst en je zet iets op tafel waar iedereen stil van wordt. Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt.",
+        "verhaal_3": "En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken.",
+        "loopbaan_titel": "Waar hij het vak leerde",
+        "faq_titel": "Veelgestelde vragen over Maarten",
+        "cta_titel": "Aan de slag in je eigen keuken",
+        "cta_tekst": "Elk recept met een kookvideo, de techniek erachter en de wijn die erbij past."
+      }
+    }
+  },
+  "order": ["main"]
+}

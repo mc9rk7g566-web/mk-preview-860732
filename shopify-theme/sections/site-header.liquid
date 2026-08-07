@@ -1,5 +1,11 @@
 {% liquid
   assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  comment
+    Bestaat de over-pagina, dan linkt 'over' daarheen in plaats van naar het
+    anker op de homepage. Een eigen pagina kan Google indexeren, een anker niet.
+    Valt terug op het anker zolang de pagina er niet is.
+  endcomment
+  assign over_url = pages['over-maarten'].url | default: '/#over'
   assign cellar_page = pages['the-cellar-club']
   if cellar_page != blank
     assign cta_url = cellar_page.url
@@ -27,7 +33,7 @@
     {% unless settings.landing_mode %}
     <ul class="nav-links">
       <li><a href="{{ recipes_url }}"{% if page.handle == 'recepten' or template.name == 'page' and page.templates contains 'recept' %} aria-current="page"{% endif %}>recepten</a></li>
-      <li><a href="{{ routes.root_url }}#over">over</a></li>
+      <li><a href="{{ over_url }}"{% if page.handle == 'over-maarten' %} aria-current="page"{% endif %}>over</a></li>
       <li><a class="btn btn-primary" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}>{% if cta_icon != blank %}<i class="ph {{ cta_icon }}" aria-hidden="true"></i>{% endif %}{{ cta_label }}</a></li>
     </ul>
     <button class="nav-toggle" aria-expanded="false" aria-controls="MobileMenu" aria-label="Menu openen"><span></span><span></span></button>
@@ -38,7 +44,7 @@
 <nav class="menu-overlay" id="MobileMenu" aria-label="Menu">
   <a href="{{ routes.root_url }}"{% if template.name == 'index' %} aria-current="page"{% endif %}>home</a>
   <a href="{{ recipes_url }}"{% if page.handle == 'recepten' %} aria-current="page"{% endif %}>recepten</a>
-  <a href="{{ routes.root_url }}#over">over</a>
+  <a href="{{ over_url }}"{% if page.handle == 'over-maarten' %} aria-current="page"{% endif %}>over</a>
   <a class="btn" href="{{ cta_url }}"{% if cta_blank %} target="_blank" rel="noopener"{% endif %}>{% if cta_icon != blank %}<i class="ph {{ cta_icon }}" aria-hidden="true"></i>{% endif %}{{ cta_label }}</a>
   <span class="menu-tagline">Passie. Smaak. Vakmanschap.</span>
 </nav>

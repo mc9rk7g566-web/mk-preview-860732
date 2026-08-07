@@ -1,0 +1,168 @@
+{% comment %}
+  Over Maarten -- eigen indexeerbare pagina. Stond eerder alleen als anker op de
+  homepage (/#over), waardoor het verhaal geen eigen plek in Google had. Juist bij
+  zoekopdrachten als "wie is Maarten Kievit" of "maarten die kookt" is dat de pagina
+  die moet ranken; er zijn meerdere kooksites met een Maarten.
+
+  Zelfde bouwstenen als de rest van de site: .page-head, .wrap .about, .cellar-faq
+  en .section-band. Geen eigen opmaak, zodat dit meebeweegt met het thema.
+{% endcomment %}
+{% liquid
+  assign recipes_url = pages['recepten'].url | default: '/pages/recepten'
+  assign ld_faqs = section.blocks | where: 'type', 'faq'
+  assign ld_stations = section.blocks | where: 'type', 'station'
+  if settings.community_url != blank
+    assign community_url = pages['join'].url | default: settings.community_url
+  else
+    assign community_url = routes.root_url | append: '#community'
+  endif
+%}
+<article class="over-detail">
+  <section class="page-head">
+    <div class="wrap">
+      <p class="meta recipe-kicker reveal">{{ section.settings.kicker }}</p>
+      <h1 class="display page-title reveal">{{ section.settings.heading }}</h1>
+      <p class="lead reveal">{{ section.settings.intro }}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap about">
+      <div class="about-media reveal">
+        {% render 'responsive-image', image: section.settings.portret, fallback: 'portret.jpg', alt: section.settings.portret_alt, sizes: '(max-width: 860px) 100vw, 42vw', loading: 'eager' %}
+      </div>
+      <div class="about-body reveal">
+        <h2 class="display">{{ section.settings.verhaal_titel }}</h2>
+        {% if section.settings.verhaal_1 != blank %}<p>{{ section.settings.verhaal_1 }}</p>{% endif %}
+        {% if section.settings.verhaal_2 != blank %}<p>{{ section.settings.verhaal_2 }}</p>{% endif %}
+        {% if section.settings.verhaal_3 != blank %}<p>{{ section.settings.verhaal_3 }}</p>{% endif %}
+        {% if settings.instagram_url != blank %}<a class="btn btn-glass" href="{{ settings.instagram_url }}" target="_blank" rel="noopener"><i class="ph ph-instagram-logo" aria-hidden="true"></i>Volg Maarten op Instagram</a>{% endif %}
+      </div>
+    </div>
+  </section>
+
+  {% if ld_stations.size > 0 %}
+  <section class="section section-band">
+    <div class="wrap">
+      <div class="section-head reveal"><h2 class="display">{{ section.settings.loopbaan_titel }}</h2></div>
+      <div class="tips-row reveal">
+        {% for block in ld_stations %}
+        <div class="tip-card" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.plek }}</h3>
+          <p class="meta">{{ block.settings.periode }}</p>
+          <p>{{ block.settings.wat }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if ld_faqs.size > 0 %}
+  <section class="wrap recipe-faq">
+    <h2 class="display recipe-faq-title">{{ section.settings.faq_titel }}</h2>
+    <div class="cellar-faq">
+      {% for block in ld_faqs %}
+      <details {{ block.shopify_attributes }}>
+        <summary>{{ block.settings.q }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <div class="faq-a"><p>{{ block.settings.a }}</p></div>
+      </details>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section section-band">
+    <div class="wrap recipe-cta reveal">
+      <h2 class="display">{{ section.settings.cta_titel }}</h2>
+      <p class="lead">{{ section.settings.cta_tekst }}</p>
+      <div class="recipe-cta-row">
+        <a class="btn btn-primary" href="{{ recipes_url }}">Bekijk de recepten<i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a class="btn btn-glass" href="{{ community_url }}"{% if settings.community_url != blank %} target="_blank" rel="noopener"{% endif %}>Join The Cellar Club</a>
+      </div>
+    </div>
+  </section>
+</article>
+
+{%- comment -%}
+  ProfilePage met de Person als hoofdonderwerp. Het @id verwijst naar dezelfde
+  Person die op de homepage staat, zodat Google beide als een persoon ziet in
+  plaats van als twee losse Maartens.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": {{ canonical_url | json }},
+  "inLanguage": "nl-NL",
+  "isPartOf": { "@id": {{ shop.url | append: '/#website' | json }} },
+  "mainEntity": {
+    "@id": {{ shop.url | append: '/#maarten' | json }},
+    "@type": "Person",
+    "name": "Maarten Kievit",
+    "url": {{ canonical_url | json }}
+  }
+}
+</script>
+{% if ld_faqs.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for block in ld_faqs %}{
+      "@type": "Question",
+      "name": {{ block.settings.q | json }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.a | json }} }
+    }{% unless forloop.last %},{% endunless %}{% endfor %}
+  ]
+}
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Over Maarten",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "kicker", "label": "Kleine tekst boven de titel", "default": "Over de kok" },
+    { "type": "text", "id": "heading", "label": "Titel", "default": "Maarten Kievit" },
+    { "type": "textarea", "id": "intro", "label": "Introductie", "info": "Houd dit een kort, op zichzelf leesbaar antwoord op 'wie is dit?'. Precies dit stukje pakken Google en AI-assistenten er graag uit.", "default": "Maarten Kievit is kok en deelt op Maarten Kookt elke week een nieuw recept met kookvideo, de techniek erachter en de wijn die erbij past." },
+    { "type": "header", "content": "Het verhaal" },
+    { "type": "image_picker", "id": "portret", "label": "Portretfoto", "info": "Laat leeg voor de standaard portretfoto uit het thema." },
+    { "type": "text", "id": "portret_alt", "label": "Omschrijving van de foto", "default": "Maarten Kievit aan het werk in de keuken" },
+    { "type": "text", "id": "verhaal_titel", "label": "Titel", "default": "Van sterrenkeuken naar je eigen aanrecht" },
+    { "type": "textarea", "id": "verhaal_1", "label": "Alinea 1" },
+    { "type": "textarea", "id": "verhaal_2", "label": "Alinea 2" },
+    { "type": "textarea", "id": "verhaal_3", "label": "Alinea 3" },
+    { "type": "header", "content": "Waar Maarten heeft gewerkt" },
+    { "type": "text", "id": "loopbaan_titel", "label": "Titel", "default": "Waar hij het vak leerde" },
+    { "type": "header", "content": "Veelgestelde vragen", "info": "Vragen die mensen echt intypen. Dit is het stuk waar ChatGPT en Google een antwoord uit overnemen, dus schrijf elk antwoord zo dat het los te lezen is." },
+    { "type": "text", "id": "faq_titel", "label": "Titel", "default": "Veelgestelde vragen" },
+    { "type": "header", "content": "Afsluiting" },
+    { "type": "text", "id": "cta_titel", "label": "Titel", "default": "Aan de slag in je eigen keuken" },
+    { "type": "textarea", "id": "cta_tekst", "label": "Tekst", "default": "Elk recept met een kookvideo, de techniek erachter en de wijn die erbij past." }
+  ],
+  "blocks": [
+    {
+      "type": "station",
+      "name": "Werkplek",
+      "settings": [
+        { "type": "text", "id": "plek", "label": "Naam" },
+        { "type": "text", "id": "periode", "label": "Wat het was", "default": "Restaurant" },
+        { "type": "textarea", "id": "wat", "label": "Wat hij er deed" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Vraag",
+      "settings": [
+        { "type": "text", "id": "q", "label": "Vraag" },
+        { "type": "textarea", "id": "a", "label": "Antwoord" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [{ "name": "Over Maarten" }]
+}
+{% endschema %}

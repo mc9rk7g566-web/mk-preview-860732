@@ -1315,3 +1315,21 @@ html.lenis, html.lenis body { height: auto; }
 .recipe-soon h3 { color: var(--cream-2); }
 .recipe-soon h3::after { display: none; }
 .recipe-soon .meta { opacity: 0.65; }
+
+/* Over-pagina: de werkplekken van Maarten moeten alle vier in beeld staan.
+   .tips-row is op de homepage een scrollrij (grid-auto-flow: column), waardoor
+   de vierde kaart hier half buiten beeld viel. Op desktop dus een wrappend
+   raster; onder 860px blijft de scrollrij staan, want swipen werkt daar
+   prettiger dan vier kaarten onder elkaar. */
+.over-detail .tips-row {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  overflow-x: visible;
+}
+@media (max-width: 860px) {
+  .over-detail .tips-row {
+    grid-auto-flow: column;
+    grid-auto-columns: min(340px, 78vw);
+    overflow-x: auto;
+  }
+}
