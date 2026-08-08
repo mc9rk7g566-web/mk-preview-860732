@@ -185,11 +185,32 @@
     });
   }
 
+  /* ---- Video met eigen afspeelknop (Cellar Club). De video staat op
+         preload="none", dus er wordt niets gedownload tot iemand klikt. Bij een
+         klik komt de speler van de browser tevoorschijn (volume, ondertiteling,
+         volledig scherm) en verdwijnt onze knop. ---- */
+  document.querySelectorAll("[data-video-player]").forEach(function (frame) {
+    var video = frame.querySelector("video");
+    var button = frame.querySelector("[data-video-play]");
+    if (!video || !button) return;
+    button.addEventListener("click", function () {
+      video.controls = true;
+      frame.classList.add("is-playing");
+      var started = video.play();
+      /* Lukt afspelen niet (bijvoorbeeld een geblokkeerde autoplay-regel op een
+         oudere browser), dan halen we de knop terug in plaats van een stille
+         mislukking te tonen. */
+      if (started && started.catch) {
+        started.catch(function () { frame.classList.remove("is-playing"); });
+      }
+    });
+  });
+
   /* ---- FAQ-accordion: vloeiend open/dicht via de Web Animations API op de
          <details>-hoogte. Native <details> klapt bij het sluiten altijd hard
          dicht (geen animatie) → dat is de glitch. Hier animeren we beide kanten.
          Bij reduced-motion valt het terug op de standaard directe toggle. ---- */
-  document.querySelectorAll(".cellar-faq details").forEach(function (el) {
+  document.querySelectorAll(".cellar-faq details, details.cellar-transcript").forEach(function (el) {
     var summary = el.querySelector("summary");
     var content = el.querySelector(".faq-a");
     if (!summary || !content) return;

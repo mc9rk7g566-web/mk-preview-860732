@@ -17,7 +17,7 @@
     when 'recepten'
       assign template_description = 'Alle recepten van Maarten Kievit: van koud voorgerecht tot toetje, met kookvideo, boodschappenlijst en de wijn die erbij past.'
     when 'the-cellar-club'
-      assign template_description = 'The Cellar Club is de besloten wijnclub van Maarten Kievit. Hij kiest exclusieve flessen uit die je rechtstreeks kunt kopen.'
+      assign template_description = 'The Cellar Club is de besloten wijnclub van Maarten Kievit. In de video legt hij uit hoe het werkt: exclusieve flessen die je rechtstreeks kunt kopen.'
   endcase
   if template.suffix contains 'recept' and template.suffix != 'recepten' and page.title != blank
     assign template_description = page.title | prepend: 'Zo maakt Maarten Kievit ' | append: '. Met kookvideo, de ingrediënten, stap voor stap uitleg en de wijn die erbij past.'
@@ -25,6 +25,14 @@
   assign meta_description = page_description | default: template_description
 
   assign og_image = 'hero.jpg' | asset_url
+  comment
+    De Cellar Club-pagina deelt het beeld uit de video van Maarten. Dat is wat
+    iemand op die pagina te zien krijgt, dus dat hoort ook in de deelvoorvertoning
+    op WhatsApp en Instagram te staan.
+  endcomment
+  if template.suffix == 'the-cellar-club'
+    assign og_image = 'cellar-club-poster.jpg' | asset_url
+  endif
   if template.name == 'product' and product.featured_image
     assign og_image = product.featured_image | image_url: width: 1200
   endif

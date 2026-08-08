@@ -27,6 +27,52 @@
 
   <div class="cellar-body">
 
+    {% comment %} A. Maarten vertelt het zelf. Deze video staat bewust bovenaan de body:
+      dit is de eerste sectie die iemand ziet die doorscrollt om meer te weten te komen.
+      De joinknop staat er direct onder, want in de video zegt Maarten letterlijk
+      "link hieronder". De video laadt pas bij een klik (preload="none"), dus de
+      pagina blijft licht; alleen de poster wordt meteen opgehaald. {% endcomment %}
+    {% if section.settings.show_video and section.settings.video_file != blank %}
+    <section class="section cellar-video-sec">
+      <div class="cellar-video-glow" aria-hidden="true"></div>
+      <div class="wrap cellar-video-grid">
+        <figure class="cellar-video reveal">
+          <div class="cellar-video-frame" data-video-player>
+            <video poster="{{ section.settings.video_poster | asset_url }}" preload="none" playsinline width="1080" height="1920" aria-label="{{ section.settings.video_title | escape }}">
+              <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
+              {% if section.settings.video_captions != blank %}
+              <track kind="captions" src="{{ section.settings.video_captions | asset_url }}" srclang="nl" label="Nederlands" default>
+              {% endif %}
+            </video>
+            <button type="button" class="cellar-video-play" data-video-play>
+              <span class="cvp-disc" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" focusable="false" aria-hidden="true"><path d="M8.4 5.1v13.8L19.2 12z" fill="currentColor"/></svg></span>
+              <span class="cvp-label">{{ section.settings.video_play_label }}</span>
+            </button>
+          </div>
+        </figure>
+        <div class="cellar-video-copy">
+          {% if section.settings.video_kicker != blank %}<p class="meta cellar-kicker reveal">{{ section.settings.video_kicker }}</p>{% endif %}
+          <h2 class="display reveal">{{ section.settings.video_title }}</h2>
+          {% if section.settings.video_text != blank %}<p class="lead reveal">{{ section.settings.video_text }}</p>{% endif %}
+          {% if community_url != '#' %}
+          <div class="feature-cta reveal">
+            <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
+          </div>
+          {% if section.settings.reassure != blank %}<p class="meta cellar-reassure reveal">{{ section.settings.reassure }}</p>{% endif %}
+          {% endif %}
+          {% comment %} Uitgeschreven tekst: voor wie liever leest of geen geluid aan kan zetten,
+            en tegelijk de enige versie van dit verhaal die een zoekmachine kan lezen. {% endcomment %}
+          {% if section.settings.video_transcript != blank %}
+          <details class="cellar-transcript reveal">
+            <summary>{{ section.settings.transcript_label }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>{{ section.settings.video_transcript }}</p></div>
+          </details>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
     {% comment %} B. Wat je krijgt — editorial 01..04, geen iconen {% endcomment %}
     <section class="section cellar-values">
       <div class="wrap">
@@ -104,6 +150,47 @@
   </div>
 </article>
 
+{%- comment -%}
+  VideoObject: hiermee kan Google de video als video herkennen en tonen (video-tabblad,
+  miniatuur naast het zoekresultaat). uploadDate is verplicht -- zonder datum liever
+  geen videoschema dan een ongeldig schema, dezelfde afweging als op de receptpagina.
+  De uitgeschreven tekst gaat mee, want daar staat letterlijk in waar de club over gaat.
+{%- endcomment -%}
+{%- if section.settings.show_video and section.settings.video_file != blank and section.settings.video_date != blank -%}
+{%- liquid
+  assign video_url = section.settings.video_file | asset_url
+  unless video_url contains 'https:'
+    assign video_url = video_url | prepend: 'https:'
+  endunless
+  assign thumb_url = section.settings.video_poster | asset_url
+  unless thumb_url contains 'https:'
+    assign thumb_url = thumb_url | prepend: 'https:'
+  endunless
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ section.settings.video_title | json }},
+  "description": {{ section.settings.video_text | json }},
+  "thumbnailUrl": [{{ thumb_url | json }}],
+  "uploadDate": {{ section.settings.video_date | json }},
+  {%- if section.settings.video_duration != blank %}
+  "duration": {{ section.settings.video_duration | json }},
+  {%- endif %}
+  {%- if section.settings.video_transcript != blank %}
+  "transcript": {{ section.settings.video_transcript | json }},
+  {%- endif %}
+  "contentUrl": {{ video_url | json }},
+  "inLanguage": "nl-NL",
+  "isFamilyFriendly": true,
+  "creator": { "@type": "Person", "@id": "{{ shop.url }}/#maarten", "name": "Maarten Kievit" },
+  "publisher": { "@type": "Person", "@id": "{{ shop.url }}/#maarten", "name": "Maarten Kievit" },
+  "mainEntityOfPage": {{ canonical_url | json }}
+}
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "The Cellar Club-pagina",
@@ -114,6 +201,20 @@
     { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Als kok proef ik veel wijnen. De mooiste, met een verhaal, deel ik in een gratis besloten WhatsApp-club. Je kunt ze rechtstreeks bij mij bestellen, vaak in kleine oplages. Kom erbij en drink beter." },
     { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Join The Cellar Club" },
     { "type": "text", "id": "reassure", "label": "Geruststelling onder de knop", "default": "Gratis lid. Geen verplichting om te kopen. Uitschrijven wanneer je wilt." },
+    { "type": "header", "content": "Video van Maarten" },
+    { "type": "checkbox", "id": "show_video", "label": "Video tonen", "default": true },
+    { "type": "text", "id": "video_kicker", "label": "Kleine tekst boven de kop", "default": "Maarten vertelt" },
+    { "type": "text", "id": "video_title", "label": "Kop", "default": "Hoor het van Maarten zelf" },
+    { "type": "textarea", "id": "video_text", "label": "Tekst", "default": "In 23 seconden vertelt Maarten waar The Cellar Club vandaan komt: hij is als kok continu op zoek naar mooie flessen en bijzondere wijnhuizen, en die vondsten deelt hij met de leden." },
+    { "type": "text", "id": "video_play_label", "label": "Tekst onder de afspeelknop", "default": "Bekijk de video (0:23)" },
+    { "type": "text", "id": "transcript_label", "label": "Tekst boven de uitgeschreven video", "default": "Liever lezen? Lees wat Maarten zegt" },
+    { "type": "textarea", "id": "video_transcript", "label": "Uitgeschreven video", "info": "Wordt getoond onder de video en meegegeven aan Google. Laat leeg om te verbergen.", "default": "Als je Maarten kookt volgt, dan weet je dat ik helemaal gek ben van lekker eten, maar minstens net zo gek ben van goede wijn. Daarom ben ik eigenlijk continu op zoek naar mooie flessen, bijzondere wijnhuizen en dingen die je niet overal tegenkomt. En het leuke daarvan is: die deel ik regelmatig in mijn WhatsApp-groep, de Cellar Club. Wil je die joinen? De link staat hieronder, en dan zie ik je daar." },
+    { "type": "header", "content": "Videobestanden", "info": "De bestanden die in het thema zijn opgeslagen. Alleen aanpassen als er een nieuwe video is geupload." },
+    { "type": "text", "id": "video_file", "label": "Videobestand", "default": "cellar-club-video.mp4" },
+    { "type": "text", "id": "video_poster", "label": "Beeld voor het afspelen", "default": "cellar-club-poster.jpg" },
+    { "type": "text", "id": "video_captions", "label": "Ondertitelbestand", "info": "Laat leeg als er geen ondertiteling is.", "default": "cellar-club-captions.vtt" },
+    { "type": "text", "id": "video_date", "label": "Publicatiedatum", "info": "Formaat JJJJ-MM-DD. Zonder datum laat het thema de video uit de structured data (Google eist een uploaddatum).", "default": "2026-08-08" },
+    { "type": "text", "id": "video_duration", "label": "Videolengte (ISO)", "info": "Bijvoorbeeld PT23S voor 23 seconden.", "default": "PT23S" },
     { "type": "header", "content": "Wat je krijgt" },
     { "type": "text", "id": "benefits_title", "label": "Kop", "default": "Wat je krijgt" },
     { "type": "header", "content": "Quote van Maarten" },
