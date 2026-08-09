@@ -1508,3 +1508,211 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 520px) {
   .recipe-feature .recipe-hero .recipe-meta { gap: 10px 18px; }
 }
+
+/* ==========================================================================
+   EVENEMENTEN — de avonden die Maarten organiseert (/pages/events).
+   Eén idee draagt de pagina: de hoogte. De hero geeft het uitzicht, daarna
+   werkt de pagina naar de tafel toe. Zelfde palet, typografie en naadloze
+   kleurovergangen als de rest van de site; alleen de opbouw is nieuw.
+   ========================================================================== */
+.events-hero {
+  position: relative; overflow: hidden;
+  min-height: 100svh;
+  display: grid; place-items: center; text-align: center;
+  padding: clamp(120px, 16vh, 170px) 24px 90px;
+  background: var(--ink);
+}
+.events-hero-media { position: absolute; inset: 0; }
+.events-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Twee lagen over de foto: een bordeaux gloed voor de huisstijl, en een verloop
+   dat onderin exact op var(--ink) uitkomt zodat er geen naad met de body ontstaat. */
+.events-hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  /* De gloed hoort onderin, waar de hero op de body uitkomt, net als op de Cellar
+     Club-pagina. In het midden bleef er anders een bruine waas over de stad hangen. */
+  background:
+    radial-gradient(95% 62% at 50% 118%, rgba(123, 13, 30, 0.55), transparent 62%),
+    linear-gradient(180deg, rgba(23, 10, 12, 0.66) 0%, rgba(23, 10, 12, 0.40) 40%, rgba(23, 10, 12, 0.86) 84%, var(--ink) 100%);
+}
+.events-hero-inner { position: relative; z-index: 2; max-width: 760px; }
+.events-kicker { letter-spacing: 0.32em; text-transform: uppercase; color: var(--tan); }
+.events-title {
+  font-size: clamp(2.4rem, 7.2vw, 4.6rem); line-height: 1.04; margin-top: 16px;
+  text-wrap: balance;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+}
+.events-intro { margin: 22px auto 0; max-width: 48ch; color: var(--cream); }
+.events .feature-cta { margin-top: 32px; }
+.events-hero-meta { margin-top: 18px; opacity: 0.85; }
+
+/* Doorlopend verloop onder de hero, net als op de Cellar Club-pagina: secties
+   zijn transparant, de kleur komt van de body. Nergens een harde rand. */
+.events-body {
+  position: relative;
+  background: linear-gradient(180deg,
+    #170a0c 0%,
+    #1b0d11 16%,
+    #241016 42%,
+    #1a0c10 64%,
+    #170a0c 84%,
+    #280e18 100%);
+}
+.events-body .section { background: transparent; }
+.events-smal { max-width: 760px; }
+.events .band-head { text-align: center; margin-bottom: clamp(38px, 5vw, 62px); }
+.events-prose { color: var(--cream-2); font-weight: 500; line-height: 1.75; max-width: 60ch; }
+.events-prose p { margin: 0 0 1.1em; }
+.events-prose p:last-child { margin-bottom: 0; }
+.events-note { margin-top: 26px; opacity: 0.7; text-align: center; }
+
+/* De avond: tekst met daarnaast een vast blok met de harde gegevens. Dat blok
+   blijft op een breed scherm meelopen, zodat prijs en datum in beeld blijven
+   terwijl je leest. */
+.events-avond-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+  gap: clamp(40px, 6vw, 80px); align-items: start;
+}
+.events-avond-tekst h2 { font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: clamp(20px, 2.6vw, 30px); }
+.events-inbegrepen { margin-top: clamp(38px, 4.6vw, 56px); }
+.events-inbegrepen h3 {
+  font-family: var(--font-body); font-weight: 600; font-size: 0.95rem;
+  text-transform: none; letter-spacing: 0; color: var(--tan); margin-bottom: 18px;
+}
+.events-inbegrepen ul {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px 36px;
+}
+.events-inbegrepen li { padding: 16px 0; border-top: 1px solid var(--line); }
+.ei-titel { display: block; color: var(--cream); font-weight: 600; }
+.ei-tekst { display: block; color: var(--cream-2); font-weight: 500; font-size: 0.92rem; line-height: 1.6; margin-top: 5px; }
+
+.events-kaart {
+  position: sticky; top: 96px;
+  border: 1px solid var(--line); border-radius: var(--radius-card); overflow: hidden;
+  background: linear-gradient(180deg, rgba(123, 13, 30, 0.16), rgba(244, 237, 228, 0.03));
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.4);
+}
+.events-kaart-media { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; }
+.events-kaart-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.events-gegevens { margin: 0; padding: clamp(20px, 2.4vw, 26px); }
+.events-gegevens > div {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 18px;
+  padding: 11px 0; border-bottom: 1px solid var(--line);
+}
+.events-gegevens > div:last-child { border-bottom: 0; }
+.events-gegevens dt { color: var(--tan); font-size: 0.82rem; letter-spacing: 0.04em; }
+.events-gegevens dd { margin: 0; color: var(--cream); font-weight: 600; text-align: right; }
+.events-gegevens--plat { padding: 0; margin-top: 28px; max-width: 460px; }
+/* Platte variant: label en waarde naast elkaar in twee kolommen. Uit elkaar
+   trekken naar links en rechts leest slecht als er maar twee regels staan. */
+.events-gegevens--plat > div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; }
+.events-gegevens--plat dd { text-align: left; }
+.events-kaart-cta { display: flex; margin: 0 clamp(20px, 2.4vw, 26px) clamp(22px, 2.4vw, 28px); }
+
+/* Programma: dezelfde tijdlijn als "Zo werkt het", maar met tijden in plaats van
+   nummers. De lijn vult zich mee met de scroll (theme.js pakt .cellar-steps). */
+.events-steps { max-width: 620px; }
+.events-steps .step-rail,
+.events-steps .steps-progress { left: 7px; top: 22px; bottom: 22px; }
+.events-steps li { gap: 26px; align-items: flex-start; padding: clamp(15px, 2.2vw, 24px) 0; }
+.step-node--stip {
+  width: 16px; height: 16px; min-width: 16px; margin-top: 8px; border-radius: 50%;
+  background: var(--bordeaux-bright);
+  box-shadow: 0 0 0 5px var(--ink), 0 0 20px rgba(179, 27, 43, 0.55);
+}
+.events-steps .step-body { padding-top: 0; }
+.events-tijd {
+  display: block; font-variant-numeric: tabular-nums;
+  color: var(--tan); font-size: 0.82rem; letter-spacing: 0.14em; margin-bottom: 6px;
+}
+.events-steps .step-body h3 {
+  font-family: var(--font-body); font-weight: 600; font-size: 1.1rem;
+  color: var(--cream); text-transform: none; letter-spacing: 0;
+}
+.events-steps .step-body p { color: var(--cream-2); font-weight: 500; margin-top: 8px; line-height: 1.65; max-width: 46ch; }
+
+/* Locatie en gastheer: beeld naast tekst, om en om. */
+.events-locatie-grid,
+.events-gastheer-grid {
+  display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: clamp(34px, 5vw, 74px); align-items: center;
+}
+.events-gastheer-grid { grid-template-columns: minmax(0, 380px) minmax(0, 1fr); }
+/* Het staande portret is bijna twee keer zo hoog als de tekst ernaast; bijsnijden
+   naar 4/5 houdt de twee kolommen in balans. */
+.events-gastheer-media img { aspect-ratio: 4 / 5; object-fit: cover; }
+.events-locatie-media, .events-gastheer-media { margin: 0; }
+.events-locatie-media img, .events-gastheer-media img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--radius-card); border: 1px solid rgba(244, 237, 228, 0.09);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
+}
+.events-locatie-media figcaption { margin-top: 12px; color: var(--tan); font-size: 0.78rem; letter-spacing: 0.06em; }
+.events-locatie-tekst h2, .events-gastheer-tekst h2 { font-size: clamp(2rem, 4.4vw, 3rem); margin-bottom: clamp(18px, 2.4vw, 26px); }
+.events-locatie-tekst .link-more {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 26px;
+  color: var(--tan); font-weight: 600; font-size: 0.9rem;
+  border-bottom: 1px solid rgba(205, 185, 152, 0.4); padding-bottom: 3px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.events-locatie-tekst .link-more:hover { color: var(--cream); border-color: var(--cream); }
+.events-locatie-tekst .link-more i { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.events-locatie-tekst .link-more:hover i { transform: translate(2px, -2px); }
+
+/* Eerdere avonden. Leeg tot Maarten er een heeft gehad; dan vult deze grid zich. */
+.events-eerder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(22px, 3vw, 34px); }
+.events-eerder-item { margin: 0; }
+.events-eerder-item img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block;
+  border-radius: 18px; border: 1px solid rgba(244, 237, 228, 0.08);
+}
+.ee-datum { display: block; color: var(--tan); font-size: 0.78rem; letter-spacing: 0.12em; margin: 16px 0 6px; text-transform: uppercase; }
+.events-eerder-item h3 { font-family: var(--font-body); font-weight: 600; font-size: 1.05rem; color: var(--cream); text-transform: none; letter-spacing: 0; }
+.events-eerder-item p { color: var(--cream-2); font-weight: 500; font-size: 0.92rem; line-height: 1.6; margin-top: 7px; }
+
+/* Reserveren: het moment waarop iemand beslist. Diepste gloed van de pagina. */
+.events-reserveren { position: relative; overflow: hidden; text-align: center; }
+.events-reserveren-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(70% 60% at 50% 52%, rgba(123, 13, 30, 0.6), transparent 72%);
+}
+.events-reserveren .wrap { position: relative; z-index: 2; }
+.events-boeking {
+  max-width: 540px; margin: 0 auto; padding: clamp(30px, 4.4vw, 52px) clamp(22px, 3.4vw, 44px);
+  border: 1px solid rgba(205, 185, 152, 0.28); border-radius: var(--radius-card);
+  background: rgba(23, 10, 12, 0.55);
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.5);
+}
+.events-boeking h2 { font-size: clamp(1.9rem, 4.2vw, 2.7rem); }
+.events-boeking-tekst { color: var(--cream-2); font-weight: 500; margin: 16px auto 0; max-width: 42ch; line-height: 1.65; }
+.events-prijs {
+  font-family: var(--font-display); color: var(--cream);
+  font-size: clamp(2.6rem, 7vw, 3.8rem); line-height: 1; margin: clamp(26px, 3.4vw, 36px) 0 0;
+}
+.events-prijs span { display: block; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tan); margin-top: 12px; }
+.events-plekken { margin: clamp(24px, 3vw, 32px) auto 0; max-width: 320px; }
+.events-balk { height: 6px; border-radius: 999px; background: rgba(244, 237, 228, 0.14); overflow: hidden; }
+.events-balk span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--bordeaux), var(--bordeaux-bright)); }
+.events-plekken .meta { margin-top: 12px; }
+.events-form { margin-top: clamp(24px, 3vw, 32px); }
+.events-boek-knop { margin-top: clamp(24px, 3vw, 32px); width: 100%; justify-content: center; }
+.events-form .events-boek-knop { margin-top: 0; }
+.events-boek-knop[disabled] { opacity: 0.55; cursor: not-allowed; }
+.events-boek-knop[disabled]:hover { background: var(--bordeaux); }
+.events-kleine-letters { margin-top: 18px; opacity: 0.66; line-height: 1.6; }
+.events-reserveren .events-note { margin-top: 12px; }
+
+@media (max-width: 900px) {
+  .events-avond-grid,
+  .events-locatie-grid,
+  .events-gastheer-grid { grid-template-columns: 1fr; gap: clamp(30px, 5vw, 44px); }
+  .events-kaart { position: static; max-width: 420px; margin: 0 auto; }
+  .events-locatie-media, .events-gastheer-media { max-width: 420px; margin: 0 auto; }
+  .events-locatie-tekst, .events-gastheer-tekst { text-align: center; }
+  .events-prose { margin-left: auto; margin-right: auto; }
+  .events-gegevens--plat { margin-left: auto; margin-right: auto; }
+  .events-locatie-media figcaption { text-align: center; }
+}
+@media (max-width: 560px) {
+  .events-inbegrepen ul { grid-template-columns: 1fr; }
+}

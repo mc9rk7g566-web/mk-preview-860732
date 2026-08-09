@@ -1,0 +1,412 @@
+{% comment %}
+  Evenementenpagina: de avonden die Maarten organiseert, met reserveren via de
+  Shopify-checkout. Opgebouwd rond het ene ding dat deze avond bijzonder maakt,
+  de hoogte: de pagina begint met het uitzicht en werkt naar de tafel toe.
+
+  Reserveren: kies bij "Reserveren" het evenementproduct. Zolang dat product op
+  concept staat (of niet gekozen is) toont de pagina dezelfde knop zonder werkende
+  checkout, zodat je de pagina kunt bekijken zonder hem te verkopen.
+{% endcomment %}
+
+{%- liquid
+  assign ev = section.settings.event_product
+  assign variant = ev.selected_or_first_available_variant
+  assign kan_boeken = false
+  if ev != blank and variant != blank and variant.available
+    assign kan_boeken = true
+  endif
+
+  comment
+    Plekken over: bij voorkeur uit de echte voorraad in Shopify, anders uit de
+    instelling. Zo klopt de teller vanzelf zodra er iemand geboekt heeft.
+  endcomment
+  assign plekken_totaal = section.settings.spots_total | at_least: 1
+  if variant != blank and variant.inventory_management != blank
+    assign plekken_over = variant.inventory_quantity | at_least: 0
+  else
+    assign plekken_over = section.settings.spots_left | at_least: 0
+  endif
+  if plekken_over > plekken_totaal
+    assign plekken_over = plekken_totaal
+  endif
+  assign plekken_weg = plekken_totaal | minus: plekken_over
+  assign plekken_pct = plekken_weg | times: 100 | divided_by: plekken_totaal
+
+  if variant != blank
+    assign prijs = variant.price | money
+  else
+    assign prijs = section.settings.price_fallback
+  endif
+-%}
+
+<article class="events">
+
+  {% comment %} 1. Hero. Het uitzicht draagt de pagina, de tekst blijft kort. {% endcomment %}
+  <section class="events-hero">
+    <div class="events-hero-media" aria-hidden="true">
+      {%- if section.settings.hero_image != blank -%}
+        <img src="{{ section.settings.hero_image | image_url: width: 1900 }}" alt="" width="{{ section.settings.hero_image.width }}" height="{{ section.settings.hero_image.height }}" loading="eager" fetchpriority="high">
+      {%- else -%}
+        <img src="{{ 'event-celest-hero.webp' | asset_url }}" alt="" width="1900" height="1188" loading="eager" fetchpriority="high">
+      {%- endif -%}
+    </div>
+    <div class="wrap events-hero-inner">
+      {% if section.settings.kicker != blank %}<p class="meta events-kicker reveal">{{ section.settings.kicker }}</p>{% endif %}
+      <h1 class="display events-title reveal">{{ section.settings.title }}</h1>
+      {% if section.settings.intro != blank %}<p class="lead events-intro reveal">{{ section.settings.intro }}</p>{% endif %}
+      <div class="feature-cta reveal">
+        <a class="btn btn-primary" href="#reserveren">{{ section.settings.cta_label }}</a>
+        <a class="btn btn-glass" href="#de-avond">{{ section.settings.cta_second }}</a>
+      </div>
+      {% if section.settings.hero_meta != blank %}<p class="meta events-hero-meta reveal">{{ section.settings.hero_meta }}</p>{% endif %}
+    </div>
+  </section>
+
+  <div class="events-body">
+
+    {% comment %} 2. De avond: waar het over gaat, plus de harde gegevens. {% endcomment %}
+    <section class="section events-avond" id="de-avond">
+      <div class="wrap events-avond-grid">
+        <div class="events-avond-tekst">
+          <h2 class="display reveal">{{ section.settings.about_title }}</h2>
+          {% if section.settings.about_text != blank %}<div class="events-prose reveal">{{ section.settings.about_text }}</div>{% endif %}
+
+          {% assign inbegrepen = section.blocks | where: 'type', 'inbegrepen' %}
+          {% if inbegrepen.size > 0 %}
+          <div class="events-inbegrepen reveal">
+            <h3>{{ section.settings.included_title }}</h3>
+            <ul>
+              {% for block in inbegrepen %}
+              <li {{ block.shopify_attributes }}>
+                <span class="ei-titel">{{ block.settings.title }}</span>
+                {% if block.settings.text != blank %}<span class="ei-tekst">{{ block.settings.text }}</span>{% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+
+        <aside class="events-kaart reveal">
+          <figure class="events-kaart-media">
+            {%- if section.settings.about_image != blank -%}
+              <img src="{{ section.settings.about_image | image_url: width: 800 }}" alt="{{ section.settings.about_image.alt | default: 'Wijn wordt ingeschonken' | escape }}" width="{{ section.settings.about_image.width }}" height="{{ section.settings.about_image.height }}" loading="lazy" decoding="async">
+            {%- else -%}
+              <img src="{{ 'wijn-donker.jpg' | asset_url }}" alt="Rode wijn wordt in een glas geschonken" width="800" height="1000" loading="lazy" decoding="async">
+            {%- endif -%}
+          </figure>
+          <dl class="events-gegevens">
+            <div><dt>Datum</dt><dd>{{ section.settings.date_label }}</dd></div>
+            <div><dt>Locatie</dt><dd>{{ section.settings.venue_short }}</dd></div>
+            <div><dt>Plekken</dt><dd>{{ plekken_totaal }}</dd></div>
+            <div><dt>Prijs</dt><dd>{{ prijs }} p.p.</dd></div>
+          </dl>
+          <a class="btn btn-primary events-kaart-cta" href="#reserveren">{{ section.settings.cta_label }}</a>
+        </aside>
+      </div>
+    </section>
+
+    {% comment %} 3. Het programma. Tijden in plaats van nummers: dat is informatie
+      die iemand echt nodig heeft. De lijn vult zich mee met de scroll (theme.js). {% endcomment %}
+    {% assign programma = section.blocks | where: 'type', 'programma' %}
+    {% if programma.size > 0 %}
+    <section class="section events-programma">
+      <div class="wrap events-smal">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.program_title }}</h2></div>
+        <ol class="cellar-steps events-steps reveal">
+          <span class="step-rail" aria-hidden="true"></span>
+          <span class="steps-progress" aria-hidden="true"></span>
+          {% for block in programma %}
+          <li {{ block.shopify_attributes }}>
+            <span class="step-node step-node--stip" aria-hidden="true"></span>
+            <div class="step-body">
+              {% if block.settings.time != blank %}<span class="events-tijd">{{ block.settings.time }}</span>{% endif %}
+              <h3>{{ block.settings.title }}</h3>
+              {% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
+        {% if section.settings.program_note != blank %}<p class="meta events-note reveal">{{ section.settings.program_note }}</p>{% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% comment %} 4. De locatie. {% endcomment %}
+    <section class="section events-locatie">
+      <div class="wrap events-locatie-grid">
+        <figure class="events-locatie-media reveal">
+          {%- if section.settings.venue_image != blank -%}
+            <img src="{{ section.settings.venue_image | image_url: width: 1000 }}" alt="{{ section.settings.venue_image.alt | default: 'Rotterdam bij nacht van bovenaf' | escape }}" width="{{ section.settings.venue_image.width }}" height="{{ section.settings.venue_image.height }}" loading="lazy" decoding="async">
+          {%- else -%}
+            <img src="{{ 'event-celest-uitzicht.webp' | asset_url }}" alt="Rotterdam bij nacht, gezien vanaf grote hoogte" width="1000" height="1250" loading="lazy" decoding="async">
+          {%- endif -%}
+          {% if section.settings.venue_caption != blank %}<figcaption>{{ section.settings.venue_caption }}</figcaption>{% endif %}
+        </figure>
+        <div class="events-locatie-tekst">
+          <h2 class="display reveal">{{ section.settings.venue_title }}</h2>
+          {% if section.settings.venue_text != blank %}<div class="events-prose reveal">{{ section.settings.venue_text }}</div>{% endif %}
+          <dl class="events-gegevens events-gegevens--plat reveal">
+            {% if section.settings.venue_floor != blank %}<div><dt>Verdieping</dt><dd>{{ section.settings.venue_floor }}</dd></div>{% endif %}
+            {% if section.settings.venue_address != blank %}<div><dt>Adres</dt><dd>{{ section.settings.venue_address }}</dd></div>{% endif %}
+          </dl>
+          {% if section.settings.venue_url != blank %}
+          <a class="link-more reveal" href="{{ section.settings.venue_url }}" target="_blank" rel="noopener">{{ section.settings.venue_link_label }}<i class="ph ph-arrow-up-right" aria-hidden="true"></i></a>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% comment %} 5. Wie de avond doet. Echte foto, echte achtergrond. {% endcomment %}
+    {% if section.settings.host_text != blank %}
+    <section class="section events-gastheer">
+      <div class="wrap events-gastheer-grid">
+        <figure class="events-gastheer-media reveal">
+          {%- if section.settings.host_image != blank -%}
+            <img src="{{ section.settings.host_image | image_url: width: 700 }}" alt="{{ section.settings.host_image.alt | default: 'Maarten Kievit' | escape }}" width="{{ section.settings.host_image.width }}" height="{{ section.settings.host_image.height }}" loading="lazy" decoding="async">
+          {%- else -%}
+            <img src="{{ 'maarten-portret.jpg' | asset_url }}" alt="Maarten Kievit in de keuken" width="700" height="875" loading="lazy" decoding="async">
+          {%- endif -%}
+        </figure>
+        <div class="events-gastheer-tekst">
+          <h2 class="display reveal">{{ section.settings.host_title }}</h2>
+          <div class="events-prose reveal">{{ section.settings.host_text }}</div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% comment %} 6. Eerdere avonden. Verschijnt vanzelf zodra er blokken zijn; zolang
+      Maarten nog geen avond heeft gedaan staat hier bewust niets. Geen verzonnen
+      geschiedenis op een pagina die mensen moet overtuigen. {% endcomment %}
+    {% assign eerder = section.blocks | where: 'type', 'eerder' %}
+    {% if eerder.size > 0 %}
+    <section class="section events-eerder">
+      <div class="wrap">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.past_title }}</h2></div>
+        <div class="events-eerder-grid">
+          {% for block in eerder %}
+          <figure class="events-eerder-item reveal" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.image.alt | default: block.settings.title | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy" decoding="async">
+            {% endif %}
+            <figcaption>
+              {% if block.settings.date != blank %}<span class="ee-datum">{{ block.settings.date }}</span>{% endif %}
+              <h3>{{ block.settings.title }}</h3>
+              {% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}
+            </figcaption>
+          </figure>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% comment %} 7. Reserveren. De checkout van Shopify doet de rest. {% endcomment %}
+    <section class="section events-reserveren" id="reserveren">
+      <div class="events-reserveren-glow" aria-hidden="true"></div>
+      <div class="wrap events-smal">
+        <div class="events-boeking reveal">
+          <h2 class="display">{{ section.settings.book_title }}</h2>
+          {% if section.settings.book_text != blank %}<p class="events-boeking-tekst">{{ section.settings.book_text }}</p>{% endif %}
+
+          <p class="events-prijs">{{ prijs }}<span>per persoon</span></p>
+
+          <div class="events-plekken">
+            {%- comment -%} Lege balk zegt niets; die verschijnt zodra de eerste plek weg is. {%- endcomment -%}
+            {%- if plekken_weg > 0 -%}
+            <div class="events-balk" role="img" aria-label="{{ plekken_weg }} van de {{ plekken_totaal }} plekken bezet">
+              <span style="width: {{ plekken_pct }}%"></span>
+            </div>
+            {%- endif -%}
+            <p class="meta">
+              {%- if plekken_over == 0 -%}
+                {{ section.settings.soldout_label }}
+              {%- else -%}
+                Nog {{ plekken_over }} van de {{ plekken_totaal }} plekken
+              {%- endif -%}
+            </p>
+          </div>
+
+          {%- if kan_boeken -%}
+            {% form 'product', ev, id: 'events-form', class: 'events-form' %}
+              {% if form.errors %}<div class="form-errors" role="alert">{{ form.errors | default_errors }}</div>{% endif %}
+              <input type="hidden" name="id" value="{{ variant.id }}">
+              <input type="hidden" name="quantity" value="1">
+              {% comment %} Direct door naar de checkout, geen tussenstop in de winkelwagen. {% endcomment %}
+              <input type="hidden" name="return_to" value="/checkout">
+              <button class="btn btn-primary events-boek-knop" type="submit" name="add">
+                {{ section.settings.book_button }}
+              </button>
+            {% endform %}
+          {%- elsif plekken_over == 0 -%}
+            <button class="btn btn-primary events-boek-knop" type="button" disabled>{{ section.settings.soldout_label }}</button>
+          {%- else -%}
+            {% comment %} Product staat nog op concept: knop wel tonen, nog niet laten kopen. {% endcomment %}
+            <button class="btn btn-primary events-boek-knop" type="button" disabled>{{ section.settings.book_button }}</button>
+            <p class="meta events-note">{{ section.settings.book_pending }}</p>
+          {%- endif -%}
+
+          {% if section.settings.book_small != blank %}<p class="meta events-kleine-letters">{{ section.settings.book_small }}</p>{% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% comment %} 8. Vragen. Zelfde accordeon als op de Cellar Club-pagina. {% endcomment %}
+    {% assign faqs = section.blocks | where: 'type', 'faq' %}
+    {% if faqs.size > 0 %}
+    <section class="section events-faq-sec">
+      <div class="wrap">
+        <div class="band-head reveal"><h2 class="display">{{ section.settings.faq_title }}</h2></div>
+        <div class="cellar-faq reveal">
+          {% for block in faqs %}
+          <details {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.q }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+            <div class="faq-a"><p>{{ block.settings.a }}</p></div>
+          </details>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+  </div>
+</article>
+
+{%- comment -%}
+  Event-schema: hiermee kan Google de avond als evenement tonen (datum, locatie,
+  prijs). Alleen uitgeven als er een echte startdatum is ingevuld; een evenement
+  zonder datum is een ongeldig schema en dat is slechter dan geen schema.
+{%- endcomment -%}
+{%- if section.settings.start_date != blank -%}
+{%- liquid
+  assign hero_url = 'event-celest-hero.webp' | asset_url
+  unless hero_url contains 'https:'
+    assign hero_url = hero_url | prepend: 'https:'
+  endunless
+-%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": {{ section.settings.title | json }},
+  "description": {{ section.settings.intro | json }},
+  "startDate": {{ section.settings.start_date | json }},
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "image": [{{ hero_url | json }}],
+  "maximumAttendeeCapacity": {{ plekken_totaal }},
+  "location": {
+    "@type": "Place",
+    "name": {{ section.settings.venue_name | json }},
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": {{ section.settings.venue_street | json }},
+      "addressLocality": {{ section.settings.venue_city | json }},
+      "addressCountry": "NL"
+    }
+  },
+  "organizer": { "@type": "Person", "@id": "{{ shop.url }}/#maarten", "name": "Maarten Kievit" },
+  "performer": { "@type": "Person", "@id": "{{ shop.url }}/#maarten", "name": "Maarten Kievit" },
+  "offers": {
+    "@type": "Offer",
+    "price": {% if variant != blank %}{{ variant.price | divided_by: 100.0 | json }}{% else %}{{ section.settings.price_number | json }}{% endif %},
+    "priceCurrency": "EUR",
+    "availability": {% if plekken_over > 0 %}"https://schema.org/InStock"{% else %}"https://schema.org/SoldOut"{% endif %},
+    "url": {{ canonical_url | json }}
+  },
+  "inLanguage": "nl-NL"
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Evenementen",
+  "settings": [
+    { "type": "header", "content": "Kop" },
+    { "type": "text", "id": "kicker", "label": "Kleine tekst boven de titel", "default": "Avonden van Maarten" },
+    { "type": "text", "id": "title", "label": "Titel", "default": "Een avond op 190 meter" },
+    { "type": "textarea", "id": "intro", "label": "Introductie", "default": "Een wijnproeverij en een diner met Maarten, op de 57e verdieping boven Rotterdam. Vijftien plekken, verder niemand." },
+    { "type": "text", "id": "cta_label", "label": "Knoptekst", "default": "Reserveer je plek" },
+    { "type": "text", "id": "cta_second", "label": "Tweede knop", "default": "Bekijk de avond" },
+    { "type": "text", "id": "hero_meta", "label": "Regel onder de knoppen", "default": "Restaurant Celest, Rotterdam" },
+    { "type": "image_picker", "id": "hero_image", "label": "Achtergrondfoto", "info": "Laat leeg voor de standaardfoto van Rotterdam bij nacht." },
+
+    { "type": "header", "content": "De avond" },
+    { "type": "text", "id": "about_title", "label": "Kop", "default": "De avond" },
+    { "type": "richtext", "id": "about_text", "label": "Tekst", "default": "<p>Maarten kiest de wijnen uit en kookt erbij. Je proeft, je hoort waar elke fles vandaan komt en waarom hij hem gekozen heeft, en daarna ga je aan tafel.</p><p>Vijftien plekken aan een tafel, zodat het een avond blijft en geen zaal wordt.</p>" },
+    { "type": "image_picker", "id": "about_image", "label": "Foto naast de tekst" },
+    { "type": "text", "id": "date_label", "label": "Datum zoals die op de pagina staat", "info": "Bijvoorbeeld: vrijdag 14 november. Vul dit als eerste in.", "default": "Datum volgt" },
+    { "type": "text", "id": "venue_short", "label": "Locatie kort", "default": "Celest, Rotterdam" },
+    { "type": "text", "id": "included_title", "label": "Kop bij wat inbegrepen is", "default": "Inbegrepen" },
+
+    { "type": "header", "content": "Programma" },
+    { "type": "text", "id": "program_title", "label": "Kop", "default": "Het programma" },
+    { "type": "text", "id": "program_note", "label": "Opmerking onder het programma", "default": "De tijden zijn een indicatie. Je krijgt het definitieve programma per mail." },
+
+    { "type": "header", "content": "De locatie" },
+    { "type": "text", "id": "venue_title", "label": "Kop", "default": "Celest, 57e verdieping" },
+    { "type": "richtext", "id": "venue_text", "label": "Tekst", "default": "<p>Celest ligt op 190 meter hoogte in de Zalmhaventoren, het hoogste gebouw van Nederland. Rondom glas, en onder je de stad, de Maas en de bruggen.</p>" },
+    { "type": "text", "id": "venue_floor", "label": "Verdieping", "default": "57e, op 190 meter" },
+    { "type": "text", "id": "venue_address", "label": "Adres", "default": "Gedempte Zalmhaven 20, Rotterdam" },
+    { "type": "text", "id": "venue_url", "label": "Link naar de locatie", "default": "https://celest.nl/evenementenlocatie/" },
+    { "type": "text", "id": "venue_link_label", "label": "Tekst van de link", "default": "Bekijk Celest" },
+    { "type": "image_picker", "id": "venue_image", "label": "Foto van de locatie", "info": "Vraag Celest om officiele foto's van de zaal en zet die hier neer." },
+    { "type": "text", "id": "venue_caption", "label": "Bijschrift bij de foto", "default": "Rotterdam vanaf hoogte" },
+
+    { "type": "header", "content": "Aan tafel met Maarten" },
+    { "type": "text", "id": "host_title", "label": "Kop", "default": "Aan tafel met Maarten" },
+    { "type": "richtext", "id": "host_text", "label": "Tekst", "default": "<p>Maarten Kievit is 24, opgeleid aan Ter Duinen in Koksijde en werkte in de Antwerpse keukens van Zilte en Het Gebaar. Op zijn 21e werd hij sous-chef bij Restaurant de Krommewatergang.</p><p>Naast koken is wijn zijn tweede vak. Zijn vondsten deelt hij in The Cellar Club, en een paar keer per jaar aan tafel.</p>" },
+    { "type": "image_picker", "id": "host_image", "label": "Foto van Maarten" },
+
+    { "type": "header", "content": "Eerdere avonden", "info": "Deze sectie verschijnt pas zodra je er blokken aan toevoegt." },
+    { "type": "text", "id": "past_title", "label": "Kop", "default": "Eerdere avonden" },
+
+    { "type": "header", "content": "Reserveren" },
+    { "type": "product", "id": "event_product", "label": "Evenementproduct", "info": "Het product met de plekken als voorraad. Zolang dit product op concept staat, is de knop zichtbaar maar nog niet te gebruiken." },
+    { "type": "text", "id": "book_title", "label": "Kop", "default": "Reserveer je plek" },
+    { "type": "textarea", "id": "book_text", "label": "Tekst", "default": "Je rekent direct af en krijgt een bevestiging per mail. Daarin staan het definitieve programma en de adresgegevens." },
+    { "type": "text", "id": "book_button", "label": "Knoptekst", "default": "Reserveer je plek" },
+    { "type": "text", "id": "soldout_label", "label": "Tekst als het vol is", "default": "Deze avond is vol" },
+    { "type": "text", "id": "book_pending", "label": "Tekst als het product nog op concept staat", "default": "Reserveren opent zodra de datum definitief is." },
+    { "type": "textarea", "id": "book_small", "label": "Kleine letters", "default": "De prijs is per persoon. Vanaf 18 jaar. Geef dieetwensen door na je reservering." },
+    { "type": "number", "id": "spots_total", "label": "Aantal plekken", "default": 15 },
+    { "type": "number", "id": "spots_left", "label": "Plekken over", "info": "Wordt alleen gebruikt zolang er geen product gekozen is. Daarna telt de voorraad in Shopify.", "default": 15 },
+    { "type": "text", "id": "price_fallback", "label": "Prijs zonder product", "default": "€ 300,00" },
+    { "type": "text", "id": "price_number", "label": "Prijs als getal", "info": "Alleen voor Google, bijvoorbeeld 300.00", "default": "300.00" },
+
+    { "type": "header", "content": "Veelgestelde vragen" },
+    { "type": "text", "id": "faq_title", "label": "Kop", "default": "Veelgestelde vragen" },
+
+    { "type": "header", "content": "Google (evenement in de zoekresultaten)" },
+    { "type": "text", "id": "start_date", "label": "Startdatum en tijd", "info": "Formaat 2026-11-14T18:00:00+01:00. Laat leeg zolang de datum niet vaststaat, dan laat het thema het evenement uit de structured data." },
+    { "type": "text", "id": "venue_name", "label": "Naam locatie", "default": "Celest" },
+    { "type": "text", "id": "venue_street", "label": "Straat en nummer", "default": "Gedempte Zalmhaven 20" },
+    { "type": "text", "id": "venue_city", "label": "Plaats", "default": "Rotterdam" }
+  ],
+  "blocks": [
+    { "type": "inbegrepen", "name": "Inbegrepen", "settings": [
+      { "type": "text", "id": "title", "label": "Titel" },
+      { "type": "text", "id": "text", "label": "Tekst" }
+    ]},
+    { "type": "programma", "name": "Programmaonderdeel", "settings": [
+      { "type": "text", "id": "time", "label": "Tijd", "info": "Bijvoorbeeld 18:00" },
+      { "type": "text", "id": "title", "label": "Titel" },
+      { "type": "textarea", "id": "text", "label": "Tekst" }
+    ]},
+    { "type": "eerder", "name": "Eerdere avond", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Foto" },
+      { "type": "text", "id": "date", "label": "Wanneer" },
+      { "type": "text", "id": "title", "label": "Titel" },
+      { "type": "textarea", "id": "text", "label": "Tekst" }
+    ]},
+    { "type": "faq", "name": "Vraag", "settings": [
+      { "type": "text", "id": "q", "label": "Vraag" },
+      { "type": "textarea", "id": "a", "label": "Antwoord" }
+    ]}
+  ],
+  "max_blocks": 24,
+  "presets": [{ "name": "Evenementen" }]
+}
+{% endschema %}
