@@ -185,25 +185,90 @@
     });
   }
 
-  /* ---- Video met eigen afspeelknop (Cellar Club). De video staat op
-         preload="none", dus er wordt niets gedownload tot iemand klikt. Bij een
-         klik komt de speler van de browser tevoorschijn (volume, ondertiteling,
-         volledig scherm) en verdwijnt onze knop. ---- */
+  /* ---- Video (Cellar Club). Twee manieren waarop hij begint:
+         1. je klikt op de afspeelknop -> met geluid;
+         2. je scrolt hem in beeld -> hij start uit zichzelf.
+         Bij 2 mag er van de browser geen geluid uit (Chrome en Safari staan
+         geluid alleen toe na een tik van de gebruiker). Daarom proberen we het
+         eerst mét, en valt hij anders terug op stil + een knop "tik voor geluid".
+         De video staat op preload="none", dus er wordt niets gedownload tot een
+         van deze twee gebeurt. ---- */
   document.querySelectorAll("[data-video-player]").forEach(function (frame) {
     var video = frame.querySelector("video");
     var button = frame.querySelector("[data-video-play]");
+    var soundButton = frame.querySelector("[data-video-sound]");
     if (!video || !button) return;
-    button.addEventListener("click", function () {
+    var gestart = false;
+
+    var speelAf = function (magGeluid) {
+      gestart = true;
       video.controls = true;
       frame.classList.add("is-playing");
+      video.muted = !magGeluid;
+      frame.classList.toggle("is-muted", !magGeluid);
       var started = video.play();
-      /* Lukt afspelen niet (bijvoorbeeld een geblokkeerde autoplay-regel op een
-         oudere browser), dan halen we de knop terug in plaats van een stille
-         mislukking te tonen. */
       if (started && started.catch) {
-        started.catch(function () { frame.classList.remove("is-playing"); });
+        started.catch(function () {
+          /* Geweigerd. Met geluid is dat de normale gang van zaken bij automatisch
+             starten: opnieuw proberen zonder geluid en de geluidsknop tonen. */
+          if (magGeluid) { speelAf(false); return; }
+          gestart = false;
+          frame.classList.remove("is-playing", "is-muted");
+        });
       }
-    });
+    };
+
+    button.addEventListener("click", function () { speelAf(true); });
+
+    if (soundButton) {
+      soundButton.addEventListener("click", function () {
+        /* Van voren af aan: de eerste zin is precies waar het om gaat. */
+        video.currentTime = 0;
+        speelAf(true);
+      });
+    }
+
+    /* Automatisch openen zodra hij in beeld komt. Niet bij reduced-motion: wie
+       beweging uit heeft gezet, wil geen video die uit zichzelf begint. */
+    if (reduceMotion || !("IntersectionObserver" in window)) return;
+
+    /* Als het scrollen tot rust komt, schuift de video netjes naar het midden
+       van het scherm. Bewust geen slot op de scroll: blijf je doorscrollen, dan
+       scrol je gewoon door. */
+    var cta = frame.closest(".cellar-video-wrap");
+    cta = cta ? cta.querySelector(".feature-cta") : null;
+    var parkeer = function () {
+      var r = frame.getBoundingClientRect();
+      var inBeeld = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if (inBeeld < r.height * 0.5) return;              /* al voorbij: met rust laten */
+      /* Niet de video alleen centreren maar video plus joinknop: Maarten verwijst
+         aan het eind naar "de link hieronder", dus die moet in beeld staan. */
+      var onderkant = cta ? cta.getBoundingClientRect().bottom : r.bottom;
+      var hoogte = onderkant - r.top;
+      var doel = window.scrollY + r.top - (window.innerHeight - hoogte) / 2;
+      if (Math.abs(doel - window.scrollY) < 24) return;  /* staat al goed */
+      if (lenis) lenis.scrollTo(doel, { duration: 0.8 });
+      else window.scrollTo({ top: doel, behavior: "smooth" });
+    };
+    var rustTimer = null;
+    var wachtOpStilstand = function () {
+      window.clearTimeout(rustTimer);
+      rustTimer = window.setTimeout(function () {
+        window.removeEventListener("scroll", wachtOpStilstand);
+        parkeer();
+      }, 170);
+    };
+
+    var waarnemer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting || gestart) return;
+        waarnemer.disconnect();
+        speelAf(true);
+        window.addEventListener("scroll", wachtOpStilstand, { passive: true });
+        wachtOpStilstand();
+      });
+    }, { threshold: 0.55 });
+    waarnemer.observe(frame);
   });
 
   /* ---- FAQ-accordion: vloeiend open/dicht via de Web Animations API op de

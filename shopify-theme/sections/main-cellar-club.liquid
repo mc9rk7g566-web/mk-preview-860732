@@ -35,40 +35,47 @@
     {% if section.settings.show_video and section.settings.video_file != blank %}
     <section class="section cellar-video-sec">
       <div class="cellar-video-glow" aria-hidden="true"></div>
-      <div class="wrap cellar-video-grid">
+      <div class="wrap cellar-video-wrap">
+        {% if section.settings.video_kicker != blank %}<p class="meta cellar-kicker reveal">{{ section.settings.video_kicker }}</p>{% endif %}
+        <h2 class="display reveal">{{ section.settings.video_title }}</h2>
+        {% if section.settings.video_text != blank %}<p class="lead reveal">{{ section.settings.video_text }}</p>{% endif %}
         <figure class="cellar-video reveal">
           <div class="cellar-video-frame" data-video-player>
+            {% comment %} Geen "default" op de track: ondertiteling staat uit tenzij iemand
+              er zelf om vraagt via de knoppen van de speler. {% endcomment %}
             <video poster="{{ section.settings.video_poster | asset_url }}" preload="none" playsinline width="1080" height="1920" aria-label="{{ section.settings.video_title | escape }}">
               <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
               {% if section.settings.video_captions != blank %}
-              <track kind="captions" src="{{ section.settings.video_captions | asset_url }}" srclang="nl" label="Nederlands" default>
+              <track kind="captions" src="{{ section.settings.video_captions | asset_url }}" srclang="nl" label="Nederlands">
               {% endif %}
             </video>
             <button type="button" class="cellar-video-play" data-video-play>
               <span class="cvp-disc" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" focusable="false" aria-hidden="true"><path d="M8.4 5.1v13.8L19.2 12z" fill="currentColor"/></svg></span>
               <span class="cvp-label">{{ section.settings.video_play_label }}</span>
             </button>
+            {% comment %} Verschijnt alleen als de browser de video zonder geluid heeft
+              gestart. Een tik zet het geluid aan en begint opnieuw. {% endcomment %}
+            <button type="button" class="cellar-video-sound" data-video-sound>
+              <i class="ph ph-speaker-simple-slash" aria-hidden="true"></i>{{ section.settings.video_sound_label }}
+            </button>
           </div>
         </figure>
-        <div class="cellar-video-copy">
-          {% if section.settings.video_kicker != blank %}<p class="meta cellar-kicker reveal">{{ section.settings.video_kicker }}</p>{% endif %}
-          <h2 class="display reveal">{{ section.settings.video_title }}</h2>
-          {% if section.settings.video_text != blank %}<p class="lead reveal">{{ section.settings.video_text }}</p>{% endif %}
-          {% if community_url != '#' %}
-          <div class="feature-cta reveal">
-            <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
-          </div>
-          {% if section.settings.reassure != blank %}<p class="meta cellar-reassure reveal">{{ section.settings.reassure }}</p>{% endif %}
-          {% endif %}
-          {% comment %} Uitgeschreven tekst: voor wie liever leest of geen geluid aan kan zetten,
-            en tegelijk de enige versie van dit verhaal die een zoekmachine kan lezen. {% endcomment %}
-          {% if section.settings.video_transcript != blank %}
-          <details class="cellar-transcript reveal">
-            <summary>{{ section.settings.transcript_label }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
-            <div class="faq-a"><p>{{ section.settings.video_transcript }}</p></div>
-          </details>
-          {% endif %}
+        {% comment %} De joinknop staat direct onder de video, want in de video zegt
+          Maarten letterlijk "de link hieronder". {% endcomment %}
+        {% if community_url != '#' %}
+        <div class="feature-cta reveal">
+          <a class="btn btn-primary" href="{{ community_url }}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ section.settings.cta_label }}</a>
         </div>
+        {% if section.settings.reassure != blank %}<p class="meta cellar-reassure reveal">{{ section.settings.reassure }}</p>{% endif %}
+        {% endif %}
+        {% comment %} Uitgeschreven tekst: voor wie liever leest of geen geluid aan kan zetten,
+          en tegelijk de enige versie van dit verhaal die een zoekmachine kan lezen. {% endcomment %}
+        {% if section.settings.video_transcript != blank %}
+        <details class="cellar-transcript reveal">
+          <summary>{{ section.settings.transcript_label }}<i class="ph ph-plus" aria-hidden="true"></i></summary>
+          <div class="faq-a"><p>{{ section.settings.video_transcript }}</p></div>
+        </details>
+        {% endif %}
       </div>
     </section>
     {% endif %}
@@ -207,6 +214,7 @@
     { "type": "text", "id": "video_title", "label": "Kop", "default": "Hoor het van Maarten zelf" },
     { "type": "textarea", "id": "video_text", "label": "Tekst", "default": "In 23 seconden vertelt Maarten waar The Cellar Club vandaan komt: hij is als kok continu op zoek naar mooie flessen en bijzondere wijnhuizen, en die vondsten deelt hij met de leden." },
     { "type": "text", "id": "video_play_label", "label": "Tekst onder de afspeelknop", "default": "Bekijk de video (0:23)" },
+    { "type": "text", "id": "video_sound_label", "label": "Tekst op de geluidsknop", "info": "Verschijnt als de browser de video zonder geluid start. Browsers staan geluid pas toe na een tik, dat kunnen wij niet omzeilen.", "default": "Tik voor geluid" },
     { "type": "text", "id": "transcript_label", "label": "Tekst boven de uitgeschreven video", "default": "Liever lezen? Lees wat Maarten zegt" },
     { "type": "textarea", "id": "video_transcript", "label": "Uitgeschreven video", "info": "Wordt getoond onder de video en meegegeven aan Google. Laat leeg om te verbergen.", "default": "Als je Maarten kookt volgt, dan weet je dat ik helemaal gek ben van lekker eten, maar minstens net zo gek ben van goede wijn. Daarom ben ik eigenlijk continu op zoek naar mooie flessen, bijzondere wijnhuizen en dingen die je niet overal tegenkomt. En het leuke daarvan is: die deel ik regelmatig in mijn WhatsApp-groep, de Cellar Club. Wil je die joinen? De link staat hieronder, en dan zie ik je daar." },
     { "type": "header", "content": "Videobestanden", "info": "De bestanden die in het thema zijn opgeslagen. Alleen aanpassen als er een nieuwe video is geupload." },
