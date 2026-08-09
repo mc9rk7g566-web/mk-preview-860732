@@ -35,6 +35,12 @@
     {% if section.settings.show_video and section.settings.video_file != blank %}
     <section class="section cellar-video-sec">
       <div class="cellar-video-glow" aria-hidden="true"></div>
+      {% comment %} Twee trossen uit Maartens eigen opname, uitgesneden en zwevend in de
+        lege ruimte naast de video. Zelfde beeldtaal als de flessen in de hero hierboven:
+        blauwe druif links, witte rechts. Puur decoratie, dus uit het voorleesscherm en
+        weg op smalle schermen (daar is geen lege ruimte). {% endcomment %}
+      <span class="cellar-grape cellar-grape--blauw" aria-hidden="true"><img src="{{ 'cellar-druiven-blauw.webp' | asset_url }}" alt="" width="453" height="800" loading="lazy" decoding="async"></span>
+      <span class="cellar-grape cellar-grape--wit" aria-hidden="true"><img src="{{ 'cellar-druiven-wit.webp' | asset_url }}" alt="" width="405" height="800" loading="lazy" decoding="async"></span>
       <div class="wrap cellar-video-wrap">
         {% if section.settings.video_kicker != blank %}<p class="meta cellar-kicker reveal">{{ section.settings.video_kicker }}</p>{% endif %}
         <h2 class="display reveal">{{ section.settings.video_title }}</h2>

@@ -200,10 +200,14 @@
     if (!video || !button) return;
     var gestart = false;
 
+    /* De speler van de browser komt er pas bij zodra er echt beeld loopt. Zetten we
+       controls meteen aan, dan tekent de browser zijn eigen afspeelknop midden over
+       de poster en staan er twee knoppen. */
+    video.addEventListener("play", function () { frame.classList.add("is-playing"); });
+    video.addEventListener("playing", function () { video.controls = true; });
+
     var speelAf = function (magGeluid) {
       gestart = true;
-      video.controls = true;
-      frame.classList.add("is-playing");
       video.muted = !magGeluid;
       frame.classList.toggle("is-muted", !magGeluid);
       var started = video.play();
@@ -212,7 +216,10 @@
           /* Geweigerd. Met geluid is dat de normale gang van zaken bij automatisch
              starten: opnieuw proberen zonder geluid en de geluidsknop tonen. */
           if (magGeluid) { speelAf(false); return; }
+          /* Ook stil geweigerd: helemaal terug naar de begintoestand, met alleen
+             onze eigen knop en dus niet ook die van de browser. */
           gestart = false;
+          video.controls = false;
           frame.classList.remove("is-playing", "is-muted");
         });
       }

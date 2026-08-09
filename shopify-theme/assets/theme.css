@@ -1156,6 +1156,35 @@ html.lenis, html.lenis body { height: auto; }
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(52% 56% at 50% 54%, rgba(123, 13, 30, 0.5), transparent 72%);
 }
+/* Twee druiventrossen uit Maartens eigen opname, zwevend in de lege ruimte naast
+   de video. Zelfde behandeling als de flessen in de hero: wrapper doet de plaats
+   en de rotatie, de img de trage zweefbeweging. Onder 1100px is er geen lege
+   ruimte meer, dan verdwijnen ze. */
+.cellar-grape { position: absolute; z-index: 1; pointer-events: none; }
+.cellar-grape img {
+  height: 100%; width: auto; display: block;
+  /* Iets gedempt: ze horen naast de video te hangen, niet ermee te concurreren. */
+  opacity: 0.82;
+  filter: saturate(0.92) drop-shadow(0 34px 42px rgba(0, 0, 0, 0.55));
+  animation: bottle-float 9s ease-in-out infinite alternate;
+}
+/* Vastgezet op de hoogte van de video (het midden van de sectie) in plaats van op
+   de boven- en onderrand. Als de pagina de video in het midden parkeert, hangen
+   beide trossen daardoor helemaal in beeld en niet half afgesneden. */
+.cellar-grape--blauw {
+  height: clamp(200px, 22vw, 310px);
+  left: clamp(-40px, 4vw, 110px); top: 50%;
+  transform: translateY(-88%) rotate(-8deg);
+}
+.cellar-grape--wit {
+  height: clamp(190px, 20vw, 290px);
+  right: clamp(-40px, 4vw, 100px); top: 50%;
+  transform: translateY(-4%) rotate(7deg);
+}
+.cellar-grape--wit img { animation-duration: 11s; animation-delay: -4s; }
+@media (max-width: 1100px) { .cellar-grape { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cellar-grape img { animation: none; } }
+
 /* Eén gecentreerde kolom, in dezelfde volgorde als Maartens verhaal: korte intro,
    dan de video, dan de link. In de video zegt hij letterlijk "de link hieronder",
    dus de joinknop moet er op elk scherm ónder staan, niet ernaast. Dat sluit ook
