@@ -5,7 +5,8 @@
       "settings": {
         "subtekst": "Elke week een nieuw recept, met de wijn die erbij past.",
         "cta_primary_label": "Join The Cellar Club",
-        "cta_secondary_label": "Bekijk de recepten"
+        "cta_secondary_label": "Bekijk de recepten",
+        "hero_image": "shopify://shop_images/IMG_0070.jpg"
       }
     },
     "recept": {

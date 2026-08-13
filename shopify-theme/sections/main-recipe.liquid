@@ -29,7 +29,17 @@
     <div class="wrap">
       <a class="back" href="{{ recipes_url }}"><i class="ph ph-arrow-left" aria-hidden="true"></i>Alle recepten</a>
       <p class="meta recipe-kicker reveal">{{ section.settings.kicker }}</p>
-      <h1 class="display recipe-title reveal">{{ section.settings.title }}</h1>
+      {%- comment -%}
+        De kop schaalt op het langste woord van de gerechtnaam, anders steekt een
+        woord als SUIKERBROODTOSTI uit de kop. Koppeltekens tellen als breekpunt.
+      {%- endcomment -%}
+      {%- assign title_words = section.settings.title | replace: '-', ' ' | split: ' ' -%}
+      {%- assign longest_word = 4 -%}
+      {%- for word in title_words -%}
+        {%- assign word_length = word | size -%}
+        {%- if word_length > longest_word -%}{%- assign longest_word = word_length -%}{%- endif -%}
+      {%- endfor -%}
+      <h1 class="display recipe-title reveal" style="--maxword: {{ longest_word }}">{{ section.settings.title }}</h1>
       <p class="lead recipe-intro reveal">{{ section.settings.intro }}</p>
       <p class="meta recipe-meta reveal"><span><i class="ph ph-clock" aria-hidden="true"></i>{{ section.settings.time }}</span><span><i class="ph ph-users" aria-hidden="true"></i>{{ section.settings.servings }}</span><span><i class="ph ph-fork-knife" aria-hidden="true"></i>{{ section.settings.course }}</span>{%- comment -%}Zichtbare auteursvermelding met link naar zijn eigen pagina: Google en AI-assistenten wegen mee wie een recept geschreven heeft en of die persoon er verstand van heeft.{%- endcomment -%}<span><i class="ph ph-chef-hat" aria-hidden="true"></i>door <a href="{{ over_url }}">Maarten Kievit</a></span></p>
 

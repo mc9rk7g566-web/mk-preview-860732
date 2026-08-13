@@ -916,17 +916,20 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 .feature-cta { margin-top: clamp(32px, 4vw, 44px); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .recipe-hero .recipe-kicker { letter-spacing: 0.14em; text-transform: uppercase; }
-/* break-word is het vangnet: een woord dat op geen enkele maat past breekt af
-   in plaats van de pagina open te duwen. hyphens bewust niet, dat breekt ook
-   woorden die prima passen. */
 .recipe-hero .recipe-title { max-width: 16ch; margin-top: 14px; overflow-wrap: break-word; }
 .recipe-hero .recipe-intro { margin-top: 18px; }
-/* Lange gerechtnamen passen op smalle schermen niet in de h1-minimum van
-   3.4rem en duwden de pagina horizontaal open. Alleen de receptkop schaalt mee
-   met de schermbreedte; desktop blijft ongewijzigd. De schaal is gezet op het
-   langste woord tot nu toe (SUIKERBROODTOSTI, 16 letters) op een 320px-scherm. */
-@media (max-width: 520px) {
-  .recipe-hero .recipe-title { font-size: clamp(1.75rem, 8.6vw, 3.4rem); }
+/* De receptkop schaalt op het LANGSTE WOORD van de gerechtnaam, niet alleen op
+   de schermbreedte. Zonder dit steekt een woord als SUIKERBROODTOSTI (16 letters)
+   uit de kop: de h1-box blijft binnen beeld, de letters niet. Het aantal letters
+   komt uit main-recipe.liquid als --maxword. 0.66em is de gemeten gemiddelde
+   letterbreedte van Lilita One in hoofdletters, met marge. Geldt op elk formaat;
+   korte namen (tom yum) raken de bovengrens en veranderen dus niet. */
+.recipe-hero h1.recipe-title {
+  max-width: min(100%, max(16ch, calc(var(--maxword, 12) * 0.72em)));
+  font-size: min(
+    clamp(1.75rem, 10vw, 8.5rem),
+    calc((min(100vw, var(--w-content)) - 60px) / (var(--maxword, 12) * 0.66))
+  );
 }
 
 .recipe-showcase {
