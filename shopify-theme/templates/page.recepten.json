@@ -3,10 +3,11 @@
     "main": {
       "type": "main-recipes",
       "blocks": {
+        "suikerbroodtosti": { "type": "recipe", "settings": { "title": "Suikerbroodtosti met kaneelijs en Maldon-karamel", "meta": "25 min · Toetje", "category": "zoet", "link": "/pages/suikerbroodtosti-met-kaneelijs-en-maldon-karamel", "fallback_image": "recept-suikerbroodtosti-bord.jpg" } },
         "wentelteefjes": { "type": "recipe", "settings": { "title": "Wentelteefjes met mascarpone en rood fruit", "meta": "25 min · Toetje", "category": "zoet", "link": "/pages/wentelteefjes-met-mascarpone-en-rood-fruit-1", "fallback_image": "recept-wentelteefjes-bord.jpg" } },
         "tomyum": { "type": "recipe", "settings": { "title": "Romige tom yum met kokkels", "meta": "30 min · Vis", "category": "vis warm", "link": "/pages/romige-tom-yum-met-kokkels", "fallback_image": "recept-tomyum-bord.jpg" } }
       },
-      "block_order": ["wentelteefjes", "tomyum"],
+      "block_order": ["suikerbroodtosti", "wentelteefjes", "tomyum"],
       "settings": {
         "heading": "Recepten",
         "intro": "Elke week een nieuw recept, met de wijn die erbij past."

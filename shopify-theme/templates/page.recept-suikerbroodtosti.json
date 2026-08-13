@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-recipe",
+      "blocks": {
+        "g1": { "type": "group", "settings": { "title": "Voor de tosti's" } },
+        "i1": { "type": "ingredient", "settings": { "name": "Suikerbrood, dikke plakken", "amount": "8" } },
+        "i2": { "type": "ingredient", "settings": { "name": "Lotus Biscoff spread", "amount": "6 tot 8 el" } },
+        "g2": { "type": "group", "settings": { "title": "Voor de karamelsaus" } },
+        "i3": { "type": "ingredient", "settings": { "name": "Kristalsuiker", "amount": "300 g" } },
+        "i4": { "type": "ingredient", "settings": { "name": "Slagroom", "amount": "300 ml" } },
+        "i5": { "type": "ingredient", "settings": { "name": "Maldon zeezout", "amount": "een paar snufjes" } },
+        "g3": { "type": "group", "settings": { "title": "Voor erbij" } },
+        "i6": { "type": "ingredient", "settings": { "name": "Kaneelijs", "amount": "4 bollen" } },
+        "s1": { "type": "step", "settings": { "text": "Strooi de kristalsuiker in een ruime steelpan met een dikke bodem en zet hem op middelhoog vuur. Laat de suiker smelten zonder te roeren en kantel de pan af en toe, zo kleurt alles gelijkmatig." } },
+        "s2": { "type": "step", "settings": { "text": "Zodra de suiker de kleur van donkere honing heeft, haal je de pan van het vuur en giet je de slagroom er in delen bij. Het mengsel bruist en spat flink, dus giet rustig en houd afstand." } },
+        "s3": { "type": "step", "settings": { "text": "Zet de pan terug op laag vuur en roer tot de karamel glad en glanzend is. Roer er een paar snufjes Maldon door en houd de saus warm." } },
+        "s4": { "type": "step", "settings": { "text": "Besmeer vier plakken suikerbrood royaal met Lotus Biscoff. Leg er telkens een tweede plak bovenop en druk de tosti's licht aan." } },
+        "s5": { "type": "step", "settings": { "text": "Verwarm de contactgrill en rooster de tosti's in twee tot drie minuten goudbruin, tot het suikerbrood knapperig is en de Biscoff van binnen is gesmolten. Houd ze in de gaten, want suikerbrood kleurt sneller dan gewoon brood." } },
+        "s6": { "type": "step", "settings": { "text": "Leg een tosti op een diep bord en zet er een bol kaneelijs naast." } },
+        "s7": { "type": "step", "settings": { "text": "Schep de warme karamel over het ijs en de tosti en werk af met een snufje Maldon. Meteen serveren, zolang de tosti warm is en het ijs nog stevig." } },
+        "f1": { "type": "faq", "settings": { "q": "Kan ik dit zonder contactgrill maken?", "a": "Ja. Bak de tosti's in een koekenpan met een klein beetje boter en druk ze aan met een deksel of een tweede pan. Houd het vuur matig, want de suiker in het brood kleurt snel." } },
+        "f2": { "type": "faq", "settings": { "q": "Waarom wordt mijn karamel korrelig?", "a": "Meestal door roeren, of door suikerkristallen die tegen de pandwand blijven zitten. Laat de suiker smelten zonder lepel en kantel alleen de pan. Is het toch misgegaan, begin dan opnieuw met schone suiker." } },
+        "f3": { "type": "faq", "settings": { "q": "Kan ik de karamelsaus vooraf maken?", "a": "Dat kan. In een afgesloten pot houdt hij zich een week in de koelkast. Warm hem zachtjes op met een scheutje room erbij, dan wordt hij weer schenkbaar." } },
+        "f4": { "type": "faq", "settings": { "q": "Ik heb geen kaneelijs, wat kan ik gebruiken?", "a": "Vanille-ijs met een snuf kaneel eroverheen komt in de buurt. Karamelijs kan ook, al wordt het geheel dan wel erg zoet." } },
+        "f5": { "type": "faq", "settings": { "q": "Welke wijn past bij dit toetje?", "a": "Een zoete witte wijn die tegen de karamel op kan. Maarten schenkt er een Château d'Yquem uit Sauternes bij. Een Monbazillac of een Tokaji Aszú zit in dezelfde stijl en is een stuk vriendelijker geprijsd." } }
+      },
+      "block_order": [
+        "g1", "i1", "i2",
+        "g2", "i3", "i4", "i5",
+        "g3", "i6",
+        "s1", "s2", "s3", "s4", "s5", "s6", "s7",
+        "f1", "f2", "f3", "f4", "f5"
+      ],
+      "settings": {
+        "kicker": "Recept van de week",
+        "title": "Suikerbroodtosti met kaneelijs en Maldon-karamel",
+        "intro": "Suikerbrood met Lotus Biscoff uit de contactgrill, een bol kaneelijs ernaast en warme karamel met Maldon eroverheen. Warm tegen koud, in een half uur op tafel.",
+        "time": "25 min",
+        "servings": "4 personen",
+        "course": "Toetje",
+        "show_video": false,
+        "video_note": "Kijk mee hoe Maarten hem maakt",
+        "img_hero": "recept-suikerbroodtosti-bord.jpg",
+        "img_2": "recept-suikerbroodtosti-karamel.jpg",
+        "img_3": "recept-suikerbroodtosti-biscoff.jpg",
+        "img_ingredients": "recept-suikerbroodtosti-keuken.jpg",
+        "img_wine": "recept-suikerbroodtosti-wijn.jpg",
+        "tip_title": "Tip van Maarten",
+        "tip_text": "Droge karamel luistert nauw: van amber naar bitter is een kwestie van seconden. Haal de pan van het vuur zodra de suiker de kleur van donkere honing heeft, want in de hete pan gaart hij nog even door. De room mag koud uit de koelkast, maar giet hem in delen bij, anders schiet de karamel omhoog.",
+        "wine_title": "De wijn die erbij past",
+        "wine_text": "Bij dit toetje schenkt Maarten een Château d'Yquem uit Sauternes. Die honingzoete stijl heeft genoeg frisse zuren om naast de karamel en het zoete suikerbrood overeind te blijven, waar een lichtere wijn onderuit gaat. Flessen als deze komen langs in The Cellar Club, zijn besloten wijnclub.",
+        "cuisine": "Nederlands",
+        "total_time": "PT25M",
+        "prep_time": "PT10M",
+        "cook_time": "PT15M",
+        "date_published": "2026-08-13"
+      }
+    }
+  },
+  "order": ["main"]
+}

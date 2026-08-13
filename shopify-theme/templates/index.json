@@ -12,20 +12,21 @@
       "type": "main-recipe-feature",
       "settings": {
         "kicker": "Recept van de week",
-        "title": "Wentelteefjes met mascarpone en rood fruit",
-        "intro": "Dikke plakken brioche uit de pan, een luchtige mascarponecrème en volop rood fruit. Een toetje dat je in een half uur op tafel zet.",
+        "title": "Suikerbroodtosti met kaneelijs en Maldon-karamel",
+        "intro": "Suikerbrood met Lotus Biscoff uit de contactgrill, een bol kaneelijs ernaast en warme karamel met Maldon eroverheen. Warm tegen koud, in een half uur op tafel.",
         "time": "25 min",
-        "servings": "2 tot 3 personen",
+        "servings": "4 personen",
         "course": "Toetje",
-        "recipe_url": "/pages/wentelteefjes-met-mascarpone-en-rood-fruit-1",
-        "video_note": "Kijk mee hoe Maarten ze maakt",
-        "video_file": "recept-wentelteefjes-video.mp4",
-        "poster_file": "recept-wentelteefjes-poster.jpg",
-        "ingredients": "Voor het doopmengsel\nBriochebrood, een dag oud — 6 sneetjes\nEieren — 2\nMelk — 200 ml\nSlagroom — 100 ml\nSuiker — 1 el\nVanille-extract of vanillesuiker — 1 tl\nZout — snufje\nKaneel, optioneel — 1 tl\nBoter — om te bakken\nVoor de mascarponecrème\nMascarpone — 125 g\nSlagroom — 100 ml\nVanillesuiker — 1 zakje (8 g)\nCitroenrasp — van een halve citroen\nSuiker, naar smaak — 1 tl\nVoor de afwerking\nAardbeien, in plakjes — 150 g\nBlauwe bessen — 100 g\nPoedersuiker — om te bestuiven\nHoning of ahornsiroop, optioneel — scheutje",
-        "steps": "Snijd dikke plakken van het briochebrood. Brood van een dag oud werkt het best: dat zuigt het doopmengsel mooi op en valt niet uit elkaar.\nKlop in een ruime kom de eieren los met de melk, de slagroom, de suiker, het vanille-extract, een snufje zout en eventueel de kaneel.\nKlop in een tweede kom de mascarpone los met de slagroom, de vanillesuiker en de rasp van een halve citroen tot een luchtige crème. Proef en voeg naar smaak nog een theelepel suiker toe.\nSnijd de aardbeien in plakjes en houd ze samen met de blauwe bessen apart.\nVerhit een klont boter in een koekenpan op middelhoog vuur. Doop de plakken brood kort door het eiermengsel, laat ze even uitlekken en leg ze in de pan.\nBak de wentelteefjes 2 tot 3 minuten per kant goudbruin. Voeg tussendoor een nieuw klontje boter toe, zo blijven ze mooi kleuren en blijft de smaak vol.\nLeg de wentelteefjes op een bord, schep er royaal mascarponecrème op en verdeel de aardbeien en blauwe bessen erover. Bestuif met poedersuiker en werk af met een scheutje honing of ahornsiroop.",
+        "recipe_url": "/pages/suikerbroodtosti-met-kaneelijs-en-maldon-karamel",
+        "video_note": "",
+        "video_file": "",
+        "poster_file": "",
+        "ingredients": "Voor de tosti's\nSuikerbrood, dikke plakken — 8\nLotus Biscoff spread — 6 tot 8 el\nVoor de karamelsaus\nKristalsuiker — 300 g\nSlagroom — 300 ml\nMaldon zeezout — een paar snufjes\nVoor erbij\nKaneelijs — 4 bollen",
+        "steps": "Strooi de kristalsuiker in een ruime steelpan met een dikke bodem en zet hem op middelhoog vuur. Laat de suiker smelten zonder te roeren en kantel de pan af en toe, zo kleurt alles gelijkmatig.\nZodra de suiker de kleur van donkere honing heeft, haal je de pan van het vuur en giet je de slagroom er in delen bij. Het mengsel bruist en spat flink, dus giet rustig en houd afstand.\nZet de pan terug op laag vuur en roer tot de karamel glad en glanzend is. Roer er een paar snufjes Maldon door en houd de saus warm.\nBesmeer vier plakken suikerbrood royaal met Lotus Biscoff. Leg er telkens een tweede plak bovenop en druk de tosti's licht aan.\nVerwarm de contactgrill en rooster de tosti's in twee tot drie minuten goudbruin, tot het suikerbrood knapperig is en de Biscoff van binnen is gesmolten.\nLeg een tosti op een diep bord en zet er een bol kaneelijs naast.\nSchep de warme karamel over het ijs en de tosti en werk af met een snufje Maldon. Meteen serveren, zolang de tosti warm is en het ijs nog stevig.",
         "about_title": "Over Maarten",
         "about_text_1": "Ik ben Maarten, 24 jaar en dolverliefd op koken. Ik leerde het vak aan Ter Duinen in Koksijde, scherpte het aan in de Antwerpse keukens van Zilte en Het Gebaar, en werd op mijn 21e sous-chef bij Restaurant de Krommewatergang. Maar het mooiste dat ik daar leerde? Dat lekker koken helemaal niet ingewikkeld hoeft te zijn. Een handvol verse producten, één techniek die je beheerst en je zet iets op tafel waar iedereen stil van wordt.",
-        "about_text_2": "Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt. En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken."
+        "about_text_2": "Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt. En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken.",
+        "img_file": "recept-suikerbroodtosti-bord.jpg"
       }
     },
     "community": {

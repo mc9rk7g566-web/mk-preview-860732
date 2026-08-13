@@ -916,13 +916,17 @@ h2.display { font-size: clamp(1.9rem, 4.4vw, 3.4rem); }
 .feature-cta { margin-top: clamp(32px, 4vw, 44px); display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
 .recipe-hero .recipe-kicker { letter-spacing: 0.14em; text-transform: uppercase; }
-.recipe-hero .recipe-title { max-width: 16ch; margin-top: 14px; }
+/* break-word is het vangnet: een woord dat op geen enkele maat past breekt af
+   in plaats van de pagina open te duwen. hyphens bewust niet, dat breekt ook
+   woorden die prima passen. */
+.recipe-hero .recipe-title { max-width: 16ch; margin-top: 14px; overflow-wrap: break-word; }
 .recipe-hero .recipe-intro { margin-top: 18px; }
-/* Lange gerechtnamen (bv. WENTELTEEFJES) passen op smalle schermen niet in de
-   h1-minimum van 3.4rem en duwden de pagina horizontaal open. Alleen de
-   receptkop schaalt mee met de schermbreedte; desktop blijft ongewijzigd. */
+/* Lange gerechtnamen passen op smalle schermen niet in de h1-minimum van
+   3.4rem en duwden de pagina horizontaal open. Alleen de receptkop schaalt mee
+   met de schermbreedte; desktop blijft ongewijzigd. De schaal is gezet op het
+   langste woord tot nu toe (SUIKERBROODTOSTI, 16 letters) op een 320px-scherm. */
 @media (max-width: 520px) {
-  .recipe-hero .recipe-title { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+  .recipe-hero .recipe-title { font-size: clamp(1.75rem, 8.6vw, 3.4rem); }
 }
 
 .recipe-showcase {
