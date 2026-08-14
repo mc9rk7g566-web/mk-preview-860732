@@ -20,6 +20,21 @@
     ]
   },
   {
+    "name": "The Cellar Club-pop-up",
+    "settings": [
+      { "type": "paragraph", "content": "Verschijnt alleen op de homepagina, een paar seconden nadat de bezoeker binnenkomt. Wie hem wegklikt of doorklikt, krijgt hem 30 dagen niet opnieuw te zien. De knop gebruikt dezelfde link als de andere join-knoppen (Link groepsapp)." },
+      { "type": "checkbox", "id": "popup_enabled", "label": "Pop-up tonen", "default": true },
+      { "type": "range", "id": "popup_delay", "label": "Verschijnt na", "min": 2, "max": 15, "step": 1, "unit": "sec", "default": 6 },
+      { "type": "image_picker", "id": "popup_image", "label": "Fles of foto", "info": "Laat leeg voor de Krug-fles uit de Cellar Club-hero. Werkt het mooist met een uitgesneden fles op transparante achtergrond." },
+      { "type": "text", "id": "popup_kicker", "label": "Klein label", "default": "De wijnclub van Maarten" },
+      { "type": "text", "id": "popup_heading", "label": "Kop", "default": "The Cellar Club" },
+      { "type": "textarea", "id": "popup_text", "label": "Tekst", "default": "Een besloten WhatsApp-club voor wijnliefhebbers. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt bestellen, vaak in kleine oplages en altijd met een verhaal." },
+      { "type": "text", "id": "popup_button", "label": "Knop", "default": "Join The Cellar Club" },
+      { "type": "text", "id": "popup_note", "label": "Tekst onder de knop", "default": "Gratis lid. Geen verplichting om te kopen." },
+      { "type": "text", "id": "popup_dismiss", "label": "Wegklik-link", "default": "Nu even niet" }
+    ]
+  },
+  {
     "name": "SEO en Google",
     "settings": [
       { "type": "paragraph", "content": "Voor Google Search Console: plak hier alleen de 'content'-waarde uit de google-site-verification meta-tag. Daarmee verifieer je de site en kun je de sitemap (maartenkookt.nl/sitemap.xml) indienen." },

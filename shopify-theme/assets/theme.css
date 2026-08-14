@@ -1723,3 +1723,151 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 560px) {
   .events-inbegrepen ul { grid-template-columns: 1fr; }
 }
+
+/* ==========================================================================
+   THE CELLAR CLUB — POP-UP (home, een paar seconden na binnenkomst)
+   Native <dialog>: de backdrop, Escape-sluiten, focus-trap en de top-layer
+   (boven nav z:65 / grain z:70 / intro z:200) komen uit de browser, niet uit
+   CSS. Zelfde taal als de Cellar Club-hero: donker paneel, bordeaux gloed,
+   de Krug-fles half buiten de rand, één bordeaux CTA.
+   ========================================================================== */
+.cc-pop {
+  border: 0; padding: 0; background: transparent; color: var(--cream);
+  /* De globale `* { margin: 0 }` overschrijft de margin:auto uit de browser-stijl,
+     waardoor een <dialog> in de linkerbovenhoek plakt. Hier weer aanzetten. */
+  margin: auto;
+  width: min(700px, calc(100vw - 32px));
+  max-height: 90svh;
+  overflow: visible;
+}
+.cc-pop::backdrop {
+  background: rgba(9, 4, 5, 0.74);
+  backdrop-filter: blur(7px) saturate(120%);
+  -webkit-backdrop-filter: blur(7px) saturate(120%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.cc-pop.is-open::backdrop { opacity: 1; }
+
+.cc-pop-inner {
+  position: relative;
+  overflow: hidden; /* clipt de fles netjes op de paneelrand */
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  /* De gloed zit achter de fles, niet ergens in het vlak: het licht heeft een bron. */
+  background:
+    radial-gradient(88% 72% at 86% 38%, rgba(179, 27, 43, 0.32), transparent 58%),
+    linear-gradient(158deg, var(--surface) 0%, var(--ink-2) 46%, var(--ink) 100%);
+  box-shadow: 0 44px 90px rgba(0, 0, 0, 0.62);
+  padding: clamp(30px, 4.4vw, 46px);
+  opacity: 0; transform: translateY(20px) scale(0.985);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cc-pop.is-open .cc-pop-inner { opacity: 1; transform: none; }
+/* Het paneel vangt alleen de openingsfocus op; de ring hoort bij de knoppen erin,
+   niet als rand om de hele pop-up. */
+.cc-pop-inner:focus, .cc-pop-inner:focus-visible { outline: none; }
+/* Haarlijn bovenlangs: dezelfde gepolijste rand als de wijntip */
+.cc-pop-inner::after {
+  content: ""; position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(244, 237, 228, 0.34), transparent);
+}
+
+.cc-pop-close {
+  position: absolute; top: 14px; right: 14px; z-index: 4;
+  width: 44px; height: 44px; /* raakvlak: minimaal 44x44 */
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 999px; cursor: pointer; font-size: 1.25rem;
+  /* Glas-achtergrond zoals .btn-glass: het kruisje ligt boven de fles en moet
+     leesbaar blijven, ook op de donkere fleshals. */
+  background: var(--glass); color: var(--cream);
+  border: 1px solid var(--glass-line);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  opacity: 0.82;
+  transition: opacity 0.25s, border-color 0.25s;
+}
+.cc-pop-close:hover { opacity: 1; border-color: var(--cream-2); }
+@media (prefers-reduced-transparency: reduce) {
+  .cc-pop-close { background: var(--ink-2); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+.cc-pop-bottle {
+  position: absolute; z-index: 1; pointer-events: none;
+  height: 112%; width: auto; top: -6%; right: -2%;
+  transform: rotate(7deg);
+  /* Gedempt zoals de druiven naast de video: de fles geeft sfeer, hij mag niet
+     met de kop concurreren. */
+  opacity: 0.86;
+  filter: saturate(0.94) drop-shadow(0 40px 50px rgba(0, 0, 0, 0.55));
+  animation: bottle-float 10s ease-in-out infinite alternate;
+  will-change: transform;
+}
+/* Scrim tussen fles en tekst: de fles lost op in het paneel in plaats van erop
+   te liggen. Moet boven de fles staan (z-index 2), anders leest de tekst slecht. */
+.cc-pop-inner::before {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(100deg, rgba(23, 10, 12, 0.94) 24%, rgba(23, 10, 12, 0.5) 56%, rgba(23, 10, 12, 0) 86%);
+}
+
+/* 62% laat de kop op één regel staan en houdt de rechterhelft vrij voor de fles */
+.cc-pop-body { position: relative; z-index: 3; max-width: 62%; }
+
+.cc-pop-kicker {
+  display: block; color: var(--tan);
+  text-transform: uppercase; letter-spacing: 0.34em;
+  font-size: 0.68rem; font-weight: 600;
+}
+.cc-pop-kicker::before {
+  content: ""; display: block; width: 38px; height: 1px;
+  background: currentColor; opacity: 0.7; margin-bottom: 16px;
+}
+/* h2.cc-pop-title, niet .cc-pop-title: `h2.display` is specifieker (element + class)
+   en zette de kop anders op 54px. Bovengrens zo gekozen dat "THE CELLAR CLUB"
+   op één regel blijft binnen de 62%. */
+h2.cc-pop-title { font-size: clamp(1.85rem, 5.2vw, 2.6rem); margin-top: 16px; }
+.cc-pop-text {
+  color: var(--cream-2); font-weight: 500;
+  font-size: 0.95rem; line-height: 1.7; margin-top: 14px;
+}
+/* Hoofdactie en wegklikken op één lijn: scheelt een losse regel en geeft het blok
+   een rustige onderrand. Zelfde idee als .community-cta-row op de home. De
+   geruststelling valt met flex-basis 100% op een eigen regel eronder; op mobiel
+   wisselt hij van plek met de wegklik-link (order), zodat hij bij de knop blijft. */
+.cc-pop-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 28px; }
+.cc-pop-dismiss { order: 2; }
+.cc-pop-note {
+  order: 3; flex-basis: 100%;
+  color: var(--tan); font-size: 0.8125rem; margin-top: 10px; opacity: 0.85;
+}
+.cc-pop-dismiss {
+  min-height: 44px; padding: 0 14px;
+  background: none; border: 0; cursor: pointer;
+  color: var(--cream); opacity: 0.5;
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500;
+  text-decoration: underline; text-underline-offset: 4px;
+  transition: opacity 0.25s;
+}
+.cc-pop-dismiss:hover { opacity: 0.85; }
+
+@media (max-width: 640px) {
+  /* Fles zakt naar de onderhoek, half buiten beeld — precies zoals in de hero.
+     Gedempt, want hier loopt de tekst er wél overheen; de scrim doet de rest. */
+  .cc-pop-bottle { height: auto; width: 54%; top: auto; bottom: -8%; right: -13%; opacity: 0.44; }
+  .cc-pop-inner::before {
+    background: linear-gradient(168deg, rgba(23, 10, 12, 0.94) 46%, rgba(23, 10, 12, 0.62) 76%, rgba(23, 10, 12, 0.15) 100%);
+  }
+  .cc-pop-body { max-width: 100%; }
+  .cc-pop-text { font-size: 0.9rem; line-height: 1.65; }
+  /* Knop op volle breedte; geruststelling blijft er direct onder, wegklikken sluit de rij */
+  .cc-pop-row { flex-direction: column; align-items: stretch; gap: 0; margin-top: 24px; }
+  .cc-pop-cta { width: 100%; justify-content: center; }
+  .cc-pop-note { order: 2; margin-top: 14px; }
+  .cc-pop-dismiss { order: 3; padding: 0; margin-top: 4px; text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-pop-inner { transition: none; opacity: 1; transform: none; }
+  .cc-pop::backdrop { transition: none; }
+  .cc-pop-bottle { animation: none; }
+}

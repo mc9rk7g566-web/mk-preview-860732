@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Dev-only preview van de Cellar Club-pop-up (home). Niet naar Shopify gepusht. -->
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<link rel="stylesheet" href="assets/theme.css">
+<style>
+  /* Namaak-home eronder, zodat de backdrop-blur eerlijk te beoordelen is */
+  .fake-hero { position: relative; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; }
+  .fake-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .55; }
+  .fake-hero .wrap { position: relative; }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<section class="fake-hero">
+  <img src="assets/hero.jpg" alt="">
+  <div class="wrap">
+    <p class="hero-kicker">Passie. Smaak. Vakmanschap.</p>
+    <h1 class="display">Maarten kookt</h1>
+  </div>
+</section>
+
+<dialog class="cc-pop" id="CellarPopup" aria-labelledby="CellarPopupTitle" data-delay="1">
+  <div class="cc-pop-inner" tabindex="-1" autofocus>
+    <button class="cc-pop-close" type="button" aria-label="Sluiten">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+    <img class="cc-pop-bottle" src="assets/cellar-fles-krug.webp" width="337" height="1100" alt="" loading="lazy">
+    <div class="cc-pop-body">
+      <span class="cc-pop-kicker">De wijnclub van Maarten</span>
+      <h2 class="display cc-pop-title" id="CellarPopupTitle">The Cellar Club</h2>
+      <p class="cc-pop-text">Een besloten WhatsApp-club voor wijnliefhebbers. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt bestellen, vaak in kleine oplages en altijd met een verhaal.</p>
+      <div class="cc-pop-row">
+        <a class="btn btn-primary cc-pop-cta" href="#" target="_blank" rel="noopener">
+          <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>Join The Cellar Club
+        </a>
+        <button class="cc-pop-dismiss" type="button">Nu even niet</button>
+        <p class="cc-pop-note">Gratis lid. Geen verplichting om te kopen.</p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script src="assets/theme.js"></script>
+</body>
+</html>

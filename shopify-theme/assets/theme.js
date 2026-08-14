@@ -316,6 +316,43 @@
     });
   });
 
+  /* ---- Cellar Club-pop-up: verschijnt een paar seconden na binnenkomst op de home.
+         Native <dialog> doet het zware werk (backdrop, Escape, focus-trap, top-layer);
+         hier alleen de timing, de fade en het onthouden. Wie hem heeft gezien of
+         weggeklikt, krijgt hem 30 dagen niet opnieuw — dezelfde gedachte als de
+         intro-preloader, maar dan over sessies heen. ---- */
+  var pop = document.getElementById("CellarPopup");
+  if (pop && typeof pop.showModal === "function") {
+    var POP_KEY = "mkCellarPop";
+    var POP_HERHAAL_MS = 30 * 24 * 60 * 60 * 1000;
+    var popGezien = 0;
+    try { popGezien = parseInt(localStorage.getItem(POP_KEY), 10) || 0; } catch (e) {}
+
+    if (Date.now() - popGezien > POP_HERHAAL_MS) {
+      var popSluit = function () {
+        pop.classList.remove("is-open");
+        window.setTimeout(function () { if (pop.open) pop.close(); }, reduceMotion ? 0 : 300);
+      };
+
+      window.setTimeout(function () {
+        if (document.querySelector(".menu-overlay.is-open")) return; /* menu open = niet storen */
+        pop.showModal();
+        window.requestAnimationFrame(function () { pop.classList.add("is-open"); });
+        if (lenis) lenis.stop(); else document.body.style.overflow = "hidden";
+      }, (parseFloat(pop.dataset.delay) || 6) * 1000);
+
+      /* Eén handler voor élke manier van sluiten, ook Escape en de backdrop */
+      pop.addEventListener("close", function () {
+        try { localStorage.setItem(POP_KEY, String(Date.now())); } catch (e) {}
+        if (lenis) lenis.start(); else document.body.style.overflow = "";
+      });
+      pop.addEventListener("click", function (e) { if (e.target === pop) popSluit(); });
+      pop.querySelectorAll(".cc-pop-close, .cc-pop-dismiss, .cc-pop-cta").forEach(function (el) {
+        el.addEventListener("click", popSluit);
+      });
+    }
+  }
+
   /* ---- Motion (alleen zonder reduced-motion en mét GSAP) ---- */
   if (reduceMotion || !hasGsap) {
     document.querySelectorAll(".reveal").forEach(function (el) {

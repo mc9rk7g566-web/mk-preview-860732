@@ -1,0 +1,42 @@
+{% comment %}
+  The Cellar Club-uitnodiging: verschijnt een paar seconden nadat de home is geladen.
+  Native <dialog>: backdrop, Escape-sluiten, focus-trap en de top-layer (dus boven
+  de nav en de grain, zonder z-index-gevecht) komen uit de browser. Verder alleen
+  bestaande merk-onderdelen: dezelfde tekst als de home-band, de Krug-fles van de
+  Cellar Club-hero en de bestaande knopstijl.
+  Tonen/timing: theme-instellingen (groep "The Cellar Club-pop-up"). Gedrag: theme.js.
+{% endcomment %}
+{% assign community_url = pages['join'].url | default: settings.community_url %}
+{% if settings.popup_enabled and settings.community_url != blank %}
+<dialog class="cc-pop" id="CellarPopup" aria-labelledby="CellarPopupTitle" data-delay="{{ settings.popup_delay | default: 6 }}">
+  {%- comment -%}
+    autofocus op het paneel: zonder dit legt de browser de openingsfocus op de
+    sluitknop, met een focusring eromheen alsof het kruisje al geselecteerd is.
+    Tabben (sluiten → join → nu even niet) en Escape blijven gewoon werken.
+  {%- endcomment -%}
+  <div class="cc-pop-inner" tabindex="-1" autofocus>
+    <button class="cc-pop-close" type="button" aria-label="Sluiten">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+
+    {% if settings.popup_image != blank %}
+      {{ settings.popup_image | image_url: width: 700 | image_tag: class: 'cc-pop-bottle', loading: 'lazy', alt: '' }}
+    {% else %}
+      <img class="cc-pop-bottle" src="{{ 'cellar-fles-krug.webp' | asset_url }}" width="337" height="1100" alt="" loading="lazy">
+    {% endif %}
+
+    <div class="cc-pop-body">
+      <span class="cc-pop-kicker">{{ settings.popup_kicker }}</span>
+      <h2 class="display cc-pop-title" id="CellarPopupTitle">{{ settings.popup_heading }}</h2>
+      <p class="cc-pop-text">{{ settings.popup_text }}</p>
+      <div class="cc-pop-row">
+        <a class="btn btn-primary cc-pop-cta" href="{{ community_url }}" target="_blank" rel="noopener">
+          <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ settings.popup_button }}
+        </a>
+        <button class="cc-pop-dismiss" type="button">{{ settings.popup_dismiss }}</button>
+        <p class="cc-pop-note">{{ settings.popup_note }}</p>
+      </div>
+    </div>
+  </div>
+</dialog>
+{% endif %}
