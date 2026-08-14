@@ -30,8 +30,7 @@
       { "type": "text", "id": "popup_heading", "label": "Kop", "default": "The Cellar Club" },
       { "type": "textarea", "id": "popup_text", "label": "Tekst", "default": "Een besloten WhatsApp-club voor wijnliefhebbers. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt bestellen, vaak in kleine oplages en altijd met een verhaal." },
       { "type": "text", "id": "popup_button", "label": "Knop", "default": "Join The Cellar Club" },
-      { "type": "text", "id": "popup_note", "label": "Tekst onder de knop", "default": "Gratis lid. Geen verplichting om te kopen." },
-      { "type": "text", "id": "popup_dismiss", "label": "Wegklik-link", "default": "Nu even niet" }
+      { "type": "text", "id": "popup_more", "label": "Tweede knop", "info": "Linkt naar de pagina The Cellar Club. Verdwijnt vanzelf als die pagina er niet is.", "default": "Meer informatie" }
     ]
   },
   {

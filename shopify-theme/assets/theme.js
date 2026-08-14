@@ -329,7 +329,11 @@
     try { popGezien = parseInt(localStorage.getItem(POP_KEY), 10) || 0; } catch (e) {}
 
     if (Date.now() - popGezien > POP_HERHAAL_MS) {
+      var popOnthoud = function () {
+        try { localStorage.setItem(POP_KEY, String(Date.now())); } catch (e) {}
+      };
       var popSluit = function () {
+        popOnthoud(); /* meteen, niet pas na de fade: een knop kan wegnavigeren */
         pop.classList.remove("is-open");
         window.setTimeout(function () { if (pop.open) pop.close(); }, reduceMotion ? 0 : 300);
       };
@@ -343,11 +347,11 @@
 
       /* Eén handler voor élke manier van sluiten, ook Escape en de backdrop */
       pop.addEventListener("close", function () {
-        try { localStorage.setItem(POP_KEY, String(Date.now())); } catch (e) {}
+        popOnthoud();
         if (lenis) lenis.start(); else document.body.style.overflow = "";
       });
       pop.addEventListener("click", function (e) { if (e.target === pop) popSluit(); });
-      pop.querySelectorAll(".cc-pop-close, .cc-pop-dismiss, .cc-pop-cta").forEach(function (el) {
+      pop.querySelectorAll(".cc-pop-close, .cc-pop-cta, .cc-pop-more").forEach(function (el) {
         el.addEventListener("click", popSluit);
       });
     }

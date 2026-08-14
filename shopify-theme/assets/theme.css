@@ -1830,25 +1830,11 @@ h2.cc-pop-title { font-size: clamp(1.85rem, 5.2vw, 2.6rem); margin-top: 16px; }
   color: var(--cream-2); font-weight: 500;
   font-size: 0.95rem; line-height: 1.7; margin-top: 14px;
 }
-/* Hoofdactie en wegklikken op één lijn: scheelt een losse regel en geeft het blok
-   een rustige onderrand. Zelfde idee als .community-cta-row op de home. De
-   geruststelling valt met flex-basis 100% op een eigen regel eronder; op mobiel
-   wisselt hij van plek met de wegklik-link (order), zodat hij bij de knop blijft. */
-.cc-pop-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 28px; }
-.cc-pop-dismiss { order: 2; }
-.cc-pop-note {
-  order: 3; flex-basis: 100%;
-  color: var(--tan); font-size: 0.8125rem; margin-top: 10px; opacity: 0.85;
-}
-.cc-pop-dismiss {
-  min-height: 44px; padding: 0 14px;
-  background: none; border: 0; cursor: pointer;
-  color: var(--cream); opacity: 0.5;
-  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500;
-  text-decoration: underline; text-underline-offset: 4px;
-  transition: opacity 0.25s;
-}
-.cc-pop-dismiss:hover { opacity: 0.85; }
+/* Joinknop met daaronder de rustige tweede knop naar de uitlegpagina. Gestapeld,
+   links uitgelijnd met de tekst erboven. Sluiten gaat via het kruisje, Escape of
+   een klik naast het paneel. */
+.cc-pop-row { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 28px; }
+.cc-pop-more { padding: 11px 22px; font-size: 0.8125rem; }
 
 @media (max-width: 640px) {
   /* Fles zakt naar de onderhoek, half buiten beeld — precies zoals in de hero.
@@ -1859,11 +1845,9 @@ h2.cc-pop-title { font-size: clamp(1.85rem, 5.2vw, 2.6rem); margin-top: 16px; }
   }
   .cc-pop-body { max-width: 100%; }
   .cc-pop-text { font-size: 0.9rem; line-height: 1.65; }
-  /* Knop op volle breedte; geruststelling blijft er direct onder, wegklikken sluit de rij */
-  .cc-pop-row { flex-direction: column; align-items: stretch; gap: 0; margin-top: 24px; }
-  .cc-pop-cta { width: 100%; justify-content: center; }
-  .cc-pop-note { order: 2; margin-top: 14px; }
-  .cc-pop-dismiss { order: 3; padding: 0; margin-top: 4px; text-align: left; }
+  /* Beide knoppen op volle breedte onder elkaar */
+  .cc-pop-row { align-items: stretch; gap: 8px; margin-top: 24px; }
+  .cc-pop-cta, .cc-pop-more { width: 100%; justify-content: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -33,8 +33,10 @@
         <a class="btn btn-primary cc-pop-cta" href="{{ community_url }}" target="_blank" rel="noopener">
           <i class="ph ph-whatsapp-logo" aria-hidden="true"></i>{{ settings.popup_button }}
         </a>
-        <button class="cc-pop-dismiss" type="button">{{ settings.popup_dismiss }}</button>
-        <p class="cc-pop-note">{{ settings.popup_note }}</p>
+        {%- assign meer_url = pages['the-cellar-club'].url -%}
+        {%- if meer_url != blank -%}
+          <a class="btn btn-glass cc-pop-more" href="{{ meer_url }}">{{ settings.popup_more }}</a>
+        {%- endif -%}
       </div>
     </div>
   </div>
