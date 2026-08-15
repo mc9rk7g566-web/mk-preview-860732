@@ -1803,6 +1803,20 @@ html.lenis, html.lenis body { height: auto; }
   animation: bottle-float 10s ease-in-out infinite alternate;
   will-change: transform;
 }
+/* Druiventros aan de voet van de fles. Staat ná de scrim in de DOM, dus hij
+   blijft vol zichtbaar waar de scrim de fles juist dempt. Zelfde zweef-animatie
+   als de flessen, met een eigen fase zodat ze niet synchroon bewegen. */
+.cc-pop-grapes {
+  position: absolute; z-index: 2; pointer-events: none;
+  /* Naast de fles, niet eroverheen: het Krug-etiket blijft vrij */
+  width: 23%; height: auto; right: 14%; bottom: -7%;
+  transform: rotate(-5deg);
+  filter: saturate(0.96) drop-shadow(0 26px 34px rgba(0, 0, 0, 0.6));
+  animation: bottle-float 11s ease-in-out infinite alternate;
+  animation-delay: -5s;
+  will-change: transform;
+}
+
 /* Scrim tussen fles en tekst: de fles lost op in het paneel in plaats van erop
    te liggen. Moet boven de fles staan (z-index 2), anders leest de tekst slecht. */
 .cc-pop-inner::before {
@@ -1840,6 +1854,8 @@ h2.cc-pop-title { font-size: clamp(1.85rem, 5.2vw, 2.6rem); margin-top: 16px; }
   /* Fles zakt naar de onderhoek, half buiten beeld — precies zoals in de hero.
      Gedempt, want hier loopt de tekst er wél overheen; de scrim doet de rest. */
   .cc-pop-bottle { height: auto; width: 54%; top: auto; bottom: -8%; right: -13%; opacity: 0.44; }
+  /* Op deze breedte is fles + tros samen te druk achter de tekst: alleen de fles */
+  .cc-pop-grapes { display: none; }
   .cc-pop-inner::before {
     background: linear-gradient(168deg, rgba(23, 10, 12, 0.94) 46%, rgba(23, 10, 12, 0.62) 76%, rgba(23, 10, 12, 0.15) 100%);
   }
