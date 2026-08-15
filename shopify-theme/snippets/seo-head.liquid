@@ -17,7 +17,7 @@
     when 'recepten'
       assign template_description = 'Alle recepten van Maarten Kievit: van koud voorgerecht tot toetje, met kookvideo, boodschappenlijst en de wijn die erbij past.'
     when 'the-cellar-club'
-      assign template_description = 'The Cellar Club is de besloten wijnclub van Maarten Kievit. In de video legt hij uit hoe het werkt: exclusieve flessen die je rechtstreeks kunt kopen.'
+      assign template_description = 'The Cellar Club is Maartens wijnclub: besloten, voor wijnliefhebbers. Maarten Kievit legt in de video uit hoe het werkt en welke flessen je kunt kopen.'
   endcase
   if template.suffix contains 'recept' and template.suffix != 'recepten' and page.title != blank
     assign template_description = page.title | prepend: 'Zo maakt Maarten Kievit ' | append: '. Met kookvideo, de ingrediënten, stap voor stap uitleg en de wijn die erbij past.'
@@ -49,7 +49,16 @@
 <meta name="google-site-verification" content="{{ settings.gsc_verification | escape }}">
 {%- endif -%}
 <meta name="description" content="{{ meta_description | escape }}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+{%- comment -%}
+  De doorstuurpagina /pages/join telt alleen join-klikken en stuurt door naar
+  WhatsApp; die hoort niet in Google. Eén robots-tag, niet twee die elkaar
+  tegenspreken (theme.liquid zette er een tweede bij).
+{%- endcomment -%}
+{% if template.suffix == 'join' %}
+  <meta name="robots" content="noindex, nofollow">
+{% else %}
+  <meta name="robots" content="index, follow, max-image-preview:large">
+{% endif %}
 <meta property="og:site_name" content="Maarten kookt">
 <meta property="og:type" content="{% if template.name == 'product' %}product{% else %}website{% endif %}">
 <meta property="og:title" content="{{ og_title | escape }}">

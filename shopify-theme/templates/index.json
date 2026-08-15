@@ -1,12 +1,21 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "main-landing",
       "settings": {
+        "hero_image": "shopify://shop_images/IMG_0070.jpg",
         "subtekst": "Elke week een nieuw recept, met de wijn die erbij past.",
         "cta_primary_label": "Join The Cellar Club",
-        "cta_secondary_label": "Bekijk de recepten",
-        "hero_image": "shopify://shop_images/IMG_0070.jpg"
+        "cta_secondary_label": "Bekijk de recepten"
       }
     },
     "recept": {
@@ -22,18 +31,18 @@
         "video_note": "",
         "video_file": "",
         "poster_file": "",
+        "img_file": "recept-suikerbroodtosti-bord.jpg",
         "ingredients": "Voor de tosti's\nSuikerbrood, dikke plakken — 8\nLotus Biscoff spread — 6 tot 8 el\nVoor de karamelsaus\nKristalsuiker — 300 g\nSlagroom — 300 ml\nMaldon zeezout — een paar snufjes\nVoor erbij\nKaneelijs — 4 bollen",
         "steps": "Strooi de kristalsuiker in een ruime steelpan met een dikke bodem en zet hem op middelhoog vuur. Laat de suiker smelten zonder te roeren en kantel de pan af en toe, zo kleurt alles gelijkmatig.\nZodra de suiker de kleur van donkere honing heeft, haal je de pan van het vuur en giet je de slagroom er in delen bij. Het mengsel bruist en spat flink, dus giet rustig en houd afstand.\nZet de pan terug op laag vuur en roer tot de karamel glad en glanzend is. Roer er een paar snufjes Maldon door en houd de saus warm.\nBesmeer vier plakken suikerbrood royaal met Lotus Biscoff. Leg er telkens een tweede plak bovenop en druk de tosti's licht aan.\nVerwarm de contactgrill en rooster de tosti's in twee tot drie minuten goudbruin, tot het suikerbrood knapperig is en de Biscoff van binnen is gesmolten.\nLeg een tosti op een diep bord en zet er een bol kaneelijs naast.\nSchep de warme karamel over het ijs en de tosti en werk af met een snufje Maldon. Meteen serveren, zolang de tosti warm is en het ijs nog stevig.",
         "about_title": "Over Maarten",
         "about_text_1": "Ik ben Maarten, 24 jaar en dolverliefd op koken. Ik leerde het vak aan Ter Duinen in Koksijde, scherpte het aan in de Antwerpse keukens van Zilte en Het Gebaar, en werd op mijn 21e sous-chef bij Restaurant de Krommewatergang. Maar het mooiste dat ik daar leerde? Dat lekker koken helemaal niet ingewikkeld hoeft te zijn. Een handvol verse producten, één techniek die je beheerst en je zet iets op tafel waar iedereen stil van wordt.",
-        "about_text_2": "Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt. En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken.",
-        "img_file": "recept-suikerbroodtosti-bord.jpg"
+        "about_text_2": "Precies dát wil ik je hier laten zien: gerechten die je op een gewone dinsdagavond écht maakt. En omdat ik van wijn net zo hard hou als van eten, is er The Cellar Club: een besloten WhatsApp-groep waar mensen met een passie voor wijn samenkomen. We delen wat we drinken, wat ons verrast, en regelmatig bied ik er iets moois aan. Welkom in mijn keuken."
       }
     },
     "community": {
       "type": "main-community",
       "settings": {
-        "label": "De wijnclub van Maarten",
+        "label": "Maartens wijnclub",
         "heading": "Join The Cellar Club",
         "text": "Een gratis, besloten WhatsApp-club voor wijnliefhebbers. Maarten kiest exclusieve flessen uit die je rechtstreeks kunt bestellen: vaak in kleine oplages en altijd met een verhaal.",
         "step1": "Join gratis via WhatsApp",
