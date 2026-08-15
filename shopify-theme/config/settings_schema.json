@@ -24,7 +24,7 @@
     "settings": [
       { "type": "paragraph", "content": "Verschijnt alleen op de homepagina, een paar seconden nadat de bezoeker binnenkomt. Wie hem wegklikt of doorklikt, krijgt hem 30 dagen niet opnieuw te zien. De knop gebruikt dezelfde link als de andere join-knoppen (Link groepsapp)." },
       { "type": "checkbox", "id": "popup_enabled", "label": "Pop-up tonen", "default": true },
-      { "type": "range", "id": "popup_delay", "label": "Verschijnt na", "min": 2, "max": 15, "step": 1, "unit": "sec", "default": 6 },
+      { "type": "range", "id": "popup_delay", "label": "Verschijnt na", "min": 2, "max": 15, "step": 1, "unit": "sec", "default": 6, "info": "Op een telefoon wachten we hooguit 3 seconden, en zodra iemand begint te scrollen verschijnt hij meteen." },
       { "type": "image_picker", "id": "popup_image", "label": "Fles of foto", "info": "Laat leeg voor de Krug-fles uit de Cellar Club-hero. Werkt het mooist met een uitgesneden fles op transparante achtergrond." },
       { "type": "text", "id": "popup_kicker", "label": "Klein label", "default": "Maartens wijnclub" },
       { "type": "text", "id": "popup_heading", "label": "Kop", "default": "The Cellar Club" },

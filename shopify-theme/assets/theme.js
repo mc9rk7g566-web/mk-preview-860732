@@ -338,12 +338,33 @@
         window.setTimeout(function () { if (pop.open) pop.close(); }, reduceMotion ? 0 : 300);
       };
 
-      window.setTimeout(function () {
+      var popGetoond = false;
+      var popToon = function () {
+        if (popGetoond) return;
         if (document.querySelector(".menu-overlay.is-open")) return; /* menu open = niet storen */
+        popGetoond = true;
+        window.removeEventListener("scroll", popBijScroll);
         pop.showModal();
         window.requestAnimationFrame(function () { pop.classList.add("is-open"); });
         if (lenis) lenis.stop(); else document.body.style.overflow = "hidden";
-      }, (parseFloat(pop.dataset.delay) || 6) * 1000);
+      };
+
+      /* Scrollen is een teken van interesse: wie begint te lezen krijgt hem meteen,
+         wie blijft stilstaan krijgt hem na de ingestelde tijd. Wat het eerst komt.
+         Op een telefoon is het bezoek korter, dus daar wachten we hooguit 3 seconden
+         — anders is een groot deel al weg voordat de uitnodiging verschijnt. */
+      /* Op desktop draait Lenis en dat vangt de scroll af: het native scroll-event
+         vuurt daar niet, dus we luisteren ook op Lenis zelf. Op touch is er geen
+         Lenis en doet het native event het werk. */
+      var popBijScroll = function () {
+        if ((lenis ? lenis.scroll : window.scrollY) > 120) popToon();
+      };
+      window.addEventListener("scroll", popBijScroll, { passive: true });
+      if (lenis) lenis.on("scroll", popBijScroll);
+
+      var popWacht = (parseFloat(pop.dataset.delay) || 6) * 1000;
+      if (isTouch) popWacht = Math.min(popWacht, 3000);
+      window.setTimeout(popToon, popWacht);
 
       /* Eén handler voor élke manier van sluiten, ook Escape en de backdrop */
       pop.addEventListener("close", function () {
